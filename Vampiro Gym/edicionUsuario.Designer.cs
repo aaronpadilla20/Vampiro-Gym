@@ -44,8 +44,6 @@ namespace Vampiro_Gym
             this.panel7 = new System.Windows.Forms.Panel();
             this.propiedadesComboBox = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.cancelButton = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.saveButton = new System.Windows.Forms.PictureBox();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -65,8 +63,6 @@ namespace Vampiro_Gym
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cancelButton)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saveButton)).BeginInit();
             this.panel8.SuspendLayout();
@@ -181,6 +177,7 @@ namespace Vampiro_Gym
             this.apellidoTextBox.TabIndex = 0;
             this.apellidoTextBox.Text = "Ingrese Apellidos:";
             this.apellidoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.apellidoTextBox.Enter += new System.EventHandler(this.apellidoTextBox_Enter);
             // 
             // panel5
             // 
@@ -202,6 +199,7 @@ namespace Vampiro_Gym
             this.nombreTextBox.TabIndex = 0;
             this.nombreTextBox.Text = "Ingrese Nombre:";
             this.nombreTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nombreTextBox.Enter += new System.EventHandler(this.nombreTextBox_Enter);
             // 
             // panel7
             // 
@@ -217,21 +215,25 @@ namespace Vampiro_Gym
             // propiedadesComboBox
             // 
             this.propiedadesComboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.propiedadesComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.propiedadesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.propiedadesComboBox.FormattingEnabled = true;
             this.propiedadesComboBox.Items.AddRange(new object[] {
+            "--Selecciona opcion deseada--",
             "Password",
             "Email"});
             this.propiedadesComboBox.Location = new System.Drawing.Point(10, 20);
             this.propiedadesComboBox.Name = "propiedadesComboBox";
             this.propiedadesComboBox.Size = new System.Drawing.Size(336, 21);
             this.propiedadesComboBox.TabIndex = 0;
+            this.propiedadesComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.propiedadesComboBox_DrawItem);
+            this.propiedadesComboBox.SelectedIndexChanged += new System.EventHandler(this.propiedadesComboBox_SelectedIndexChanged);
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(164, 259);
@@ -240,30 +242,6 @@ namespace Vampiro_Gym
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(360, 59);
             this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.cancelButton);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(180, 59);
-            this.panel3.TabIndex = 0;
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cancelButton.Image = ((System.Drawing.Image)(resources.GetObject("cancelButton.Image")));
-            this.cancelButton.Location = new System.Drawing.Point(0, 0);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(180, 59);
-            this.cancelButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.cancelButton.TabIndex = 0;
-            this.cancelButton.TabStop = false;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            this.cancelButton.MouseEnter += new System.EventHandler(this.cancelButton_MouseEnter);
             // 
             // panel4
             // 
@@ -368,12 +346,14 @@ namespace Vampiro_Gym
             // valorNuevoTextBox
             // 
             this.valorNuevoTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.valorNuevoTextBox.Enabled = false;
             this.valorNuevoTextBox.Location = new System.Drawing.Point(10, 20);
             this.valorNuevoTextBox.Name = "valorNuevoTextBox";
             this.valorNuevoTextBox.Size = new System.Drawing.Size(336, 20);
             this.valorNuevoTextBox.TabIndex = 0;
             this.valorNuevoTextBox.Text = "Ingrese valor deseado";
             this.valorNuevoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.valorNuevoTextBox.Enter += new System.EventHandler(this.valorNuevoTextBox_Enter);
             // 
             // edicionUsuario
             // 
@@ -382,9 +362,12 @@ namespace Vampiro_Gym
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(527, 321);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
             this.Name = "edicionUsuario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "edicionUsuario";
+            this.Load += new System.EventHandler(this.edicionUsuario_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -395,8 +378,6 @@ namespace Vampiro_Gym
             this.panel5.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cancelButton)).EndInit();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.saveButton)).EndInit();
             this.panel8.ResumeLayout(false);
@@ -424,8 +405,6 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.ComboBox propiedadesComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.PictureBox cancelButton;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox saveButton;
         private System.Windows.Forms.Panel panel8;

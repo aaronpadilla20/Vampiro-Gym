@@ -16,25 +16,16 @@ namespace Vampiro_Gym
         private bool emailValido;
         private string[] datos;
         private string[] nombre;
+        private bool actualizado; 
 
         public edicionUsuario()
         {
             InitializeComponent();
         }
 
-        private void cancelButton_MouseEnter(object sender, EventArgs e)
-        {
-            this.toolTip1.SetToolTip(cancelButton, "Cancelar edicion");
-        }
-
         private void saveButton_MouseEnter(object sender, EventArgs e)
         {
             this.toolTip1.SetToolTip(saveButton, "Realizar cambios");
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -61,10 +52,28 @@ namespace Vampiro_Gym
                         }
                         if (valorNuevoTextBox.Text != valorActualTextBox.Text)
                         {
-                            datos = propiedadesComboBox.Text == "Password" ? new string[] { "Contrasena='" + valorNuevoTextBox.Text + "'" } : new string[] { "Correo='" + valorNuevoTextBox.Text + "'" };
-                            nombre = new string[] { nombreTextBox.Text, apellidoTextBox.Text };
-                            dataBaseControl update = new dataBaseControl();
-                            update.Actualizaregistro("Usuarios",datos,nombre);
+                            try
+                            {
+                                datos = propiedadesComboBox.Text == "Password" ? new string[] { "Contrasena='" + valorNuevoTextBox.Text + "'" } : new string[] { "Correo='" + valorNuevoTextBox.Text + "'" };
+                                nombre = new string[] { nombreTextBox.Text.ToLower(), apellidoTextBox.Text.ToLower() };
+                                dataBaseControl update = new dataBaseControl();
+                                this.actualizado = update.ActualizaUsuariosClientes("Usuarios", datos, nombre);
+                            }
+                            catch (Exception err)
+                            {
+                                MessageBox.Show("Ha ocurrido el siguiente error al consultar la base de datos: " + err.Message);
+                                clearTextBox();
+                            }
+                            if(actualizado)
+                            {
+                                MessageBox.Show("!SE HA ACTUALIZADO LA BASE DE DATOS CORRECTAMENTE!", "Base de datos actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                clearTextBox();
+                            }
+                            else
+                            {
+                                MessageBox.Show("El usuario especificado no existe en la base de datos, por lo cual no se puede actualizar, favor de creearlo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                clearTextBox();
+                            }
                         }
                         else
                         {
@@ -85,6 +94,65 @@ namespace Vampiro_Gym
             {
                 MessageBox.Show("Es necesario especificar el nombre de usuario a modificar", "Nombre no especificado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void clearTextBox()
+        {
+            nombreTextBox.Text = "Ingrese Nombre:";
+            apellidoTextBox.Text = "Ingrese Apellidos:";
+            propiedadesComboBox.SelectedIndex = 0;
+            valorActualTextBox.Text = "";
+            valorNuevoTextBox.Text = "Ingrese valor deseado";
+        }
+
+        private void nombreTextBox_Enter(object sender, EventArgs e)
+        {
+            nombreTextBox.Text = "";
+        }
+
+        private void apellidoTextBox_Enter(object sender, EventArgs e)
+        {
+            apellidoTextBox.Text = "";
+        }
+
+        private void valorNuevoTextBox_Enter(object sender, EventArgs e)
+        {
+            valorNuevoTextBox.Text = "";
+        }
+
+        private void propiedadesComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Utilities drawBox = new Utilities();
+            drawBox.comboBoxDrawing(sender, e);
+        }
+
+        private void edicionUsuario_Load(object sender, EventArgs e)
+        {
+            propiedadesComboBox.SelectedIndex = 0;
+            this.Focus();
+        }
+
+        private void propiedadesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (propiedadesComboBox.SelectedItem.ToString() == "--Selecciona opcion deseada--")
+            {
+                MessageBox.Show("Es necesario seleccionar una opcion a editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if ((!nombreTextBox.Text.Contains("Ingrese Nombre:") && nombreTextBox.Text != "") && (!apellidoTextBox.Text.Contains("Ingrese Apellidos:") && apellidoTextBox.Text != ""))
+                {
+                    datos = propiedadesComboBox.Text == "Password" ? new string[] { "Contrasena='" + valorNuevoTextBox.Text + "'" } : new string[] { "Correo='" + valorNuevoTextBox.Text + "'" };
+                    nombre = new string[] { nombreTextBox.Text.ToLower(), apellidoTextBox.Text.ToLower() };
+                    dataBaseControl select = new dataBaseControl();
+                    select.consulta(datos,"Usuarios",)
+                }
+                else
+                {
+                    MessageBox.Show("Es necesario especificar nombre completo del usuaro a editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+           
         }
     }
 }

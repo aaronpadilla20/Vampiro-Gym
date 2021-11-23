@@ -15,6 +15,7 @@ namespace Vampiro_Gym
         private string nombre;
         private string apellido;
         private string query;
+        private int actualizado;
 
         public void abrir()
         {
@@ -31,19 +32,27 @@ namespace Vampiro_Gym
             }
         }
 
-        public string consulta(string[] campos,string tabla, string campo, string datoABuscar,bool filtrar)
+        public string consulta(string[] datos,string tabla, string[] campo, string datoABuscar,bool filtrar)
         {
             bool todos = false;
-            if (Array.Exists(campos,x=>x=="*"))
+            if (Array.Exists(datos,x=>x=="*"))
             {
                 todos = true;
             }
-            foreach(string dato in campos)
+            foreach(string dato in datos)
             {
                 this.fieldToObtain += dato + ",";
             }
            this.fieldToObtain = this.fieldToObtain.TrimEnd(',');
-           this.query = filtrar ? "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE " + campo + " LIKE '" + datoABuscar + "%'" : "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE " + campo + "='" + datoABuscar + "'";
+           if (tabla == "Usuarios" && filtrar)
+           {
+                this.nombre = 
+                this.query = "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE (Nombre='" + ;
+            }
+           else
+           {
+                this.query = filtrar ? "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE " + campo + " LIKE '" + datoABuscar + "%'" : "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE " + campo + "='" + datoABuscar + "'";
+           }
            SqlCommand sql = new SqlCommand(this.query,connection); //Aplicar consulta en base de datos 
            SqlDataReader filas = sql.ExecuteReader(); // Leer consulta
 
@@ -89,7 +98,7 @@ namespace Vampiro_Gym
            }
            else
            {
-                switch(campos.Length)
+                switch(datos.Length)
                 {
                     case 1:
                         while (filas.Read())
@@ -164,8 +173,15 @@ namespace Vampiro_Gym
             this.apellido = valorReferencia[1];
             this.query = "UPDATE " + tabla + " SET " + this.fieldToObtain + " WHERE (Nombre='" + nombre + "') AND (Apellido='" + apellido + "')";
             SqlCommand command = new SqlCommand(this.query, connection);
-
-            return true;
+            this.actualizado = command.ExecuteNonQuery();
+            if (actualizado == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
