@@ -94,6 +94,12 @@
       <DependentUpon>clientesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="dataBaseControl.cs" />
+    <Compile Include="edicionUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="edicionUsuario.Designer.cs">
+      <DependentUpon>edicionUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="membresiasForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="clientesForm.resx">
       <DependentUpon>clientesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="edicionUsuario.resx">
+      <DependentUpon>edicionUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="membresiasForm.resx">
       <DependentUpon>membresiasForm.cs</DependentUpon>

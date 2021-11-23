@@ -15,6 +15,7 @@ namespace Vampiro_Gym
     {
         private bool emailValido;
         private string usuario;
+        Utilities utilidades = new Utilities();
 
         public usuarioRegistroForm()
         {
@@ -49,7 +50,7 @@ namespace Vampiro_Gym
             {
                 if (!emailBox.Text.Contains("Ingrese correo de usuario") && emailBox.Text != "")
                 {
-                    emailValido = validaEmail(emailBox.Text);
+                    emailValido = utilidades.validaEmail(emailBox.Text);
                     if (emailValido)
                     {
                         if (!passwordBox.Text.Contains("Ingrese Password") && passwordBox.Text != "")
@@ -92,11 +93,6 @@ namespace Vampiro_Gym
             }
         }
 
-        private bool validaEmail(string email)
-        {
-            return new EmailAddressAttribute().IsValid(email) ? true : false;
-        }
-
         private void emailBox_Enter(object sender, EventArgs e)
         {
             if (emailBox.Text.Contains("Ingrese correo de usuario"))
@@ -130,6 +126,25 @@ namespace Vampiro_Gym
                 apellidoTextBox.Text = "";
         }
 
-    
+        private void validarFormularioButton_MouseEnter(object sender, EventArgs e)
+        {
+            this.toolTip1.SetToolTip(validarFormularioButton, "Alta Usuario");
+        }
+
+        private void editButton_MouseEnter(object sender, EventArgs e)
+        {
+            this.toolTip1.SetToolTip(editButton, "Modificar Usuario");
+        }
+
+        private void deleteUserButton_MouseEnter(object sender, EventArgs e)
+        {
+            this.toolTip1.SetToolTip(deleteUserButton, "Eliminar usuario");
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            edicionUsuario editWindow = new edicionUsuario();
+            editWindow.ShowDialog();
+        }
     }
 }

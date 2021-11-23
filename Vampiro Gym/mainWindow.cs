@@ -20,7 +20,6 @@ namespace Vampiro_Gym
 
         public void openChild(Form childForm)
         {
-            MessageBox.Show(childForm.Name);
             if (activeform != null)
             {
                 activeform.Close();
