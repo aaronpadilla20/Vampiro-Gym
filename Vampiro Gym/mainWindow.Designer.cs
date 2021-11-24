@@ -44,7 +44,7 @@ namespace Vampiro_Gym
             this.contenedorMembresiasLabel = new System.Windows.Forms.Panel();
             this.membresiasLabel = new System.Windows.Forms.Label();
             this.contenedorUsuariosButton = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.usuariosButton = new System.Windows.Forms.PictureBox();
             this.contenedorUsuariosLabel = new System.Windows.Forms.Panel();
             this.usuariosLabel = new System.Windows.Forms.Label();
             this.contenedorReportesButton = new System.Windows.Forms.Panel();
@@ -70,7 +70,7 @@ namespace Vampiro_Gym
             ((System.ComponentModel.ISupportInitialize)(this.membresias)).BeginInit();
             this.contenedorMembresiasLabel.SuspendLayout();
             this.contenedorUsuariosButton.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usuariosButton)).BeginInit();
             this.contenedorUsuariosLabel.SuspendLayout();
             this.contenedorReportesButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reportesButton)).BeginInit();
@@ -243,7 +243,7 @@ namespace Vampiro_Gym
             // 
             // contenedorUsuariosButton
             // 
-            this.contenedorUsuariosButton.Controls.Add(this.pictureBox1);
+            this.contenedorUsuariosButton.Controls.Add(this.usuariosButton);
             this.contenedorUsuariosButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contenedorUsuariosButton.Location = new System.Drawing.Point(0, 139);
             this.contenedorUsuariosButton.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
@@ -251,18 +251,19 @@ namespace Vampiro_Gym
             this.contenedorUsuariosButton.Size = new System.Drawing.Size(138, 124);
             this.contenedorUsuariosButton.TabIndex = 2;
             // 
-            // pictureBox1
+            // usuariosButton
             // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(138, 124);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.usuariosButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.usuariosButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usuariosButton.Enabled = false;
+            this.usuariosButton.Image = ((System.Drawing.Image)(resources.GetObject("usuariosButton.Image")));
+            this.usuariosButton.Location = new System.Drawing.Point(0, 0);
+            this.usuariosButton.Name = "usuariosButton";
+            this.usuariosButton.Size = new System.Drawing.Size(138, 124);
+            this.usuariosButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.usuariosButton.TabIndex = 0;
+            this.usuariosButton.TabStop = false;
+            this.usuariosButton.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // contenedorUsuariosLabel
             // 
@@ -417,6 +418,7 @@ namespace Vampiro_Gym
             this.Name = "formMain";
             this.Text = "Form3";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.formMain_Load);
             this.Header.ResumeLayout(false);
             this.tableHeader.ResumeLayout(false);
             this.contenedorLogo.ResumeLayout(false);
@@ -429,7 +431,7 @@ namespace Vampiro_Gym
             ((System.ComponentModel.ISupportInitialize)(this.membresias)).EndInit();
             this.contenedorMembresiasLabel.ResumeLayout(false);
             this.contenedorUsuariosButton.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usuariosButton)).EndInit();
             this.contenedorUsuariosLabel.ResumeLayout(false);
             this.contenedorReportesButton.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.reportesButton)).EndInit();
@@ -459,7 +461,7 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel contenedorMembresiasLabel;
         private System.Windows.Forms.Label membresiasLabel;
         private System.Windows.Forms.Panel contenedorUsuariosButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox usuariosButton;
         private System.Windows.Forms.Panel contenedorUsuariosLabel;
         private System.Windows.Forms.Label usuariosLabel;
         private System.Windows.Forms.Panel contenedorReportesButton;

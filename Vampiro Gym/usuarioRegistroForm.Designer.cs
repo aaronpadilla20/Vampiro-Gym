@@ -497,6 +497,7 @@ namespace Vampiro_Gym
             this.deleteUserButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.deleteUserButton.TabIndex = 0;
             this.deleteUserButton.TabStop = false;
+            this.deleteUserButton.Click += new System.EventHandler(this.deleteUserButton_Click);
             this.deleteUserButton.MouseEnter += new System.EventHandler(this.deleteUserButton_MouseEnter);
             // 
             // contenedorValidarForm
@@ -534,6 +535,7 @@ namespace Vampiro_Gym
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "usuarioRegistroForm";
             this.Text = "Form6";
+            this.Load += new System.EventHandler(this.usuarioRegistroForm_Load);
             this.headerTable.ResumeLayout(false);
             this.contenedorBotonCerrar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).EndInit();

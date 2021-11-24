@@ -5,23 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Vampiro_Gym
 {
     class dataBaseControl
     {
-        private static SqlConnection connection;
-        private string fieldToObtain;
-        private string nombre;
-        private string apellido;
-        private string query;
+        public static SqlConnection connection;
         private int actualizado;
 
         public void abrir()
         {
             try
             {
-                string cadenaConexion = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =|DataDirectory|vampiroGym.mdf; Integrated Security = True; Connect Timeout = 30";
+                string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|vampiroGym.mdf;Integrated Security=True;Connect Timeout=30";
                 connection = new SqlConnection(cadenaConexion);
                 connection.Open();
             }
@@ -32,147 +29,83 @@ namespace Vampiro_Gym
             }
         }
 
-        public string consulta(string[] datos,string tabla, string[] campo, string datoABuscar,bool filtrar)
+        public string Select(string query, string tabla, int camposAObtener)
         {
-            bool todos = false;
-            if (Array.Exists(datos,x=>x=="*"))
-            {
-                todos = true;
-            }
-            foreach(string dato in datos)
-            {
-                this.fieldToObtain += dato + ",";
-            }
-           this.fieldToObtain = this.fieldToObtain.TrimEnd(',');
-           if (tabla == "Usuarios" && filtrar)
-           {
-                this.nombre = 
-                this.query = "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE (Nombre='" + ;
-            }
-           else
-           {
-                this.query = filtrar ? "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE " + campo + " LIKE '" + datoABuscar + "%'" : "SELECT " + this.fieldToObtain + " FROM " + tabla + " WHERE " + campo + "='" + datoABuscar + "'";
-           }
-           SqlCommand sql = new SqlCommand(this.query,connection); //Aplicar consulta en base de datos 
+           SqlCommand sql = new SqlCommand(query,connection); //Aplicar consulta en base de datos 
            SqlDataReader filas = sql.ExecuteReader(); // Leer consulta
-
            string valorDevuelto = "";
-           if (todos)
-           {
-             switch(tabla)
-             {
-                    case "Clientes":
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + "," + filas.GetValue(4).ToString() + "," + filas.GetValue(5).ToString() + "," + filas.GetValue(6).ToString();
-                        }
-                        break;
-                    case "Historico Membresias":
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString();
-                        }
-                        break;
-                    case "Membresias":
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," +  filas.GetValue(2).ToString();
-                        }
-                        break;
-                    case "Usuarios":
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + "," + filas.GetValue(4).ToString() + "," + filas.GetValue(5).ToString() + "," + filas.GetValue(6).ToString();
-                        }
-                        break;
-                    case "Visitas":
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString();
-                        }
-                        break;
-                    default:
-                        MessageBox.Show("La base de datos que intento consultar no existe");
-                        break;
-                }
-           }
-           else
-           {
-                switch(datos.Length)
-                {
-                    case 1:
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString();
-                        }
-                        break;
-                    case 2:
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString();
-                        }
-                        break;
-                    case 3:
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString();
-                        }
-                        break;
-                    case 4:
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString();
-                        }
-                        break;
-                    case 5:
-                        while (filas.Read())
-                        {
-                            valorDevuelto += filas.GetValue(0).ToString() + "," +  filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + "," + filas.GetValue(4).ToString();
-                        }
-                        break;
-                    default:
-                        MessageBox.Show("La tabla mas larga tiene una longitud de 6 campos si usted requiere leer la tabla completa utilice '*' para la consulta en lugar de los campos de tabla");
-                        break;
-                }
-           }
+           switch (camposAObtener)
+            {
+                case 1:
+                    while (filas.Read())
+                    {
+                        valorDevuelto += filas.GetValue(0).ToString() + ",";
+                    }
+                    break;
+                case 2:
+                    while (filas.Read())
+                    {
+                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + ",";
+                    }
+                    break;
+                case 3:
+                    while (filas.Read())
+                    {
+                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + ",";
+                    }
+                    break;
+                case 4:
+                    while (filas.Read())
+                    {
+                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + ",";
+                    }
+                    break;
+                case 5:
+                    while (filas.Read())
+                    {
+                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + "," + filas.GetValue(4).ToString() + ",";
+                    }
+                    break;
+                default:
+                    MessageBox.Show("La tabla mas larga tiene una longitud de 6 campos si usted requiere leer la tabla completa utilice '*' para la consulta en lugar de los campos de tabla");
+                    break;
+            }
            filas.Close();
            string resultadoConsulta = valorDevuelto != "" ? valorDevuelto : "No existe el usuario favor de verificarlo";
            return resultadoConsulta; 
         }
 
-        public bool Actualizaregistro(string tabla, string[] datos, string[] valorReferencia)
+        public bool Update(string query)
         {
-            /*
-            foreach (string dato in datos)
+            SqlCommand command = new SqlCommand(query, connection);
+            this.actualizado = command.ExecuteNonQuery();
+            if (actualizado == 1)
             {
-                this.fieldToObtain += dato + ",";
-            }
-            this.fieldToObtain = this.fieldToObtain.TrimEnd(',');
-
-            if (tabla == "Membresias")
-            {
-                MessageBox.Show("ok");
+                return true;
             }
             else
             {
-                this.nombre = valorReferencia[0];
-                this.apellido = valorReferencia[1];
+                return false;
             }
-            return true;*/
-            return true;
         }
 
-        public bool ActualizaUsuariosClientes(string tabla, string[] datos, string[] valorReferencia)
+        public bool Insert(string query)
         {
-            foreach (string dato in datos)
+            SqlCommand commando = new SqlCommand(query, connection);
+            this.actualizado = commando.ExecuteNonQuery();
+            if (actualizado == 1)
             {
-                this.fieldToObtain += dato + ",";
+                return true;
             }
-            this.fieldToObtain = this.fieldToObtain.TrimEnd(',');
-            this.nombre = valorReferencia[0];
-            this.apellido = valorReferencia[1];
-            this.query = "UPDATE " + tabla + " SET " + this.fieldToObtain + " WHERE (Nombre='" + nombre + "') AND (Apellido='" + apellido + "')";
-            SqlCommand command = new SqlCommand(this.query, connection);
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(string query)
+        {
+            SqlCommand command = new SqlCommand(query, connection);
             this.actualizado = command.ExecuteNonQuery();
             if (actualizado == 1)
             {

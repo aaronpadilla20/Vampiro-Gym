@@ -16,12 +16,16 @@ namespace Vampiro_Gym
 
         public static string date;
         public static string usuario;
-        private string[] campos;
+
+        private const int CAMPOSAOBTENER = 2;
+        private const string TABLA = "Usuarios";
+
         private string resultadoConsulta;
+        private string query;
         private string[] datos;
 
         public static string tipoUsuario;
-        private static string password; 
+        private string password; 
 
         public loginWindow()
         {
@@ -35,8 +39,8 @@ namespace Vampiro_Gym
                 try
                 {
                     dataBaseControl consult = new dataBaseControl();
-                    this.campos = new string[] { "Tipo_de_usuario", "Contrasena" };
-                    this.resultadoConsulta = consult.consulta(this.campos, "Usuarios", "Usuario", userBox.Text, false);
+                    this.query = "SELECT Tipo_de_usuario,Contrasena FROM " + TABLA + " WHERE Usuario='" + userBox.Text + "'";
+                    this.resultadoConsulta = consult.Select(query, TABLA,CAMPOSAOBTENER);
                 }
                 catch(Exception err)
                 {
@@ -46,8 +50,8 @@ namespace Vampiro_Gym
                 {
                     datos = resultadoConsulta.Split(',');
                     tipoUsuario = datos[0];
-                    password = datos[1];
-                    if (password == passwordBox.Text)
+                    this.password = datos[1];
+                    if (this.password == passwordBox.Text)
                     {
                         main.Show();
                         this.Close();

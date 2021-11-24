@@ -55,5 +55,11 @@ namespace Vampiro_Gym
         {
             openChild(new clientesForm());
         }
+
+        private void formMain_Load(object sender, EventArgs e)
+        {
+            if (loginWindow.tipoUsuario == "Administrador")
+                usuariosButton.Enabled = true;
+        }
     }
 }

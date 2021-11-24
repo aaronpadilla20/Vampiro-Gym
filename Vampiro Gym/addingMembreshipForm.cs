@@ -12,11 +12,12 @@ namespace Vampiro_Gym
 {
     public partial class addingMembreshipForm : Form
     {
-        public static string tipoMembresia;
-        public static string duracionMembresia;
-        public static string costo;
-        public static bool validado;
+        public const string TABLA = "Membresias";
+
+        public static bool created;
+        private string query;
         private string ventanaTipo;
+
         public addingMembreshipForm(string tipo)
         {
             InitializeComponent();
@@ -50,11 +51,15 @@ namespace Vampiro_Gym
                 {
                     if (!costoText.Text.Contains("Ingrese costo") && costoText.Text != "")
                     {
-                        validado = true;
-                        tipoMembresia = tipoMembresiaText.Text;
-                        duracionMembresia = duracionText.Text;
-                        costo = costoText.Text;
-                        this.Close();
+                       switch(this.ventanaTipo)
+                        {
+                            case "creacion":
+                                CreaMembresia();
+                                break;
+                            case "edicion":
+                                EditaMembresia();
+                                break;
+                        }
                     }
                     else
                     {
@@ -70,9 +75,41 @@ namespace Vampiro_Gym
             {
                 MessageBox.Show("Es necesario especificar el tipo de membresia", "Error: No se ha especificado tipo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
         }
 
+        private void CreaMembresia()
+        {
+            try
+            {
+                this.query = "INSERT INTO " + TABLA + " (Tipo_de_membresia,DuracionMembresia,Costo) VALUES ('" + tipoMembresiaText.Text + "',CAST(" + duracionText.Text + " as int),CAST(" + costoText.Text + " as Decimal))";
+                dataBaseControl insert = new dataBaseControl();
+                created = insert.Insert(query);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Se ha presentado el siguiente error al intentar crear la membresia: " + err.Message);
+            }
+            if (created)
+                MessageBox.Show("!Se ha creado con exito la membresia", "Membresia creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
+
+        private void EditaMembresia()
+        {
+            try
+            {
+                this.query = "UPDATE " + TABLA + " SET Tipo_de_membresia='" +tipoMembresiaText.Text + "',DuracionMembresia=CAST("+ duracionText.Text + " as int),Costo=CAST(" + costoText.Text + " as Decimal) WHERE Tipo_de_membresia='" + tipoMembresiaText.Text + "'";
+                dataBaseControl insert = new dataBaseControl();
+                created = insert.Update(query);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Se ha presentado el siguiente error al intentar crear la membresia: " + err.Message);
+            }
+            if (created)
+                MessageBox.Show("!Se ha actualizado la membresia con exito", "Membresia Actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
         private void cancelButton_Click(object sender, EventArgs e)
         {
             DialogResult res;
@@ -96,6 +133,7 @@ namespace Vampiro_Gym
             if (this.ventanaTipo != "creacion")
             {
                 this.Text = "Vampiro Gym - Edicion";
+                tipoMembresiaText.Enabled = false;
                 tipoMembresiaText.Text = membresiasForm.tipoMembresia;
                 if (membresiasForm.duracionMembresia.Length == 6)
                 {

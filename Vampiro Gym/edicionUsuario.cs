@@ -12,11 +12,19 @@ namespace Vampiro_Gym
 {
     public partial class edicionUsuario : Form
     {
+
+        private const string TABLA = "Usuarios";
+        private const int CAMPOSAOBTENER = 1;
+
         Utilities utilidades = new Utilities();
+
+        private string resultadoConsulta;
+        private bool actualizado;
         private bool emailValido;
-        private string[] datos;
-        private string[] nombre;
-        private bool actualizado; 
+        private bool inicializando;
+        
+        private string query;
+       
 
         public edicionUsuario()
         {
@@ -54,10 +62,9 @@ namespace Vampiro_Gym
                         {
                             try
                             {
-                                datos = propiedadesComboBox.Text == "Password" ? new string[] { "Contrasena='" + valorNuevoTextBox.Text + "'" } : new string[] { "Correo='" + valorNuevoTextBox.Text + "'" };
-                                nombre = new string[] { nombreTextBox.Text.ToLower(), apellidoTextBox.Text.ToLower() };
+                                this.query = propiedadesComboBox.Text.Contains("Password") ? "UPDATE Usuarios SET Contrasena='" + valorNuevoTextBox.Text + "' WHERE (Nombre='" + nombreTextBox.Text + "') AND (Apellido ='" + apellidoTextBox.Text + "')" : "UPDATE Usuarios SET Correo='" + valorNuevoTextBox.Text + "' WHERE (Nombre='" + nombreTextBox.Text + "') AND (Apellido ='" + apellidoTextBox.Text + "')";
                                 dataBaseControl update = new dataBaseControl();
-                                this.actualizado = update.ActualizaUsuariosClientes("Usuarios", datos, nombre);
+                                this.actualizado = update.Update(query);
                             }
                             catch (Exception err)
                             {
@@ -66,8 +73,17 @@ namespace Vampiro_Gym
                             }
                             if(actualizado)
                             {
-                                MessageBox.Show("!SE HA ACTUALIZADO LA BASE DE DATOS CORRECTAMENTE!", "Base de datos actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                clearTextBox();
+                                DialogResult res = MessageBox.Show("!SE HA ACTUALIZADO LA BASE DE DATOS CORRECTAMENTE!\n¿Desea realizar otra modificación?", "Base de datos actualizada", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (res == DialogResult.Yes)
+                                {
+                                    clearTextBox();
+                                }
+                                else
+                                {
+                                    this.Close();
+                                }
+
+                                
                             }
                             else
                             {
@@ -100,9 +116,13 @@ namespace Vampiro_Gym
         {
             nombreTextBox.Text = "Ingrese Nombre:";
             apellidoTextBox.Text = "Ingrese Apellidos:";
+            nombreTextBox.Enabled = true;
+            apellidoTextBox.Enabled = true;
+            this.inicializando = true;
             propiedadesComboBox.SelectedIndex = 0;
             valorActualTextBox.Text = "";
             valorNuevoTextBox.Text = "Ingrese valor deseado";
+            valorNuevoTextBox.Enabled = false;
         }
 
         private void nombreTextBox_Enter(object sender, EventArgs e)
@@ -128,31 +148,67 @@ namespace Vampiro_Gym
 
         private void edicionUsuario_Load(object sender, EventArgs e)
         {
+            this.inicializando = true;
             propiedadesComboBox.SelectedIndex = 0;
             this.Focus();
         }
 
         private void propiedadesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (propiedadesComboBox.SelectedItem.ToString() == "--Selecciona opcion deseada--")
+            if (propiedadesComboBox.SelectedItem.ToString() == "--Selecciona opcion deseada--" && this.inicializando == false)
             {
                 MessageBox.Show("Es necesario seleccionar una opcion a editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                if ((!nombreTextBox.Text.Contains("Ingrese Nombre:") && nombreTextBox.Text != "") && (!apellidoTextBox.Text.Contains("Ingrese Apellidos:") && apellidoTextBox.Text != ""))
+                if (!inicializando)
                 {
-                    datos = propiedadesComboBox.Text == "Password" ? new string[] { "Contrasena='" + valorNuevoTextBox.Text + "'" } : new string[] { "Correo='" + valorNuevoTextBox.Text + "'" };
-                    nombre = new string[] { nombreTextBox.Text.ToLower(), apellidoTextBox.Text.ToLower() };
-                    dataBaseControl select = new dataBaseControl();
-                    select.consulta(datos,"Usuarios",)
-                }
-                else
-                {
-                    MessageBox.Show("Es necesario especificar nombre completo del usuaro a editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if ((!nombreTextBox.Text.Contains("Ingrese Nombre:") && nombreTextBox.Text != "") && (!apellidoTextBox.Text.Contains("Ingrese Apellidos:") && apellidoTextBox.Text != ""))
+                    {
+                        try
+                        {
+                            this.query = propiedadesComboBox.Text.Contains("Password") ? "SELECT Contrasena FROM " + TABLA + " WHERE (Nombre='" + nombreTextBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')" : "SELECT Correo FROM " + TABLA + " WHERE (Nombre='" + nombreTextBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')";
+                            dataBaseControl consult = new dataBaseControl();
+                            this.resultadoConsulta = consult.Select(query, TABLA, CAMPOSAOBTENER);
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show("Se ha presentado el siguiente error al consultar la base de datos: " + err.Message);
+                        }
+                        if (this.resultadoConsulta.Contains("No existe el usuario favor de verificarlo"))
+                        {
+                            MessageBox.Show(resultadoConsulta, "Usuario inexistente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            valorActualTextBox.Text = this.resultadoConsulta;
+                            nombreTextBox.Enabled = false;
+                            apellidoTextBox.Enabled = false;
+                            valorNuevoTextBox.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Es necesario especificar nombre completo del usuaro a editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
            
+        }
+
+        private void propiedadesComboBox_Click(object sender, EventArgs e)
+        {
+            this.inicializando = false;
+        }
+
+        private void cancelButton_MouseEnter(object sender, EventArgs e)
+        {
+            this.toolTip1.SetToolTip(cancelButton, "Cancela seleccion de usuario");
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            clearTextBox();
         }
     }
 }
