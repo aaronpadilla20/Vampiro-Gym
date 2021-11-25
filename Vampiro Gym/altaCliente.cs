@@ -59,5 +59,11 @@ namespace Vampiro_Gym
             if (apellidoTextBox.Text.Contains("Apellido:"))
                 apellidoTextBox.Text = "";
         }
+
+        private void registroDeHuella_Click(object sender, EventArgs e)
+        {
+            RegistroDeHuella registroWindow = new RegistroDeHuella();
+            registroWindow.ShowDialog();
+        }
     }
 }

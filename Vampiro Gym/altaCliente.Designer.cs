@@ -427,6 +427,7 @@ namespace Vampiro_Gym
             this.registroDeHuella.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.registroDeHuella.TabIndex = 0;
             this.registroDeHuella.TabStop = false;
+            this.registroDeHuella.Click += new System.EventHandler(this.registroDeHuella_Click);
             // 
             // contenedorBotonGenerar
             // 
