@@ -49,12 +49,16 @@ namespace Vampiro_Gym
                 Invoke(new Action(() => this.Show()));
                 Invoke(new Action(() => instructionLabel.Text = "Calentando"));
                 dataBaseControl conexion = new dataBaseControl();
-                conexion.abrir();
+                string resConexion = conexion.abrir();
+                if (!resConexion.Contains("Conexion exitosa"))
+                {
+                    MessageBox.Show("Se ha presentado el siguiente error al intentar conectar con la base de datos: " + resConexion);
+                }
                 Invoke(new Action(() => progressBar1.Value = 20));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando con mancuernas"));
                 #region --REGION DE INICIALIZACION DE LECTOR DE HUELLA DACTILAR --
-                Utilities conexionLector = new Utilities(); //Crea una instancia de clase utilities
+                LectorHuella conexionLector = new LectorHuella();
                 /*
                 string resConexion = conexionLector.InitializeDevice(); //Realiza conexion con el lector de huellas
                 if (!resConexion.Contains("Inicializacion exitosa"))

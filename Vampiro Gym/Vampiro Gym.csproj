@@ -109,6 +109,7 @@
     <Compile Include="eliminaUsuario.Designer.cs">
       <DependentUpon>eliminaUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="LectorHuella.cs" />
     <Compile Include="membresiasForm.cs">
       <SubType>Form</SubType>
     </Compile>

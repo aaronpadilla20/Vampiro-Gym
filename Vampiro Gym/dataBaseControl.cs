@@ -14,18 +14,18 @@ namespace Vampiro_Gym
         public static SqlConnection connection;
         private int actualizado;
 
-        public void abrir()
+        public string abrir()
         {
             try
             {
                 string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|vampiroGym.mdf;Integrated Security=True;Connect Timeout=30";
                 connection = new SqlConnection(cadenaConexion);
                 connection.Open();
+                return "Conexion exitosa";
             }
             catch (Exception e)
             {
-                MessageBox.Show("Se ha producido el siguiente error al intentar conectar con la base de datos: " + e.Message);
-                Application.Exit();
+                return e.Message;
             }
         }
 

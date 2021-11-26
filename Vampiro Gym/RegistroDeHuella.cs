@@ -13,13 +13,8 @@ namespace Vampiro_Gym
 {
     public partial class RegistroDeHuella : Form
     {
-        public static string fingerPrintTemplate; //Template a almacenar en base de datos
-        private int registerCount; //Contador para registro
-        private int cbCapTmp = 2048;
-        private int ret;
-        private byte[] CapTmp = new byte[2048]; //Capturador de huella dactilar
-        private bool bIsTimeToDie = false;
-        Thread captureThread; //Hilo para leer constantemente la huella
+        Thread capturaHuella;
+        private string resultadoOperacion;
 
 
         public RegistroDeHuella()
@@ -27,25 +22,18 @@ namespace Vampiro_Gym
             InitializeComponent();
         }
 
-        private void capturarHuella_Click(object sender, EventArgs e)
+        private async void capturarHuella_Click(object sender, EventArgs e)
         {
             capturarHuella.Enabled = false;
             stopCapture.Enabled = true;
-        }
-
-        private void DoCapture()
-        {
-            try
+            LectorHuella.bIsTimeToDie = false;
+            LectorHuella captura = new LectorHuella();
+            this.resultadoOperacion = captura.PreparaLectura();
+            if (resultadoOperacion.Contains("Lista para obtener lectura"))
             {
-                while (!bIsTimeToDie)
-                {
-                    cbCapTmp = 2048;
-                    //ret = splashWindow.fpInstance.AcquireFingerprint();
-                }
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show("Se ha presentado el siguiente error al intentar leer la huella: " + err.Message);
+                capturaHuella = new Thread(new ThreadStart(captura.AcquireFinger));
+                capturaHuella.IsBackground = true;
+                capturaHuella.Start();
             }
         }
     }
