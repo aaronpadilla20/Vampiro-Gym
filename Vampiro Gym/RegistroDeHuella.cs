@@ -15,6 +15,7 @@ namespace Vampiro_Gym
     {
         Thread capturaHuella;
         private string resultadoOperacion;
+        private string resRegistro;
 
 
         public RegistroDeHuella()
@@ -26,6 +27,8 @@ namespace Vampiro_Gym
         {
             capturarHuella.Enabled = false;
             stopCapture.Enabled = true;
+            #region --REGISTRO DE HUELLA--
+            /*
             LectorHuella.bIsTimeToDie = false;
             LectorHuella captura = new LectorHuella();
             this.resultadoOperacion = captura.PreparaLectura();
@@ -35,6 +38,51 @@ namespace Vampiro_Gym
                 capturaHuella.IsBackground = true;
                 capturaHuella.Start();
             }
+            string registrado = await EnrolandoHuella();
+            if (registrado.Contains("Registro exitoso") && stopCapture.Enabled == false)
+            {
+                MessageBox.Show(LectorHuella.fingerPrintTemplate); //Este string se debera de almacenar en la base de datos
+            }
+            else if (!registrado.Contains("Registro exitoso") && stopCapture.Enabled == false)
+            {
+                MessageBox.Show(registrado);
+            }
+            else if (!registrado.Contains("Registro exitoso") && stopCapture.Enabled == true)
+            {
+                MessageBox.Show("Se ha abortado el registro de huella");
+            }
+            else
+            {
+                MessageBox.Show("Se presento un error");
+            }*/
+            #endregion
+        }
+
+        private async Task<string> EnrolandoHuella()
+        {
+            string res = await Task.Run(ProcesandoRegistro);
+            return res;
+        }
+
+        private string ProcesandoRegistro()
+        {
+            LectorHuella.remainingCount = 3;
+            LectorHuella regProcess = new LectorHuella();
+            while (LectorHuella.remainingCount!=0)
+            {
+                this.resRegistro = regProcess.Registrando();
+                MessageBox.Show(resRegistro); //Para ver que regresa en cada ciclo
+            }
+            return this.resRegistro;
+        }
+
+        private void stopCapture_Click(object sender, EventArgs e)
+        {
+            capturarHuella.Enabled = true;
+            stopCapture.Enabled = false;
+            LectorHuella.remainingCount = 0;
+            MessageBox.Show("Se ha cancelado el registro de huella dactilar");
+            this.resRegistro = "";
         }
     }
 }

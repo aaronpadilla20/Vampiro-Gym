@@ -116,6 +116,7 @@ namespace Vampiro_Gym
             this.stopCapture.TabIndex = 1;
             this.stopCapture.Text = "Detener Captura";
             this.stopCapture.UseVisualStyleBackColor = true;
+            this.stopCapture.Click += new System.EventHandler(this.stopCapture_Click);
             // 
             // panel2
             // 

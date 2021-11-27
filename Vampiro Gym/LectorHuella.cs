@@ -200,13 +200,7 @@ namespace Vampiro_Gym
             }
         }
 
-        public async Task<string> RegistraHuella()
-        {
-            string resRegistro = await Task.Run(Registrando);
-            return resRegistro;
-        }
-
-        private string Registrando()
+        public string Registrando()
         {
             this.fid = 0;
             this.score = 0;
@@ -219,8 +213,10 @@ namespace Vampiro_Gym
                     switch (this.sensorResponse)
                     {
                         case -24:
+                            remainingCount = 0;
                             return "El lector de huellas no se encuentra inicializado";
                         default:
+                            remainingCount = 0;
                             return "Se presento un error inesperado contacte al proveedor del lector de huellas, el codigo de error es: " + sensorResponse.ToString();
                     }
                 }
@@ -228,6 +224,7 @@ namespace Vampiro_Gym
 
             if (registerCount > 0 && fpInstance.Match(CampTemp,regTemps[registerCount-1])<=0)
             {
+                remainingCount = 0;
                 return "Ya se ha ingresado tres veces la huella dactilar";
             }
 
@@ -244,17 +241,20 @@ namespace Vampiro_Gym
                     if (sensorResponse == zkfp.ZKFP_ERR_OK)
                     {
                         zkfp.Blob2Base64String(RegTemp, regTempLen, ref fingerPrintTemplate);
-                        return fingerPrintTemplate;
+                        return "Registro exitoso";
                     }
                     else
                     {
                         switch(sensorResponse)
                         {
                             case -24:
+                                remainingCount = 0;
                                 return "No se encuentra inicializado el sensor de huellas dactilares";
                             case -7:
+                                remainingCount = 0;
                                 return "El dispositivo seleccionado no tiene capacidad de lector de huellas, verifiquelo e intentelo nuevamente";
                             default:
+                                remainingCount = 0;
                                 return "Se ha presentado un error desconocido al intentar registrar la huella dactilar, contacte al proveedor del sensor, el codigo de error es: " + sensorResponse.ToString();
                         }
                     }
@@ -264,10 +264,13 @@ namespace Vampiro_Gym
                     switch (this.sensorResponse)
                     {
                         case -24:
+                            remainingCount = 0;
                             return "El lector de huellas no se encuentra inicializado";
                         case -7:
+                            remainingCount = 0;
                             return "El dispositivo seleccionado no tiene la capacidad de lector de huellas, verifiquelo e intentlo nuevamente";
                         default:
+                            remainingCount = 0;
                             return "Se ha presentado un error desconocido al intentar enrolar la huella dactilar, contacte al proveedor del sensor, el codigo de error es: " + sensorResponse.ToString();
                     }
                 }

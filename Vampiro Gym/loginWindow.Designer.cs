@@ -277,7 +277,7 @@ namespace Vampiro_Gym
             this.linkLabel1.Text = "¿Ha olvidado la contraseña?";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Form2
+            // loginWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -285,10 +285,11 @@ namespace Vampiro_Gym
             this.ClientSize = new System.Drawing.Size(524, 303);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form2";
+            this.Name = "loginWindow";
             this.Opacity = 0.9D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.loginWindow_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);

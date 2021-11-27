@@ -16,5 +16,11 @@ namespace Vampiro_Gym
         {
             InitializeComponent();
         }
+
+        private void altaClienteButton_Click(object sender, EventArgs e)
+        {
+            formMembresia altaCliente = new formMembresia();
+            altaCliente.ShowDialog();
+        }
     }
 }

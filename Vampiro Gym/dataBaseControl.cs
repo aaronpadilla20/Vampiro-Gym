@@ -71,7 +71,7 @@ namespace Vampiro_Gym
                     break;
             }
            filas.Close();
-           string resultadoConsulta = valorDevuelto != "" ? valorDevuelto : "No existe el usuario favor de verificarlo";
+           string resultadoConsulta = valorDevuelto != "" ? valorDevuelto : "La consulta no genero resultados";
            return resultadoConsulta; 
         }
 

@@ -25,7 +25,9 @@ namespace Vampiro_Gym
         private string[] datos;
 
         public static string tipoUsuario;
-        private string password; 
+        private string password;
+        public static bool inicializandoSistema;
+        public static bool inicializado;
 
         public loginWindow()
         {
@@ -46,7 +48,7 @@ namespace Vampiro_Gym
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al consultar la base de datos: " + err.Message);
                 }
-                if (!resultadoConsulta.Contains("No existe el usuario favor de verificarlo"))
+                if (!resultadoConsulta.Contains("La consulta no genero resultados"))
                 {
                     datos = resultadoConsulta.Split(',');
                     tipoUsuario = datos[0];
@@ -84,6 +86,32 @@ namespace Vampiro_Gym
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void loginWindow_Load(object sender, EventArgs e)
+        {
+            while (!inicializado)
+            {
+                ConsultaBaseInicializada();
+                if (this.resultadoConsulta.Contains("La consulta no genero resultados"))
+                {
+                    MessageBox.Show("Inicializando sistema por primera vez, es necesario crear un usuario tipo administrador", "Inicializando sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    usuarioRegistroForm registroUsuario = new usuarioRegistroForm();
+                    inicializandoSistema = true;
+                    registroUsuario.ShowDialog();
+                }
+                else
+                {
+                    inicializado = true;
+                }
+            }
+        }
+
+        private void ConsultaBaseInicializada()
+        {
+            this.query = "SELECT Usuario FROM Usuarios";
+            dataBaseControl verificaUsuarios = new dataBaseControl();
+            this.resultadoConsulta = verificaUsuarios.Select(query, "Usuarios", 1);
         }
     }
 }

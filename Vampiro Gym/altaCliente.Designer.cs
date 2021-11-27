@@ -30,10 +30,6 @@ namespace Vampiro_Gym
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMembresia));
-            this.Header = new System.Windows.Forms.Panel();
-            this.headerTable = new System.Windows.Forms.TableLayoutPanel();
-            this.contenedorBotonCerrar = new System.Windows.Forms.Panel();
-            this.botonCerrar = new System.Windows.Forms.PictureBox();
             this.panelPadreFotoRegistro = new System.Windows.Forms.Panel();
             this.tableLayoutPadre = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutFoto = new System.Windows.Forms.TableLayoutPanel();
@@ -49,20 +45,16 @@ namespace Vampiro_Gym
             this.contenedorMembresiaLogo = new System.Windows.Forms.Panel();
             this.membresiaLogo = new System.Windows.Forms.PictureBox();
             this.contenedorComboBoxMembresia = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tipoMembresiasComboBox = new System.Windows.Forms.ComboBox();
             this.tableHuella = new System.Windows.Forms.TableLayoutPanel();
             this.contenedorHuellaLogo = new System.Windows.Forms.Panel();
             this.huellaLogo = new System.Windows.Forms.PictureBox();
             this.contenedorStatusHuellaLabel = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.registroHuellaTextBox = new System.Windows.Forms.TextBox();
             this.contenedorRegistroHuellaButton = new System.Windows.Forms.Panel();
-            this.registroDeHuella = new System.Windows.Forms.PictureBox();
+            this.fingerPrintButton = new System.Windows.Forms.PictureBox();
             this.contenedorBotonGenerar = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Header.SuspendLayout();
-            this.headerTable.SuspendLayout();
-            this.contenedorBotonCerrar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
+            this.saveButton = new System.Windows.Forms.PictureBox();
             this.panelPadreFotoRegistro.SuspendLayout();
             this.tableLayoutPadre.SuspendLayout();
             this.tableLayoutFoto.SuspendLayout();
@@ -81,65 +73,19 @@ namespace Vampiro_Gym
             ((System.ComponentModel.ISupportInitialize)(this.huellaLogo)).BeginInit();
             this.contenedorStatusHuellaLabel.SuspendLayout();
             this.contenedorRegistroHuellaButton.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.registroDeHuella)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerPrintButton)).BeginInit();
             this.contenedorBotonGenerar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saveButton)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Header
-            // 
-            this.Header.Controls.Add(this.headerTable);
-            this.Header.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Header.Location = new System.Drawing.Point(0, 0);
-            this.Header.Name = "Header";
-            this.Header.Size = new System.Drawing.Size(633, 46);
-            this.Header.TabIndex = 0;
-            // 
-            // headerTable
-            // 
-            this.headerTable.ColumnCount = 2;
-            this.headerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.headerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.headerTable.Controls.Add(this.contenedorBotonCerrar, 1, 0);
-            this.headerTable.Dock = System.Windows.Forms.DockStyle.Top;
-            this.headerTable.Location = new System.Drawing.Point(0, 0);
-            this.headerTable.Margin = new System.Windows.Forms.Padding(0);
-            this.headerTable.Name = "headerTable";
-            this.headerTable.RowCount = 1;
-            this.headerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.headerTable.Size = new System.Drawing.Size(633, 43);
-            this.headerTable.TabIndex = 0;
-            // 
-            // contenedorBotonCerrar
-            // 
-            this.contenedorBotonCerrar.Controls.Add(this.botonCerrar);
-            this.contenedorBotonCerrar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.contenedorBotonCerrar.Location = new System.Drawing.Point(522, 3);
-            this.contenedorBotonCerrar.Name = "contenedorBotonCerrar";
-            this.contenedorBotonCerrar.Size = new System.Drawing.Size(108, 37);
-            this.contenedorBotonCerrar.TabIndex = 0;
-            // 
-            // botonCerrar
-            // 
-            this.botonCerrar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.botonCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonCerrar.Image = ((System.Drawing.Image)(resources.GetObject("botonCerrar.Image")));
-            this.botonCerrar.Location = new System.Drawing.Point(40, 12);
-            this.botonCerrar.Name = "botonCerrar";
-            this.botonCerrar.Size = new System.Drawing.Size(36, 17);
-            this.botonCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.botonCerrar.TabIndex = 0;
-            this.botonCerrar.TabStop = false;
-            this.botonCerrar.Click += new System.EventHandler(this.botonCerrar_Click);
             // 
             // panelPadreFotoRegistro
             // 
             this.panelPadreFotoRegistro.Controls.Add(this.tableLayoutPadre);
             this.panelPadreFotoRegistro.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelPadreFotoRegistro.Location = new System.Drawing.Point(0, 46);
+            this.panelPadreFotoRegistro.Location = new System.Drawing.Point(0, 0);
             this.panelPadreFotoRegistro.Margin = new System.Windows.Forms.Padding(0);
             this.panelPadreFotoRegistro.Name = "panelPadreFotoRegistro";
-            this.panelPadreFotoRegistro.Size = new System.Drawing.Size(633, 453);
+            this.panelPadreFotoRegistro.Size = new System.Drawing.Size(633, 499);
             this.panelPadreFotoRegistro.TabIndex = 1;
             // 
             // tableLayoutPadre
@@ -162,7 +108,7 @@ namespace Vampiro_Gym
             this.tableLayoutPadre.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPadre.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPadre.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPadre.Size = new System.Drawing.Size(633, 453);
+            this.tableLayoutPadre.Size = new System.Drawing.Size(633, 499);
             this.tableLayoutPadre.TabIndex = 0;
             // 
             // tableLayoutFoto
@@ -178,7 +124,7 @@ namespace Vampiro_Gym
             this.tableLayoutFoto.Name = "tableLayoutFoto";
             this.tableLayoutFoto.RowCount = 1;
             this.tableLayoutFoto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutFoto.Size = new System.Drawing.Size(627, 84);
+            this.tableLayoutFoto.Size = new System.Drawing.Size(627, 93);
             this.tableLayoutFoto.TabIndex = 0;
             // 
             // tableImage_Button
@@ -195,7 +141,7 @@ namespace Vampiro_Gym
             this.tableImage_Button.Name = "tableImage_Button";
             this.tableImage_Button.RowCount = 1;
             this.tableImage_Button.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableImage_Button.Size = new System.Drawing.Size(262, 84);
+            this.tableImage_Button.Size = new System.Drawing.Size(262, 93);
             this.tableImage_Button.TabIndex = 0;
             // 
             // imageCliente
@@ -205,19 +151,20 @@ namespace Vampiro_Gym
             this.imageCliente.Location = new System.Drawing.Point(0, 0);
             this.imageCliente.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.imageCliente.Name = "imageCliente";
-            this.imageCliente.Size = new System.Drawing.Size(209, 79);
+            this.imageCliente.Size = new System.Drawing.Size(209, 88);
             this.imageCliente.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imageCliente.TabIndex = 0;
             this.imageCliente.TabStop = false;
             // 
             // takePictureButton
             // 
+            this.takePictureButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.takePictureButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.takePictureButton.Image = ((System.Drawing.Image)(resources.GetObject("takePictureButton.Image")));
             this.takePictureButton.Location = new System.Drawing.Point(209, 30);
             this.takePictureButton.Margin = new System.Windows.Forms.Padding(0, 30, 0, 30);
             this.takePictureButton.Name = "takePictureButton";
-            this.takePictureButton.Size = new System.Drawing.Size(53, 24);
+            this.takePictureButton.Size = new System.Drawing.Size(53, 33);
             this.takePictureButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.takePictureButton.TabIndex = 1;
             this.takePictureButton.TabStop = false;
@@ -231,11 +178,11 @@ namespace Vampiro_Gym
             this.tableNombreApellido.Controls.Add(this.contenedorTextBoxNombre, 0, 0);
             this.tableNombreApellido.Controls.Add(this.contenedorApellido, 1, 0);
             this.tableNombreApellido.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableNombreApellido.Location = new System.Drawing.Point(3, 93);
+            this.tableNombreApellido.Location = new System.Drawing.Point(3, 102);
             this.tableNombreApellido.Name = "tableNombreApellido";
             this.tableNombreApellido.RowCount = 1;
             this.tableNombreApellido.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableNombreApellido.Size = new System.Drawing.Size(627, 84);
+            this.tableNombreApellido.Size = new System.Drawing.Size(627, 93);
             this.tableNombreApellido.TabIndex = 1;
             // 
             // contenedorTextBoxNombre
@@ -247,7 +194,7 @@ namespace Vampiro_Gym
             this.contenedorTextBoxNombre.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorTextBoxNombre.Name = "contenedorTextBoxNombre";
             this.contenedorTextBoxNombre.Padding = new System.Windows.Forms.Padding(10, 35, 50, 0);
-            this.contenedorTextBoxNombre.Size = new System.Drawing.Size(313, 84);
+            this.contenedorTextBoxNombre.Size = new System.Drawing.Size(313, 93);
             this.contenedorTextBoxNombre.TabIndex = 0;
             // 
             // nombreTextBox
@@ -257,7 +204,7 @@ namespace Vampiro_Gym
             this.nombreTextBox.Name = "nombreTextBox";
             this.nombreTextBox.Size = new System.Drawing.Size(253, 20);
             this.nombreTextBox.TabIndex = 0;
-            this.nombreTextBox.Text = "Nombre(s): ";
+            this.nombreTextBox.Text = "Nombre(s):";
             this.nombreTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nombreTextBox.Enter += new System.EventHandler(this.nombreTextBox_Enter);
             // 
@@ -270,7 +217,7 @@ namespace Vampiro_Gym
             this.contenedorApellido.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorApellido.Name = "contenedorApellido";
             this.contenedorApellido.Padding = new System.Windows.Forms.Padding(50, 35, 10, 0);
-            this.contenedorApellido.Size = new System.Drawing.Size(314, 84);
+            this.contenedorApellido.Size = new System.Drawing.Size(314, 93);
             this.contenedorApellido.TabIndex = 1;
             // 
             // apellidoTextBox
@@ -292,7 +239,7 @@ namespace Vampiro_Gym
             this.tableMembresia.Controls.Add(this.contenedorMembresiaLogo, 0, 0);
             this.tableMembresia.Controls.Add(this.contenedorComboBoxMembresia, 1, 0);
             this.tableMembresia.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableMembresia.Location = new System.Drawing.Point(0, 180);
+            this.tableMembresia.Location = new System.Drawing.Point(0, 198);
             this.tableMembresia.Margin = new System.Windows.Forms.Padding(0);
             this.tableMembresia.Name = "tableMembresia";
             this.tableMembresia.RowCount = 1;
@@ -325,7 +272,7 @@ namespace Vampiro_Gym
             // contenedorComboBoxMembresia
             // 
             this.contenedorComboBoxMembresia.BackColor = System.Drawing.Color.DimGray;
-            this.contenedorComboBoxMembresia.Controls.Add(this.comboBox1);
+            this.contenedorComboBoxMembresia.Controls.Add(this.tipoMembresiasComboBox);
             this.contenedorComboBoxMembresia.Dock = System.Windows.Forms.DockStyle.Top;
             this.contenedorComboBoxMembresia.Location = new System.Drawing.Point(126, 0);
             this.contenedorComboBoxMembresia.Margin = new System.Windows.Forms.Padding(0);
@@ -334,15 +281,20 @@ namespace Vampiro_Gym
             this.contenedorComboBoxMembresia.Size = new System.Drawing.Size(507, 90);
             this.contenedorComboBoxMembresia.TabIndex = 1;
             // 
-            // comboBox1
+            // tipoMembresiasComboBox
             // 
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(10, 35);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(487, 21);
-            this.comboBox1.TabIndex = 0;
+            this.tipoMembresiasComboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tipoMembresiasComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.tipoMembresiasComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipoMembresiasComboBox.FormattingEnabled = true;
+            this.tipoMembresiasComboBox.Items.AddRange(new object[] {
+            "--Seleccione la opcion deseada--"});
+            this.tipoMembresiasComboBox.Location = new System.Drawing.Point(10, 35);
+            this.tipoMembresiasComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.tipoMembresiasComboBox.Name = "tipoMembresiasComboBox";
+            this.tipoMembresiasComboBox.Size = new System.Drawing.Size(487, 21);
+            this.tipoMembresiasComboBox.TabIndex = 0;
+            this.tipoMembresiasComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tipoMembresiasComboBox_DrawItem);
             // 
             // tableHuella
             // 
@@ -354,11 +306,11 @@ namespace Vampiro_Gym
             this.tableHuella.Controls.Add(this.contenedorStatusHuellaLabel, 1, 0);
             this.tableHuella.Controls.Add(this.contenedorRegistroHuellaButton, 2, 0);
             this.tableHuella.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableHuella.Location = new System.Drawing.Point(3, 273);
+            this.tableHuella.Location = new System.Drawing.Point(3, 300);
             this.tableHuella.Name = "tableHuella";
             this.tableHuella.RowCount = 1;
             this.tableHuella.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableHuella.Size = new System.Drawing.Size(627, 84);
+            this.tableHuella.Size = new System.Drawing.Size(627, 93);
             this.tableHuella.TabIndex = 3;
             // 
             // contenedorHuellaLogo
@@ -369,7 +321,7 @@ namespace Vampiro_Gym
             this.contenedorHuellaLogo.Location = new System.Drawing.Point(0, 0);
             this.contenedorHuellaLogo.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorHuellaLogo.Name = "contenedorHuellaLogo";
-            this.contenedorHuellaLogo.Size = new System.Drawing.Size(122, 84);
+            this.contenedorHuellaLogo.Size = new System.Drawing.Size(122, 93);
             this.contenedorHuellaLogo.TabIndex = 0;
             // 
             // huellaLogo
@@ -378,7 +330,7 @@ namespace Vampiro_Gym
             this.huellaLogo.Image = ((System.Drawing.Image)(resources.GetObject("huellaLogo.Image")));
             this.huellaLogo.Location = new System.Drawing.Point(0, 0);
             this.huellaLogo.Name = "huellaLogo";
-            this.huellaLogo.Size = new System.Drawing.Size(122, 84);
+            this.huellaLogo.Size = new System.Drawing.Size(122, 93);
             this.huellaLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.huellaLogo.TabIndex = 0;
             this.huellaLogo.TabStop = false;
@@ -386,70 +338,74 @@ namespace Vampiro_Gym
             // contenedorStatusHuellaLabel
             // 
             this.contenedorStatusHuellaLabel.BackColor = System.Drawing.Color.DimGray;
-            this.contenedorStatusHuellaLabel.Controls.Add(this.textBox1);
+            this.contenedorStatusHuellaLabel.Controls.Add(this.registroHuellaTextBox);
             this.contenedorStatusHuellaLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contenedorStatusHuellaLabel.Location = new System.Drawing.Point(122, 0);
             this.contenedorStatusHuellaLabel.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorStatusHuellaLabel.Name = "contenedorStatusHuellaLabel";
             this.contenedorStatusHuellaLabel.Padding = new System.Windows.Forms.Padding(10, 30, 10, 0);
-            this.contenedorStatusHuellaLabel.Size = new System.Drawing.Size(441, 84);
+            this.contenedorStatusHuellaLabel.Size = new System.Drawing.Size(441, 93);
             this.contenedorStatusHuellaLabel.TabIndex = 1;
             // 
-            // textBox1
+            // registroHuellaTextBox
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Location = new System.Drawing.Point(10, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(421, 20);
-            this.textBox1.TabIndex = 0;
+            this.registroHuellaTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.registroHuellaTextBox.Location = new System.Drawing.Point(10, 30);
+            this.registroHuellaTextBox.Name = "registroHuellaTextBox";
+            this.registroHuellaTextBox.ReadOnly = true;
+            this.registroHuellaTextBox.Size = new System.Drawing.Size(421, 20);
+            this.registroHuellaTextBox.TabIndex = 0;
+            this.registroHuellaTextBox.Text = "No registrado";
+            this.registroHuellaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // contenedorRegistroHuellaButton
             // 
             this.contenedorRegistroHuellaButton.BackColor = System.Drawing.Color.DimGray;
-            this.contenedorRegistroHuellaButton.Controls.Add(this.registroDeHuella);
+            this.contenedorRegistroHuellaButton.Controls.Add(this.fingerPrintButton);
             this.contenedorRegistroHuellaButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contenedorRegistroHuellaButton.Location = new System.Drawing.Point(563, 0);
             this.contenedorRegistroHuellaButton.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorRegistroHuellaButton.Name = "contenedorRegistroHuellaButton";
             this.contenedorRegistroHuellaButton.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
-            this.contenedorRegistroHuellaButton.Size = new System.Drawing.Size(64, 84);
+            this.contenedorRegistroHuellaButton.Size = new System.Drawing.Size(64, 93);
             this.contenedorRegistroHuellaButton.TabIndex = 2;
             // 
-            // registroDeHuella
+            // fingerPrintButton
             // 
-            this.registroDeHuella.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.registroDeHuella.Dock = System.Windows.Forms.DockStyle.Left;
-            this.registroDeHuella.Image = ((System.Drawing.Image)(resources.GetObject("registroDeHuella.Image")));
-            this.registroDeHuella.Location = new System.Drawing.Point(0, 30);
-            this.registroDeHuella.Margin = new System.Windows.Forms.Padding(0);
-            this.registroDeHuella.Name = "registroDeHuella";
-            this.registroDeHuella.Size = new System.Drawing.Size(44, 24);
-            this.registroDeHuella.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.registroDeHuella.TabIndex = 0;
-            this.registroDeHuella.TabStop = false;
-            this.registroDeHuella.Click += new System.EventHandler(this.registroDeHuella_Click);
+            this.fingerPrintButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fingerPrintButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.fingerPrintButton.Image = ((System.Drawing.Image)(resources.GetObject("fingerPrintButton.Image")));
+            this.fingerPrintButton.Location = new System.Drawing.Point(0, 30);
+            this.fingerPrintButton.Margin = new System.Windows.Forms.Padding(0);
+            this.fingerPrintButton.Name = "fingerPrintButton";
+            this.fingerPrintButton.Size = new System.Drawing.Size(44, 33);
+            this.fingerPrintButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.fingerPrintButton.TabIndex = 0;
+            this.fingerPrintButton.TabStop = false;
+            this.fingerPrintButton.Click += new System.EventHandler(this.registroDeHuella_Click);
             // 
             // contenedorBotonGenerar
             // 
             this.contenedorBotonGenerar.BackColor = System.Drawing.Color.DimGray;
-            this.contenedorBotonGenerar.Controls.Add(this.pictureBox1);
+            this.contenedorBotonGenerar.Controls.Add(this.saveButton);
             this.contenedorBotonGenerar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contenedorBotonGenerar.Location = new System.Drawing.Point(3, 363);
+            this.contenedorBotonGenerar.Location = new System.Drawing.Point(3, 399);
             this.contenedorBotonGenerar.Name = "contenedorBotonGenerar";
-            this.contenedorBotonGenerar.Size = new System.Drawing.Size(627, 87);
+            this.contenedorBotonGenerar.Size = new System.Drawing.Size(627, 97);
             this.contenedorBotonGenerar.TabIndex = 4;
             // 
-            // pictureBox1
+            // saveButton
             // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(527, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 87);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.saveButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
+            this.saveButton.Location = new System.Drawing.Point(527, 0);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(100, 97);
+            this.saveButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.saveButton.TabIndex = 0;
+            this.saveButton.TabStop = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // formMembresia
             // 
@@ -458,14 +414,11 @@ namespace Vampiro_Gym
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(633, 499);
             this.Controls.Add(this.panelPadreFotoRegistro);
-            this.Controls.Add(this.Header);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "formMembresia";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form4";
-            this.Header.ResumeLayout(false);
-            this.headerTable.ResumeLayout(false);
-            this.contenedorBotonCerrar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).EndInit();
+            this.Load += new System.EventHandler(this.formMembresia_Load);
             this.panelPadreFotoRegistro.ResumeLayout(false);
             this.tableLayoutPadre.ResumeLayout(false);
             this.tableLayoutFoto.ResumeLayout(false);
@@ -487,20 +440,15 @@ namespace Vampiro_Gym
             this.contenedorStatusHuellaLabel.ResumeLayout(false);
             this.contenedorStatusHuellaLabel.PerformLayout();
             this.contenedorRegistroHuellaButton.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.registroDeHuella)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerPrintButton)).EndInit();
             this.contenedorBotonGenerar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saveButton)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel Header;
-        private System.Windows.Forms.TableLayoutPanel headerTable;
         private System.Windows.Forms.Panel panelPadreFotoRegistro;
-        private System.Windows.Forms.Panel contenedorBotonCerrar;
-        private System.Windows.Forms.PictureBox botonCerrar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPadre;
         private System.Windows.Forms.TableLayoutPanel tableLayoutFoto;
         private System.Windows.Forms.TableLayoutPanel tableImage_Button;
@@ -513,16 +461,16 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel contenedorMembresiaLogo;
         private System.Windows.Forms.PictureBox membresiaLogo;
         private System.Windows.Forms.Panel contenedorComboBoxMembresia;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox tipoMembresiasComboBox;
         private System.Windows.Forms.TableLayoutPanel tableHuella;
         private System.Windows.Forms.Panel contenedorHuellaLogo;
         private System.Windows.Forms.PictureBox huellaLogo;
         private System.Windows.Forms.Panel contenedorStatusHuellaLabel;
         private System.Windows.Forms.Panel contenedorRegistroHuellaButton;
-        private System.Windows.Forms.PictureBox registroDeHuella;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.PictureBox fingerPrintButton;
+        private System.Windows.Forms.TextBox registroHuellaTextBox;
         private System.Windows.Forms.Panel contenedorBotonGenerar;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox saveButton;
         private System.Windows.Forms.TextBox nombreTextBox;
         private System.Windows.Forms.TextBox apellidoTextBox;
     }

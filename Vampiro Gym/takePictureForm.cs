@@ -46,6 +46,7 @@ namespace Vampiro_Gym
 
             if (capture.IsOpened())
             {
+                Thread.Sleep(1000);
                 while (isCameraRunning)
                 {
                     capture.Read(frame);
@@ -90,8 +91,8 @@ namespace Vampiro_Gym
                 file = "..\\Images\\"+name+"_"+lastName+"_"+DateTime.Now.ToString("dd_MM_yyyy_hh_mm_ss")+".png";
                 Bitmap snapshot = new Bitmap(pictureBox1.Image);
                 snapshot.Save(string.Format(file), ImageFormat.Png);
-                capture.Release();
                 isCameraRunning = false;
+                capture.Release();
                 MessageBox.Show("Se ha guardado la imagen exitosamente");
                 this.Close();
             }

@@ -89,7 +89,7 @@ namespace Vampiro_Gym
                                         usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
                                         this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
                                         this.resultadoConsulta1 = consult.Select(query, TABLA, 1);
-                                        if (!resultadoConsulta1.Contains("No existe el usuario favor de verificarlo")) //Si el usuario existe
+                                        if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
                                         {
                                             this.resultadoConsulta1 = this.resultadoConsulta1.TrimEnd(',');
                                             datos = resultadoConsulta1.Split(',');
@@ -99,7 +99,7 @@ namespace Vampiro_Gym
                                             }
                                             this.query = "SELECT Nombre,Apellido FROM " + TABLA + " WHERE (Nombre='" + nombreBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')"; //Consulta de nombre y apellido
                                             this.resultadoConsulta2 = consult.Select(query, TABLA, 2); // Realizamos consulta
-                                            if (resultadoConsulta2.Contains("No existe el usuario favor de verificarlo")) // Si el usuario no existe
+                                            if (resultadoConsulta2.Contains("La consulta no genero resultados")) // Si el usuario no existe
                                             {
                                                 this.m = Regex.Match(this.lastSimilarUser, "(\\d)"); //Verificamos si el usario ya tiene un numero
                                                 num = string.Empty; //Inicializamos variable donde capturaremos numero
@@ -116,7 +116,7 @@ namespace Vampiro_Gym
                                                 }
                                                 this.query = "SELECT Correo FROM " + TABLA + " WHERE Correo='" + emailBox.Text + "'";
                                                 this.resultadoConsulta3 = consult.Select(query, TABLA, 1);
-                                                if (resultadoConsulta3.Contains("No existe el usuario favor de verificarlo"))
+                                                if (resultadoConsulta3.Contains("La consulta no genero resultados"))
                                                 {
                                                     RegistraUsuario();
                                                 }
@@ -179,6 +179,11 @@ namespace Vampiro_Gym
             this.insertado = insert.Insert(query);
             MessageBox.Show("Se ha creado el usuario " + usuario + " exisosamente", "Usuario creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearWindow();
+            if (loginWindow.inicializandoSistema == true)
+            {
+                loginWindow.inicializandoSistema = false;
+                this.Close();
+            }
         }
 
         private void clearWindow()
@@ -256,6 +261,15 @@ namespace Vampiro_Gym
         private void usuarioRegistroForm_Load(object sender, EventArgs e)
         {
             tipoUsuarioCombo.SelectedIndex = 0;
+            if (loginWindow.inicializandoSistema)
+            {
+                this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                tipoUsuarioCombo.Enabled = false;
+                headerTable.Visible = false;
+                deleteUserButton.Visible = false;
+                editButton.Visible = false;
+            }
         }
 
         private void deleteUserButton_Click(object sender, EventArgs e)

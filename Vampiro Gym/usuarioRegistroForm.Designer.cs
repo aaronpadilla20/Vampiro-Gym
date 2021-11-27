@@ -534,7 +534,7 @@ namespace Vampiro_Gym
             this.Controls.Add(this.headerTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "usuarioRegistroForm";
-            this.Text = "Form6";
+            this.Text = "Vampiro Gym - Registro Usuario";
             this.Load += new System.EventHandler(this.usuarioRegistroForm_Load);
             this.headerTable.ResumeLayout(false);
             this.contenedorBotonCerrar.ResumeLayout(false);
