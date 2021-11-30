@@ -18,7 +18,7 @@ namespace Vampiro_Gym
         {
             try
             {
-                string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|vampiroGym.mdf;Integrated Security=True;Connect Timeout=30";
+                string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|vampiroGym.mdf;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30";
                 connection = new SqlConnection(cadenaConexion);
                 connection.Open();
                 return "Conexion exitosa";
@@ -29,51 +29,52 @@ namespace Vampiro_Gym
             }
         }
 
-        public string Select(string query, string tabla, int camposAObtener)
+        public string Select(string query, int camposAObtener)
         {
            SqlCommand sql = new SqlCommand(query,connection); //Aplicar consulta en base de datos 
-           SqlDataReader filas = sql.ExecuteReader(); // Leer consulta
+           SqlDataReader rows = sql.ExecuteReader(); // Leer consulta
            string valorDevuelto = "";
            switch (camposAObtener)
             {
                 case 1:
-                    while (filas.Read())
+                    while (rows.Read())
                     {
-                        valorDevuelto += filas.GetValue(0).ToString() + ",";
+                        valorDevuelto += rows.GetValue(0).ToString() + ",";
                     }
                     break;
                 case 2:
-                    while (filas.Read())
+                    while (rows.Read())
                     {
-                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + ",";
+                        valorDevuelto += rows.GetValue(0).ToString() + "," + rows.GetValue(1).ToString() + ",";
                     }
                     break;
                 case 3:
-                    while (filas.Read())
+                    while (rows.Read())
                     {
-                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + ",";
+                        valorDevuelto += rows.GetValue(0).ToString() + "," + rows.GetValue(1).ToString() + "," + rows.GetValue(2).ToString() + ",";
                     }
                     break;
                 case 4:
-                    while (filas.Read())
+                    while (rows.Read())
                     {
-                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + ",";
+                        valorDevuelto += rows.GetValue(0).ToString() + "," + rows.GetValue(1).ToString() + "," + rows.GetValue(2).ToString() + "," + rows.GetValue(3).ToString() + ",";
                     }
                     break;
                 case 5:
-                    while (filas.Read())
+                    while (rows.Read())
                     {
-                        valorDevuelto += filas.GetValue(0).ToString() + "," + filas.GetValue(1).ToString() + "," + filas.GetValue(2).ToString() + "," + filas.GetValue(3).ToString() + "," + filas.GetValue(4).ToString() + ",";
+                        valorDevuelto += rows.GetValue(0).ToString() + "," + rows.GetValue(1).ToString() + "," + rows.GetValue(2).ToString() + "," + rows.GetValue(3).ToString() + "," + rows.GetValue(4).ToString() + ",";
                     }
                     break;
                 default:
                     MessageBox.Show("La tabla mas larga tiene una longitud de 6 campos si usted requiere leer la tabla completa utilice '*' para la consulta en lugar de los campos de tabla");
                     break;
-            }
-           filas.Close();
+           }
+           rows.Close();
            string resultadoConsulta = valorDevuelto != "" ? valorDevuelto : "La consulta no genero resultados";
            return resultadoConsulta; 
         }
+
 
         public bool Update(string query)
         {
@@ -93,6 +94,26 @@ namespace Vampiro_Gym
         {
             SqlCommand commando = new SqlCommand(query, connection);
             this.actualizado = commando.ExecuteNonQuery();
+            if (actualizado == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,byte[] huellaDactilar, string tipoMembresia, string fechAlta)
+        {
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@imagen", imagen);
+            command.Parameters.AddWithValue("@nombre", nombre);
+            command.Parameters.AddWithValue("@apellido", apellido);
+            command.Parameters.AddWithValue("@huellaDactilar", huellaDactilar);
+            command.Parameters.AddWithValue("@tipoMembresia", tipoMembresia);
+            command.Parameters.AddWithValue("@fechaAlta", fechAlta);
+            this.actualizado = command.ExecuteNonQuery();
             if (actualizado == 1)
             {
                 return true;

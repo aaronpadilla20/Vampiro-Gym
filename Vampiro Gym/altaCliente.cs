@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +18,8 @@ namespace Vampiro_Gym
         private string resConsulta;
         private string[] datos;
         private byte[] imagen;
-        private string imagenBase64;
         private string fechaAlta;
-        private bool clienteAlta;
+        public static bool clienteAlta;
         public formMembresia()
         {
             InitializeComponent();
@@ -47,6 +47,7 @@ namespace Vampiro_Gym
                     if (archivo.ShowDialog() == DialogResult.OK)
                         file = archivo.FileName;
                     imageCliente.Image = System.Drawing.Image.FromFile(file);
+                    imageCliente.Tag = file;
                 }
             }
         }
@@ -87,15 +88,15 @@ namespace Vampiro_Gym
                         {
                             if (!registroHuellaTextBox.Text.Contains("No registrado"))
                             {
-                                this.imagen = ConvertirImg();
-                                this.imagenBase64 = Convert.ToBase64String(imagen);
-                                this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
-                                this.query = "INSERT INTO Clientes (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_inicio_membresia) VALUES ('" + imagenBase64 + "','" + nombreTextBox.Text + "','" + apellidoTextBox.Text + "','" + "huella" + "','" + tipoMembresiasComboBox.Text + "','"+fechaAlta+"')";
+                                this.imagen = ConvertirImg(imageCliente.Image);
+                                this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                                this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAlta)";
                                 dataBaseControl altaCliente = new dataBaseControl();
-                                this.clienteAlta = altaCliente.Insert(query);
-                                if (this.clienteAlta)
+                                clienteAlta = altaCliente.InsertCliente(query,imagen,nombreTextBox.Text,apellidoTextBox.Text,imagen,tipoMembresiasComboBox.Text,fechaAlta);
+                                if (clienteAlta)
                                 {
                                     MessageBox.Show("Registro exitoso");
+                                    this.Close();
                                 }
                             }
                             else
@@ -125,11 +126,11 @@ namespace Vampiro_Gym
            
         }
 
-        private byte[] ConvertirImg()
+        private byte[] ConvertirImg(System.Drawing.Image image)
         {
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            imageCliente.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-            return ms.GetBuffer();
+            MemoryStream ms = new MemoryStream();
+            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
         }
 
         private void tipoMembresiasComboBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -142,7 +143,7 @@ namespace Vampiro_Gym
         {
             this.query = "SELECT Tipo_de_membresia FROM Membresias";
             dataBaseControl consult = new dataBaseControl();
-            this.resConsulta = consult.Select(this.query, "Membresias", 1);
+            this.resConsulta = consult.Select(this.query, 1);
             if (!resConsulta.Contains("La consulta no genero resultados"))
             {
                 this.resConsulta = this.resConsulta.TrimEnd(',');

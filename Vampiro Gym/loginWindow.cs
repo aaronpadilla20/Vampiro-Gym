@@ -42,7 +42,7 @@ namespace Vampiro_Gym
                 {
                     dataBaseControl consult = new dataBaseControl();
                     this.query = "SELECT Tipo_de_usuario,Contrasena FROM " + TABLA + " WHERE Usuario='" + userBox.Text + "'";
-                    this.resultadoConsulta = consult.Select(query, TABLA,CAMPOSAOBTENER);
+                    this.resultadoConsulta = consult.Select(query,CAMPOSAOBTENER);
                 }
                 catch(Exception err)
                 {
@@ -111,7 +111,7 @@ namespace Vampiro_Gym
         {
             this.query = "SELECT Usuario FROM Usuarios";
             dataBaseControl verificaUsuarios = new dataBaseControl();
-            this.resultadoConsulta = verificaUsuarios.Select(query, "Usuarios", 1);
+            this.resultadoConsulta = verificaUsuarios.Select(query, 1);
         }
     }
 }

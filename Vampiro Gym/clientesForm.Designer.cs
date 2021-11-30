@@ -30,8 +30,9 @@ namespace Vampiro_Gym
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(clientesForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.headerTable = new System.Windows.Forms.TableLayoutPanel();
             this.contenedorBotonCerrar = new System.Windows.Forms.Panel();
             this.botonCerrar = new System.Windows.Forms.PictureBox();
@@ -44,15 +45,15 @@ namespace Vampiro_Gym
             this.panel4 = new System.Windows.Forms.Panel();
             this.altaClienteButton = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.dtgvMembresias = new System.Windows.Forms.DataGridView();
+            this.dtgvClientes = new System.Windows.Forms.DataGridView();
             this.edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Imagen = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoMembresia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DiasRestantes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Duracion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.headerTable.SuspendLayout();
             this.contenedorBotonCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
@@ -64,7 +65,7 @@ namespace Vampiro_Gym
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.altaClienteButton)).BeginInit();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgvMembresias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // headerTable
@@ -194,58 +195,67 @@ namespace Vampiro_Gym
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.dtgvMembresias);
+            this.panel5.Controls.Add(this.dtgvClientes);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 110);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(649, 428);
             this.panel5.TabIndex = 4;
             // 
-            // dtgvMembresias
+            // dtgvClientes
             // 
-            this.dtgvMembresias.AllowUserToAddRows = false;
-            this.dtgvMembresias.AllowUserToDeleteRows = false;
-            this.dtgvMembresias.AllowUserToResizeColumns = false;
-            this.dtgvMembresias.AllowUserToResizeRows = false;
-            this.dtgvMembresias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtgvMembresias.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            this.dtgvMembresias.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dtgvMembresias.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dtgvMembresias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvMembresias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dtgvMembresias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvMembresias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dtgvClientes.AllowUserToAddRows = false;
+            this.dtgvClientes.AllowUserToDeleteRows = false;
+            this.dtgvClientes.AllowUserToResizeColumns = false;
+            this.dtgvClientes.AllowUserToResizeRows = false;
+            this.dtgvClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtgvClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            this.dtgvClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtgvClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dtgvClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.edit,
             this.delete,
-            this.Imagen,
-            this.Nombre,
-            this.Apellido,
-            this.TipoMembresia,
-            this.FechaInicio,
-            this.DiasRestantes});
-            this.dtgvMembresias.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtgvMembresias.EnableHeadersVisualStyles = false;
-            this.dtgvMembresias.GridColor = System.Drawing.Color.LightSteelBlue;
-            this.dtgvMembresias.Location = new System.Drawing.Point(0, 0);
-            this.dtgvMembresias.Name = "dtgvMembresias";
-            this.dtgvMembresias.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dtgvMembresias.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvMembresias.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dtgvMembresias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgvMembresias.Size = new System.Drawing.Size(649, 428);
-            this.dtgvMembresias.TabIndex = 1;
+            this.image,
+            this.name,
+            this.Duracion,
+            this.Precio,
+            this.startDay,
+            this.restante});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvClientes.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dtgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvClientes.EnableHeadersVisualStyles = false;
+            this.dtgvClientes.GridColor = System.Drawing.Color.LightSteelBlue;
+            this.dtgvClientes.Location = new System.Drawing.Point(0, 0);
+            this.dtgvClientes.Name = "dtgvClientes";
+            this.dtgvClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dtgvClientes.RowHeadersVisible = false;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightBlue;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvClientes.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dtgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgvClientes.Size = new System.Drawing.Size(649, 428);
+            this.dtgvClientes.TabIndex = 1;
+            this.dtgvClientes.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgvClientes_CellPainting_1);
             // 
             // edit
             // 
@@ -259,35 +269,38 @@ namespace Vampiro_Gym
             this.delete.HeaderText = "";
             this.delete.Name = "delete";
             // 
-            // Imagen
+            // image
             // 
-            this.Imagen.HeaderText = "Imagen";
-            this.Imagen.Name = "Imagen";
+            this.image.HeaderText = "Fotografia";
+            this.image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.image.Name = "image";
             // 
-            // Nombre
+            // name
             // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
+            this.name.HeaderText = "Nombre";
+            this.name.Name = "name";
             // 
-            // Apellido
+            // Duracion
             // 
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
+            this.Duracion.HeaderText = "Apellidos";
+            this.Duracion.Name = "Duracion";
             // 
-            // TipoMembresia
+            // Precio
             // 
-            this.TipoMembresia.HeaderText = "Tipo de membresia";
-            this.TipoMembresia.Name = "TipoMembresia";
+            this.Precio.HeaderText = "Tipo de membresia";
+            this.Precio.Name = "Precio";
             // 
-            // FechaInicio
+            // startDay
             // 
-            this.FechaInicio.HeaderText = "Fecha de alta membresia";
-            this.FechaInicio.Name = "FechaInicio";
+            this.startDay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.startDay.HeaderText = "Fecha de alta";
+            this.startDay.Name = "startDay";
+            this.startDay.Width = 103;
             // 
-            // DiasRestantes
+            // restante
             // 
-            this.DiasRestantes.HeaderText = "Dias Restantes";
-            this.DiasRestantes.Name = "DiasRestantes";
+            this.restante.HeaderText = "Dias restantes";
+            this.restante.Name = "restante";
             // 
             // clientesForm
             // 
@@ -301,6 +314,7 @@ namespace Vampiro_Gym
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "clientesForm";
             this.Text = "clientesForm";
+            this.Load += new System.EventHandler(this.clientesForm_Load);
             this.headerTable.ResumeLayout(false);
             this.contenedorBotonCerrar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).EndInit();
@@ -313,7 +327,7 @@ namespace Vampiro_Gym
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.altaClienteButton)).EndInit();
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgvMembresias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvClientes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -332,14 +346,14 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox altaClienteButton;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.DataGridView dtgvMembresias;
+        private System.Windows.Forms.DataGridView dtgvClientes;
         private System.Windows.Forms.DataGridViewButtonColumn edit;
         private System.Windows.Forms.DataGridViewButtonColumn delete;
-        private System.Windows.Forms.DataGridViewImageColumn Imagen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoMembresia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FechaInicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DiasRestantes;
+        private System.Windows.Forms.DataGridViewImageColumn image;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Duracion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn restante;
     }
 }

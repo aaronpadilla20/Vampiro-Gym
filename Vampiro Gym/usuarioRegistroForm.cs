@@ -88,7 +88,7 @@ namespace Vampiro_Gym
                                         consult = new dataBaseControl();
                                         usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
                                         this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
-                                        this.resultadoConsulta1 = consult.Select(query, TABLA, 1);
+                                        this.resultadoConsulta1 = consult.Select(query,1);
                                         if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
                                         {
                                             this.resultadoConsulta1 = this.resultadoConsulta1.TrimEnd(',');
@@ -98,7 +98,7 @@ namespace Vampiro_Gym
                                                 this.lastSimilarUser = dato;
                                             }
                                             this.query = "SELECT Nombre,Apellido FROM " + TABLA + " WHERE (Nombre='" + nombreBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')"; //Consulta de nombre y apellido
-                                            this.resultadoConsulta2 = consult.Select(query, TABLA, 2); // Realizamos consulta
+                                            this.resultadoConsulta2 = consult.Select(query,2); // Realizamos consulta
                                             if (resultadoConsulta2.Contains("La consulta no genero resultados")) // Si el usuario no existe
                                             {
                                                 this.m = Regex.Match(this.lastSimilarUser, "(\\d)"); //Verificamos si el usario ya tiene un numero
@@ -115,7 +115,7 @@ namespace Vampiro_Gym
                                                     usuario += "1";
                                                 }
                                                 this.query = "SELECT Correo FROM " + TABLA + " WHERE Correo='" + emailBox.Text + "'";
-                                                this.resultadoConsulta3 = consult.Select(query, TABLA, 1);
+                                                this.resultadoConsulta3 = consult.Select(query,1);
                                                 if (resultadoConsulta3.Contains("La consulta no genero resultados"))
                                                 {
                                                     RegistraUsuario();

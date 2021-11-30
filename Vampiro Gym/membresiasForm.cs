@@ -45,25 +45,9 @@ namespace Vampiro_Gym
 
         private void dtgvMembresias_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            dibujaButton("edit","..\\Images\\editButton.ico",e);
-            dibujaButton("delete","..\\Images\\delete.ico",e);
-        }
-
-        private void dibujaButton(string name, string path, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex >= 0 && this.dtgvMembresias.Columns[e.ColumnIndex].Name == name && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell editButton = this.dtgvMembresias.Rows[e.RowIndex].Cells[name] as DataGridViewButtonCell;
-                Icon icoEdit = new Icon(path);
-                e.Graphics.DrawIcon(icoEdit, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
-
-                this.dtgvMembresias.Rows[e.RowIndex].Height = icoEdit.Height + 8;
-                this.dtgvMembresias.Columns[e.ColumnIndex].Width = icoEdit.Width + 8;
-
-                e.Handled = true;
-            }
+            Utilities paintDataGrid = new Utilities();
+            paintDataGrid.CellPrinting(sender, e, "edit", "..\\Images\\editButton.ico");
+            paintDataGrid.CellPrinting(sender, e, "delete", "..\\Images\\delete.ico");
         }
 
         private void membresiasForm_Load(object sender, EventArgs e)

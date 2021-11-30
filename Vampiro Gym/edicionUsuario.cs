@@ -169,7 +169,7 @@ namespace Vampiro_Gym
                         {
                             this.query = propiedadesComboBox.Text.Contains("Password") ? "SELECT Contrasena FROM " + TABLA + " WHERE (Nombre='" + nombreTextBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')" : "SELECT Correo FROM " + TABLA + " WHERE (Nombre='" + nombreTextBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')";
                             dataBaseControl consult = new dataBaseControl();
-                            this.resultadoConsulta = consult.Select(query, TABLA, CAMPOSAOBTENER);
+                            this.resultadoConsulta = consult.Select(query, CAMPOSAOBTENER);
                         }
                         catch (Exception err)
                         {
