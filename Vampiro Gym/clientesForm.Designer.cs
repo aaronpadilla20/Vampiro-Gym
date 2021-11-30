@@ -255,6 +255,7 @@ namespace Vampiro_Gym
             this.dtgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvClientes.Size = new System.Drawing.Size(649, 428);
             this.dtgvClientes.TabIndex = 1;
+            this.dtgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvClientes_CellClick);
             this.dtgvClientes.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgvClientes_CellPainting_1);
             // 
             // edit

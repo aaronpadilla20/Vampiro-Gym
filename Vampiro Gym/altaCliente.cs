@@ -16,13 +16,26 @@ namespace Vampiro_Gym
         private string file;
         private string query;
         private string resConsulta;
+        private string ventanaTipo;
         private string[] datos;
         private byte[] imagen;
         private string fechaAlta;
-        public static bool clienteAlta;
-        public formMembresia()
+        public static bool operacionExitosa;
+
+        Image imagenCliente;
+        private string nombre;
+        private string apellido;
+        private string tipoMembresia;
+
+       
+        public formMembresia(string tipo,Image imagenCliente, string nombre, string apellido, string tipoMembresia)
         {
             InitializeComponent();
+            this.ventanaTipo = tipo;
+            this.imagenCliente = imagenCliente;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.tipoMembresia = tipoMembresia;
         }
 
         private void takePictureButton_Click(object sender, EventArgs e)
@@ -45,9 +58,11 @@ namespace Vampiro_Gym
                 {
                     OpenFileDialog archivo = new OpenFileDialog();
                     if (archivo.ShowDialog() == DialogResult.OK)
+                    {
                         file = archivo.FileName;
-                    imageCliente.Image = System.Drawing.Image.FromFile(file);
-                    imageCliente.Tag = file;
+                        imageCliente.Image = System.Drawing.Image.FromFile(file);
+                        imageCliente.Tag = file;
+                    }
                 }
             }
         }
@@ -90,10 +105,16 @@ namespace Vampiro_Gym
                             {
                                 this.imagen = ConvertirImg(imageCliente.Image);
                                 this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                                this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAlta)";
-                                dataBaseControl altaCliente = new dataBaseControl();
-                                clienteAlta = altaCliente.InsertCliente(query,imagen,nombreTextBox.Text,apellidoTextBox.Text,imagen,tipoMembresiasComboBox.Text,fechaAlta);
-                                if (clienteAlta)
+                                switch (this.ventanaTipo)
+                                {
+                                    case "alta":
+                                        operacionExitosa = NuevoCliente();
+                                        break;
+                                    case "edicion":
+                                        operacionExitosa = EdicionCliente();
+                                        break;
+                                }
+                                if (operacionExitosa)
                                 {
                                     MessageBox.Show("Registro exitoso");
                                     this.Close();
@@ -126,6 +147,21 @@ namespace Vampiro_Gym
            
         }
 
+        private bool NuevoCliente()
+        {
+            this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAlta)";
+            dataBaseControl altaCliente = new dataBaseControl();
+            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, imagen, tipoMembresiasComboBox.Text, fechaAlta);
+        }
+
+        private bool EdicionCliente()
+        {
+            string fechaNueva = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            this.query = "UPDATE Customers SET Tipo_de_membresia='" + tipoMembresiasComboBox.Text + "',Fecha_de_alta_membresia='"+fechaNueva+"'";
+            dataBaseControl editaCliente = new dataBaseControl();
+            return editaCliente.Update(query);
+        }
+
         private byte[] ConvertirImg(System.Drawing.Image image)
         {
             MemoryStream ms = new MemoryStream();
@@ -139,7 +175,7 @@ namespace Vampiro_Gym
             dibujaBox.comboBoxDrawing(sender, e);
         }
 
-        private void formMembresia_Load(object sender, EventArgs e)
+        private void CargaMembresias()
         {
             this.query = "SELECT Tipo_de_membresia FROM Membresias";
             dataBaseControl consult = new dataBaseControl();
@@ -148,11 +184,10 @@ namespace Vampiro_Gym
             {
                 this.resConsulta = this.resConsulta.TrimEnd(',');
                 this.datos = this.resConsulta.Split(',');
-                foreach(string dato in datos)
+                foreach (string dato in datos)
                 {
                     tipoMembresiasComboBox.Items.Add(dato);
                 }
-                tipoMembresiasComboBox.SelectedIndex = 0;
             }
             else
             {
@@ -160,6 +195,42 @@ namespace Vampiro_Gym
                     "solicite al administrador del sistema generar las membresias e intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
+        }
+
+        private void AltaClienteForm()
+        {
+            CargaMembresias();
+            tipoMembresiasComboBox.SelectedIndex = 0;
+        }
+
+        private void EditaUsuarioForm()
+        {
+            CargaMembresias();
+            imageCliente.Image = this.imagenCliente;
+            imageCliente.Tag = "editando";
+            takePictureButton.Visible = false;
+            nombreTextBox.Text = this.nombre;
+            nombreTextBox.Enabled = false;
+            apellidoTextBox.Text = this.apellido;
+            apellidoTextBox.Enabled = false;
+            tipoMembresiasComboBox.SelectedItem = this.tipoMembresia;
+            registroHuellaTextBox.Text = "Registrado";
+            registroHuellaTextBox.Enabled = false;
+            fingerPrintButton.Visible = false;
+        }
+
+        private void formMembresia_Load(object sender, EventArgs e)
+        {
+            switch (ventanaTipo)
+            {
+                case "edicion":
+                    EditaUsuarioForm();
+                    break;
+                case "alta":
+                    AltaClienteForm();
+                    break;
+            }
+            
         }
     }
 }

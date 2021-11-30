@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +14,28 @@ namespace Vampiro_Gym
 {
     public partial class clientesForm : Form
     {
+        
+        private string nombreDb;
+        private string apellidoDb;
+        private string tipoMembresiaDb;
         private string query;
-        private string nombre;
-        private string apellido;
-        private string tipoMembresia;
-        private string fechaAlta;
-        DateTime fechaVencimiento;
-        DateTime fechaActual;
+        private string fechaAltaDb;
+        private string resConsult;
+        private string deletingNombre;
+        private string deletingApellido;
+
+        private bool deleted;
+        Image imagen;
+
         private int diasRestantes;
         private int horasRestantes;
-        private string resConsult;
-        Image imagen;
+
+        private Bitmap imageArray;
+        DataGridViewImageCell imagenData;
+        Image imagenCliente;
+      
+        DateTime fechaVencimiento;
+        DateTime fechaActual;
 
         public clientesForm()
         {
@@ -32,9 +44,9 @@ namespace Vampiro_Gym
 
         private void altaClienteButton_Click(object sender, EventArgs e)
         {
-            formMembresia nuevoCliente = new formMembresia();
+            formMembresia nuevoCliente = new formMembresia("alta",System.Drawing.Image.FromFile("..\\Images\\no_image_user.png"),"","","");
             nuevoCliente.ShowDialog();
-            if (formMembresia.clienteAlta)
+            if (formMembresia.operacionExitosa)
             {
                 CargaDatos();
             }
@@ -52,29 +64,29 @@ namespace Vampiro_Gym
                 while (filas.Read())
                 {
                     this.imagen = (Bitmap)((new ImageConverter()).ConvertFrom(filas.GetValue(1)));
-                    this.nombre = filas.GetString(2).ToString();
-                    this.apellido = filas.GetString(3).ToString();
-                    this.tipoMembresia = filas.GetString(5).ToString();
-                    this.fechaAlta = filas.GetString(6).ToString();
-                    this.query = "SELECT DuracionMembresia FROM Membresias WHERE Tipo_de_membresia='" + tipoMembresia + "'";
+                    this.nombreDb = filas.GetString(2).ToString();
+                    this.apellidoDb = filas.GetString(3).ToString();
+                    this.tipoMembresiaDb = filas.GetString(5).ToString();
+                    this.fechaAltaDb = filas.GetString(6).ToString();
+                    this.query = "SELECT DuracionMembresia FROM Membresias WHERE Tipo_de_membresia='" + this.tipoMembresiaDb + "'";
                     this.resConsult=consultaMembresia.Select(query, 1);
                     this.resConsult = this.resConsult.TrimEnd(',');
-                    this.fechaVencimiento = Convert.ToDateTime(fechaAlta);
+                    this.fechaVencimiento = Convert.ToDateTime(this.fechaAltaDb);
                     this.fechaVencimiento = fechaVencimiento.AddDays(Int32.Parse(resConsult));
                     this.fechaActual = DateTime.Now;
                     this.diasRestantes = (fechaVencimiento - fechaActual).Days;
                     this.horasRestantes = (fechaVencimiento - fechaActual).Hours;
                     if (diasRestantes==0 && horasRestantes==0)
                     {
-                        dtgvClientes.Rows.Add("", "", this.imagen,nombre,apellido,tipoMembresia,fechaAlta,"Membresia Vencida");
+                        dtgvClientes.Rows.Add("", "", this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaDb,"Membresia Vencida");
                     }
                     else if (diasRestantes==0 && horasRestantes!=0)
                     {
-                        dtgvClientes.Rows.Add("", "", this.imagen, nombre, apellido, tipoMembresia, fechaAlta, "Quedan " + horasRestantes.ToString() + " horas para el vencimiento de la membresia");
+                        dtgvClientes.Rows.Add("", "", this.imagen,this.nombreDb, this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaDb, "Quedan " + this.horasRestantes.ToString() + " horas para el vencimiento de la membresia");
                     }
                     else
                     {
-                        dtgvClientes.Rows.Add("", "", this.imagen, nombre, apellido, tipoMembresia, fechaAlta, diasRestantes.ToString() + " días");
+                        dtgvClientes.Rows.Add("", "", this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb, this.fechaAltaDb,this.diasRestantes.ToString() + " días");
                     }
                     
                 }
@@ -113,6 +125,62 @@ namespace Vampiro_Gym
             Utilities printCell = new Utilities();
             printCell.CellPrinting(sender, e, "edit", "..\\Images\\editButton.ico");
             printCell.CellPrinting(sender, e, "delete", "..\\Images\\delete.ico");
+        }
+
+        private void dtgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int n = e.RowIndex;
+            if (loginWindow.tipoUsuario == "Administrador")
+            {
+                if (this.dtgvClientes.Columns[e.ColumnIndex].Name == "edit")
+                {
+                    this.imagenData = dtgvClientes.Rows[n].Cells[2] as DataGridViewImageCell;
+                    this.imageArray = (Bitmap)imagenData.Value;
+                    imagenCliente = byteArrayToImage(this.imageArray);
+                    string nombre = dtgvClientes.Rows[n].Cells[3].Value.ToString();
+                    string apellido = dtgvClientes.Rows[n].Cells[4].Value.ToString();
+                    string tipoMembresia = dtgvClientes.Rows[n].Cells[5].Value.ToString();
+                    formMembresia editaValor = new formMembresia("edicion",imagenCliente,nombre,apellido,tipoMembresia);
+                    editaValor.ShowDialog();
+                    if (formMembresia.operacionExitosa)
+                        CargaDatos();
+                }
+
+                if (this.dtgvClientes.Columns[e.ColumnIndex].Name == "delete")
+                {
+                    this.deletingNombre = dtgvClientes.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    this.deletingApellido = dtgvClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    DialogResult res = MessageBox.Show("¿Esta seguro de querer eliminar al cliente seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            this.query = "DELETE FROM Customers WHERE Nombre='" + this.deletingNombre + "' AND Apellido='" + this.deletingApellido + "'";
+                            dataBaseControl deleteCommand = new dataBaseControl();
+                            this.deleted = deleteCommand.Delete(query);
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show("Se presento el siguiente problema al intentar eliminar el registro: " + err.Message);
+                        }
+                        if (deleted)
+                        {
+                            MessageBox.Show("Se ha eliminado el cliente exitosamente", "Cliente eliminad", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CargaDatos();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Solamente un usuario con privilegios de administrador puede editar o eliminar el registro", "Privilegios insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private Image byteArrayToImage(Bitmap bitMapIn)
+        {
+            Image returnImage = (Image)bitMapIn;
+            return returnImage;
         }
     }
 }
