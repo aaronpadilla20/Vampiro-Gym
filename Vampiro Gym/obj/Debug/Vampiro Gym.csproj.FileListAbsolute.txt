@@ -149,3 +149,6 @@ C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gy
 C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.eliminaUsuario.resources
 C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gym\bin\Debug\libzkfpcsharp.dll
 C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.RegistroDeHuella.resources
+C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gym\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gym\bin\Debug\itextsharp.dll
+C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro Gym\Vampiro Gym\bin\Debug\itextsharp.xml

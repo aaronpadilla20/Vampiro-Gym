@@ -48,6 +48,7 @@ namespace Vampiro_Gym
             this.dtgvClientes = new System.Windows.Forms.DataGridView();
             this.edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.report = new System.Windows.Forms.DataGridViewButtonColumn();
             this.image = new System.Windows.Forms.DataGridViewImageColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Duracion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -225,6 +226,7 @@ namespace Vampiro_Gym
             this.dtgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.edit,
             this.delete,
+            this.report,
             this.image,
             this.name,
             this.Duracion,
@@ -269,6 +271,12 @@ namespace Vampiro_Gym
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete.HeaderText = "";
             this.delete.Name = "delete";
+            // 
+            // report
+            // 
+            this.report.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.report.HeaderText = "";
+            this.report.Name = "report";
             // 
             // image
             // 
@@ -350,6 +358,7 @@ namespace Vampiro_Gym
         private System.Windows.Forms.DataGridView dtgvClientes;
         private System.Windows.Forms.DataGridViewButtonColumn edit;
         private System.Windows.Forms.DataGridViewButtonColumn delete;
+        private System.Windows.Forms.DataGridViewButtonColumn report;
         private System.Windows.Forms.DataGridViewImageColumn image;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duracion;

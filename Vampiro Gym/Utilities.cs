@@ -1,7 +1,10 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,26 @@ namespace Vampiro_Gym
 {
     class Utilities
     {
+        public static Document document;
+        public void ReportePdfIndividual(string carpetaReporte, string nombreArchivo, string encabezado,string footer,string[] datos)
+        {
+            FileStream fs = new FileStream("..\\Reportes\\"+carpetaReporte+"\\"+nombreArchivo+DateTime.Now.ToString("dd_MM_yyyy")+".pdf",FileMode.Create);
+            document = new Document(iTextSharp.text.PageSize.LETTER,30f,20f,50f,40f);
+            PdfWriter pw = PdfWriter.GetInstance(document, fs);
+            pw.PageEvent = new HeaderFooter(encabezado, footer, "..\\Images\\logo (2).png");
+
+            document.Open();
+            PdfPTable table = new PdfPTable(5);
+            foreach(string dato in datos)
+            {
+                PdfPCell _cell = new PdfPCell(new Paragraph(dato));
+                _cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(_cell);
+            }
+            document.Add(table);
+            document.Close();
+        }
+
         public void comboBoxDrawing(object sender,DrawItemEventArgs e)
         {
             ComboBox cbx = sender as ComboBox;
