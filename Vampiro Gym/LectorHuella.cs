@@ -52,7 +52,7 @@ namespace Vampiro_Gym
                 {
                     for (int index = 1; index <= nCount; index++)
                     {
-                        deviceIndex = index;
+                        deviceIndex = index - 1;
                     }
                 }
                 return "Inicializacion exitosa";
