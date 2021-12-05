@@ -90,118 +90,120 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addingMembreshipForm.cs">
+    <Compile Include="Forms\addingMembreshipForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addingMembreshipForm.Designer.cs">
+    <Compile Include="Forms\addingMembreshipForm.Designer.cs">
       <DependentUpon>addingMembreshipForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="clientesForm.cs">
+    <Compile Include="Forms\clientesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="clientesForm.Designer.cs">
+    <Compile Include="Forms\clientesForm.Designer.cs">
       <DependentUpon>clientesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="dataBaseControl.cs" />
-    <Compile Include="edicionUsuario.cs">
+    <Compile Include="SDKs Lectores\LectorZKTecok30.cs" />
+    <Compile Include="SDKs Lectores\SupportBiometricType.cs" />
+    <Compile Include="Utilities\dataBaseControl.cs" />
+    <Compile Include="Forms\edicionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edicionUsuario.Designer.cs">
+    <Compile Include="Forms\edicionUsuario.Designer.cs">
       <DependentUpon>edicionUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="eliminaUsuario.cs">
+    <Compile Include="Forms\eliminaUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="eliminaUsuario.Designer.cs">
+    <Compile Include="Forms\eliminaUsuario.Designer.cs">
       <DependentUpon>eliminaUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="HeaderFooter.cs" />
-    <Compile Include="LectorHuella.cs" />
-    <Compile Include="membresiasForm.cs">
+    <Compile Include="Utilities\HeaderFooter.cs" />
+    <Compile Include="SDKs Lectores\LectorZKTecoSLK20R.cs" />
+    <Compile Include="Forms\membresiasForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="membresiasForm.Designer.cs">
+    <Compile Include="Forms\membresiasForm.Designer.cs">
       <DependentUpon>membresiasForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistroDeHuella.cs">
+    <Compile Include="Forms\RegistroDeHuella.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistroDeHuella.Designer.cs">
+    <Compile Include="Forms\RegistroDeHuella.Designer.cs">
       <DependentUpon>RegistroDeHuella.cs</DependentUpon>
     </Compile>
-    <Compile Include="splashWindow.cs">
+    <Compile Include="Forms\splashWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="splashWindow.Designer.cs">
+    <Compile Include="Forms\splashWindow.Designer.cs">
       <DependentUpon>splashWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="loginWindow.cs">
+    <Compile Include="Forms\loginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="loginWindow.Designer.cs">
+    <Compile Include="Forms\loginWindow.Designer.cs">
       <DependentUpon>loginWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="mainWindow.cs">
+    <Compile Include="Forms\mainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mainWindow.Designer.cs">
+    <Compile Include="Forms\mainWindow.Designer.cs">
       <DependentUpon>mainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="altaCliente.cs">
+    <Compile Include="Forms\altaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="altaCliente.Designer.cs">
+    <Compile Include="Forms\altaCliente.Designer.cs">
       <DependentUpon>altaCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="takePictureForm.cs">
+    <Compile Include="Forms\takePictureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="takePictureForm.Designer.cs">
+    <Compile Include="Forms\takePictureForm.Designer.cs">
       <DependentUpon>takePictureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="usuarioRegistroForm.cs">
+    <Compile Include="Forms\usuarioRegistroForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="usuarioRegistroForm.Designer.cs">
+    <Compile Include="Forms\usuarioRegistroForm.Designer.cs">
       <DependentUpon>usuarioRegistroForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities.cs" />
-    <EmbeddedResource Include="addingMembreshipForm.resx">
+    <Compile Include="Utilities\Utilities.cs" />
+    <EmbeddedResource Include="Forms\addingMembreshipForm.resx">
       <DependentUpon>addingMembreshipForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="clientesForm.resx">
+    <EmbeddedResource Include="Forms\clientesForm.resx">
       <DependentUpon>clientesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edicionUsuario.resx">
+    <EmbeddedResource Include="Forms\edicionUsuario.resx">
       <DependentUpon>edicionUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="eliminaUsuario.resx">
+    <EmbeddedResource Include="Forms\eliminaUsuario.resx">
       <DependentUpon>eliminaUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="membresiasForm.resx">
+    <EmbeddedResource Include="Forms\membresiasForm.resx">
       <DependentUpon>membresiasForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistroDeHuella.resx">
+    <EmbeddedResource Include="Forms\RegistroDeHuella.resx">
       <DependentUpon>RegistroDeHuella.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="splashWindow.resx">
+    <EmbeddedResource Include="Forms\splashWindow.resx">
       <DependentUpon>splashWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="loginWindow.resx">
+    <EmbeddedResource Include="Forms\loginWindow.resx">
       <DependentUpon>loginWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="mainWindow.resx">
+    <EmbeddedResource Include="Forms\mainWindow.resx">
       <DependentUpon>mainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="altaCliente.resx">
+    <EmbeddedResource Include="Forms\altaCliente.resx">
       <DependentUpon>altaCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="takePictureForm.resx">
+    <EmbeddedResource Include="Forms\takePictureForm.resx">
       <DependentUpon>takePictureForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usuarioRegistroForm.resx">
+    <EmbeddedResource Include="Forms\usuarioRegistroForm.resx">
       <DependentUpon>usuarioRegistroForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -213,7 +215,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
+    <None Include="Config\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -225,7 +227,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Config\App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -243,7 +245,18 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="libzkfv.dll" />
+    <Content Include="Librerias\libzkfv.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="zkemkeeper">
+      <Guid>{FE9DED34-E159-408E-8490-B720A5E632C7}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,0 +1,45 @@
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\dll\x86\OpenCvSharpExtern.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\dll\x86\opencv_ffmpeg400.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\dll\x64\OpenCvSharpExtern.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\dll\x64\opencv_ffmpeg400_64.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\Vampiro Gym.exe.config
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\Vampiro Gym.exe
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\Vampiro Gym.pdb
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\itextsharp.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\libzkfpcsharp.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Blob.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Extensions.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.UserInterface.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\itextsharp.xml
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.pdb
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.xml
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Blob.pdb
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Blob.xml
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Extensions.pdb
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Extensions.xml
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.UserInterface.pdb
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.UserInterface.xml
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.AssemblyReference.cache
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Interop.zkemkeeper.dll
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.ResolveComReference.cache
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.addingMembreshipForm.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.clientesForm.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.edicionUsuario.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.eliminaUsuario.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.membresiasForm.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.RegistroDeHuella.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.splashWindow.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.loginWindow.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.formMain.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.formMembresia.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.takePictureForm.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.usuarioRegistroForm.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.Properties.Resources.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.GenerateResource.cache
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.CoreCompileInputs.cache
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.CopyComplete
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.exe
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.pdb
