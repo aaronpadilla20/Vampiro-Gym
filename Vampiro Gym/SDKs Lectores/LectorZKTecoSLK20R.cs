@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Vampiro_Gym
 {
-    class LectorZKTecoSLK20R
+    public class LectorZKTecoSLK20R
     {
         private const int REGISTER_FINGER_COUNT = 3;
         private int sensorResponse;

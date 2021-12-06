@@ -39,10 +39,10 @@ namespace Vampiro_Gym
             EstadoConexion.BackColor = Color.Green;
             capturarHuella.Enabled = false;
             stopCapture.Enabled = true;
+
             #region --REGISTRO DE HUELLA--
-            /*
-            LectorHuella.bIsTimeToDie = false;
-            LectorHuella captura = new LectorHuella();
+            LectorZKTecoSLK20R.bIsTimeToDie = false;
+            LectorZKTecoSLK20R captura = new LectorZKTecoSLK20R();
             this.resultadoOperacion = captura.PreparaLectura();
             if (resultadoOperacion.Contains("Lista para obtener lectura"))
             {
@@ -53,7 +53,7 @@ namespace Vampiro_Gym
             string registrado = await EnrolandoHuella();
             if (registrado.Contains("Registro exitoso") && stopCapture.Enabled == false)
             {
-                MessageBox.Show(LectorHuella.fingerPrintTemplate); //Este string se debera de almacenar en la base de datos
+                MessageBox.Show(LectorZKTecoSLK20R.fingerPrintTemplate); //Este string se debera de almacenar en la base de datos
             }
             else if (!registrado.Contains("Registro exitoso") && stopCapture.Enabled == false)
             {
@@ -66,7 +66,7 @@ namespace Vampiro_Gym
             else
             {
                 MessageBox.Show("Se presento un error");
-            }*/
+            }
             #endregion
         }
 
@@ -80,8 +80,10 @@ namespace Vampiro_Gym
         {
             LectorZKTecoSLK20R.remainingCount = 3;
             LectorZKTecoSLK20R regProcess = new LectorZKTecoSLK20R();
+            EstadoConexion.BackColor = Color.AliceBlue;
             while (LectorZKTecoSLK20R.remainingCount!=0)
             {
+                EstadoConexion.Text = "Coloque el dedo " + LectorZKTecoSLK20R.remainingCount.ToString() + " veces mas para registrar el usuario";
                 this.resRegistro = regProcess.Registrando();
                 MessageBox.Show(resRegistro); //Para ver que regresa en cada ciclo
             }

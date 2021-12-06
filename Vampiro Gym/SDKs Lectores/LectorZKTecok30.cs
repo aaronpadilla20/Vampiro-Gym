@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using zkemkeeper;
 
-namespace Vampiro_Gym.SDKs_Lectores
+namespace Vampiro_Gym
 {
     public class LectorZKTecok30
     {

@@ -16,7 +16,7 @@ namespace Vampiro_Gym
     {
         protected bool loadedSystem;
         loginWindow login = new loginWindow();
-        SDKs_Lectores.LectorZKTecok30 lectorZKTecok30;
+        LectorZKTecok30 lectorZKTecok30;
 
 
 
@@ -62,7 +62,7 @@ namespace Vampiro_Gym
                 #region --REGION DE INICIALIZACION DE LECTORES DE HUELLA --
 
                 LectorZKTecoSLK20R conexionLector = new LectorZKTecoSLK20R();
-                lectorZKTecok30 = new SDKs_Lectores.LectorZKTecok30();
+                lectorZKTecok30 = new LectorZKTecok30();
 
                 string resConexionLector = conexionLector.InitializeDevice(); //Realiza conexion con el lector de huellas
                 if (!resConexionLector.Contains("Inicializacion exitosa"))
@@ -72,7 +72,7 @@ namespace Vampiro_Gym
                 }
 
                 int ret = lectorZKTecok30.ConnectTCP();
-                if (SDKs_Lectores.LectorZKTecok30.isConnected)
+                if (LectorZKTecok30.isConnected)
                 {
                     lectorZKTecok30.getBiometricType();
                 }

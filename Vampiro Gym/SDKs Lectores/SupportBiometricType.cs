@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using zkemkeeper;
 
-namespace Vampiro_Gym.SDKs_Lectores
+namespace Vampiro_Gym
 {
     class SupportBiometricType
     {
