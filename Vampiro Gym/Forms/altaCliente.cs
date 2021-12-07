@@ -219,6 +219,30 @@ namespace Vampiro_Gym
             fingerPrintButton.Visible = false;
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData.ToString()=="Tab" || keyData.ToString()=="TAB")
+            {
+                switch(ActiveControl.Name)
+                {
+                    case "imageCliente":
+                        nombreTextBox.Focus();
+                        break;
+                    case "nombreTextBox":
+                        apellidoTextBox.Focus();
+                        break;
+                    case "apellidoTextBox":
+                        tipoMembresiasComboBox.Focus();
+                        break;
+                    default:
+                        nombreTextBox.Focus();
+                        break;
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void formMembresia_Load(object sender, EventArgs e)
         {
             switch (ventanaTipo)
@@ -230,7 +254,7 @@ namespace Vampiro_Gym
                     AltaClienteForm();
                     break;
             }
-            
+            this.ActiveControl = imageCliente;
         }
     }
 }

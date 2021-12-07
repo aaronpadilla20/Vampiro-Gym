@@ -105,6 +105,28 @@ namespace Vampiro_Gym
                     inicializado = true;
                 }
             }
+            this.ActiveControl = button1;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData.ToString()=="Tab" || keyData.ToString() == "TAB")
+            {
+                switch(ActiveControl.Name)
+                {
+                    case "button1":
+                        userBox.Focus();
+                        break;
+                    case "userBox":
+                        passwordBox.Focus();
+                        break;
+                    default:
+                        userBox.Focus();
+                        break;
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void ConsultaBaseInicializada()
@@ -112,6 +134,23 @@ namespace Vampiro_Gym
             this.query = "SELECT Usuario FROM Usuarios";
             dataBaseControl verificaUsuarios = new dataBaseControl();
             this.resultadoConsulta = verificaUsuarios.Select(query, 1);
+        }
+
+        private void userBox_Enter(object sender, EventArgs e)
+        {
+            if (userBox.Text.Contains("Ingrese"))
+            {
+                userBox.Text = "";
+            }
+        }
+
+        private void passwordBox_Enter(object sender, EventArgs e)
+        {
+            if (passwordBox.Text.Contains("Ingrese"))
+            {
+                passwordBox.Text = "";
+            }
+            passwordBox.UseSystemPasswordChar = true;
         }
     }
 }

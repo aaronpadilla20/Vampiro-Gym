@@ -24,6 +24,29 @@ namespace Vampiro_Gym
             this.ventanaTipo = tipo;
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData.ToString()=="Tab" || keyData.ToString()=="TAB")
+            {
+                switch (ActiveControl.Name)
+                {
+                    case "pictureBox1":
+                        tipoMembresiaText.Focus();
+                        break;
+                    case "tipoMembresiaText":
+                        duracionText.Focus();
+                        break;
+                    case "duracionText":
+                        costoText.Focus();
+                        break;
+                    default:
+                        tipoMembresiaText.Focus();
+                        break;
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void tipoMembresiaText_Enter(object sender, EventArgs e)
         {
             if (tipoMembresiaText.Text.Contains("Tipo de membresia: "))
@@ -149,6 +172,7 @@ namespace Vampiro_Gym
                 }
                 costoText.Text = membresiasForm.costoMembresia.Remove(0,2);
             }
+            this.ActiveControl = pictureBox1;
         }
     }
 }

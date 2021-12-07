@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -270,12 +271,61 @@ namespace Vampiro_Gym
                 deleteUserButton.Visible = false;
                 editButton.Visible = false;
             }
+            this.ActiveControl = validarFormularioButton;
         }
 
         private void deleteUserButton_Click(object sender, EventArgs e)
         {
             eliminaUsuario deleteWindow = new eliminaUsuario();
             deleteWindow.ShowDialog();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+           
+            if (keyData.ToString() == "Tab" || keyData.ToString() == "TAB")
+            {
+                switch (ActiveControl.Name)
+                {
+                    case "validarFormularioButton":
+                        if (tipoUsuarioCombo.Enabled)
+                        {
+                            tipoUsuarioCombo.Focus();
+                        }
+                        else
+                        {
+                            nombreBox.Focus();
+                        }
+                        break;
+                    case "tipoUsuarioCombo":
+                        nombreBox.Focus();
+                        break;
+                    case "nombreBox":
+                        apellidoTextBox.Focus();
+                        break;
+                    case "apellidoTextBox":
+                        emailBox.Focus();
+                        break;
+                    case "emailBox":
+                        passwordBox.Focus();
+                        break;
+                    case "passwordBox":
+                        confirmePasswordBox.Focus();
+                        break;
+                    default:
+                        if (tipoUsuarioCombo.Enabled)
+                        {
+                            tipoUsuarioCombo.Focus();
+                        }
+                        else
+                        {
+                            nombreBox.Focus();
+                        }
+                        break;
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

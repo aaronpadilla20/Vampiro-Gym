@@ -60,7 +60,7 @@ namespace Vampiro_Gym
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando con mancuernas"));
 
                 #region --REGION DE INICIALIZACION DE LECTORES DE HUELLA --
-
+                /*
                 LectorZKTecoSLK20R conexionLector = new LectorZKTecoSLK20R();
                 lectorZKTecok30 = new LectorZKTecok30();
 
@@ -80,14 +80,14 @@ namespace Vampiro_Gym
                 {
                     MessageBox.Show("Se ha presentado un error al conectarse con el dispositivo", "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     Application.Exit();
-                }
+                }*/
                 #endregion
                 Invoke(new Action(() => progressBar1.Value = 40));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando barra en pecho"));
 
                 #region --REGION DE APERTURA DE COMUNICACION CON LECTORES DE HUELLA DACTILAR --
-                resConexionLector = conexionLector.ConnectDevice();
+                /*resConexionLector = conexionLector.ConnectDevice();
                 if (!resConexionLector.Contains("Conexion exitos"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar establecer comunicacion con el lector de huellas: " + resConexionLector, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -97,14 +97,14 @@ namespace Vampiro_Gym
                 if (ret !=1)
                 {
                     Application.Exit();
-                }
+                }*/
                 #endregion
                 Invoke(new Action(() => progressBar1.Value = 60));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Haciendo cristos"));
 
                 #region --REGION DE CIERRE DE COMUNICACION CON LECTOR DE HUELLA DACTILAR Y OBTENCION DE DATOS DE LECTOR K30 --
-                resConexionLector = conexionLector.CloseConnection();
+                /*resConexionLector = conexionLector.CloseConnection();
                 if (!resConexionLector.Contains("Comunicación cerrada exitosamente"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar cerra la comunicación con el sensor de huellas: " + resConexionLector,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -114,7 +114,7 @@ namespace Vampiro_Gym
                 if (ret != 1)
                 {
                     Application.Exit();
-                }
+                }*/
                 #endregion
                 Invoke(new Action(() => progressBar1.Value = 80));
                 Thread.Sleep(1000);

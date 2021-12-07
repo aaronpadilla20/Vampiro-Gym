@@ -205,6 +205,9 @@ namespace Vampiro_Gym
             this.userBox.Name = "userBox";
             this.userBox.Size = new System.Drawing.Size(144, 20);
             this.userBox.TabIndex = 1;
+            this.userBox.Text = "Ingrese Usuario";
+            this.userBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.userBox.Enter += new System.EventHandler(this.userBox_Enter);
             // 
             // label3
             // 
@@ -226,9 +229,11 @@ namespace Vampiro_Gym
             this.passwordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.passwordBox.Location = new System.Drawing.Point(152, 64);
             this.passwordBox.Name = "passwordBox";
-            this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(143, 20);
             this.passwordBox.TabIndex = 3;
+            this.passwordBox.Text = "Ingrese Password";
+            this.passwordBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.passwordBox.Enter += new System.EventHandler(this.passwordBox_Enter);
             // 
             // tableLayoutPanel6
             // 
