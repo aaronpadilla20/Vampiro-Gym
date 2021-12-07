@@ -18,7 +18,7 @@ namespace Vampiro_Gym
         {
             try
             {
-                string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|vampiroGym.mdf;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30";
+                string cadenaConexion = "Data Source=.\\SQLEXPRESS;AttachDbFilename=C:\\Program Files\\Microsoft SQL Server\\MSSQL15.SQLEXPRESS\\MSSQL\\DATA\\vampiroGym.mdf; Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30";
                 connection = new SqlConnection(cadenaConexion);
                 connection.Open();
                 return "Conexion exitosa";

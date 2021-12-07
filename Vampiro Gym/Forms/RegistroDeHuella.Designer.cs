@@ -176,6 +176,8 @@ namespace Vampiro_Gym
             this.Name = "RegistroDeHuella";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegistroDeHuella";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistroDeHuella_FormClosing);
+            this.Load += new System.EventHandler(this.RegistroDeHuella_Load);
             this.tableLayOutControles.ResumeLayout(false);
             this.contenedorImagenHuella.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.huellaImage)).EndInit();

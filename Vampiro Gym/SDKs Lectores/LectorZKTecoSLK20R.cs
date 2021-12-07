@@ -6,25 +6,29 @@ using System.Threading.Tasks;
 using libzkfpcsharp;
 using System.Threading;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.IO;
+using System.Drawing;
 
 namespace Vampiro_Gym
 {
-    public class LectorZKTecoSLK20R
+    partial class RegistroDeHuella
     {
+        IntPtr FormHandle = IntPtr.Zero;
         private const int REGISTER_FINGER_COUNT = 3;
+        const int MESSAGE_CAPTURED_OK = 0x0400 + 6;
+
         private int sensorResponse;
         private int nCount;
         private int size;
         private int mfpWidth = 0;
         private int mfpHeight = 0;
-        private int fid;
-        private int score;
 
         private static int deviceIndex;
         private static int cbCampTemp;
         private static int registerCount;
         private static int regTempLen;
-        private static int iFid;
+        private static bool isRegister;
         public static int remainingCount;
 
         private static byte[][] regTemps = new byte[REGISTER_FINGER_COUNT][];
@@ -140,7 +144,6 @@ namespace Vampiro_Gym
             fingerPrintTemplate = string.Empty;
             registerCount = 0;
             regTempLen = 0;
-            iFid = 1;
 
             for (int i = 0; i < REGISTER_FINGER_COUNT; i++)
             {
@@ -163,123 +166,116 @@ namespace Vampiro_Gym
             return "Lista para obtener lectura";
         }
 
+        [DllImport("user32.dll",EntryPoint ="SendMessageA")]
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
+
         public void AcquireFinger()
         {
-            try
+            if (!aborted)
             {
-                while (!bIsTimeToDie)
+                try
                 {
-                    cbCampTemp = 2048;
-                    this.sensorResponse = fpInstance.AcquireFingerprint(FPBuffer, CampTemp, ref cbCampTemp);
-                    if (this.sensorResponse == zkfp.ZKFP_ERR_OK)
+                    while (!bIsTimeToDie)
                     {
-                        mensajeCaptura = "Huella Capturada";
-                    }
-                    else
-                    {
-                        switch (sensorResponse)
+                        cbCampTemp = 2048;
+                        this.sensorResponse = fpInstance.AcquireFingerprint(FPBuffer, CampTemp, ref cbCampTemp);
+                        if (this.sensorResponse == zkfp.ZKFP_ERR_OK)
                         {
-                            case -23:
-                                mensajeCaptura = "Sin comunicación con sensor activa, inicialice la comunicación e intentelo nuevamente";
-                                break;
-                            case -7:
-                                mensajeCaptura = "El dispositivo seleccionado no soporta la lectura de huellas dactilares";
-                                break;
-                            default:
-                                mensajeCaptura = "Se ha presentado un error desconocido, contacte al proveedor del lector para mayor información, el codigo de error es: " + sensorResponse.ToString();
-                                break;
-
+                            SendMessage(FormHandle, MESSAGE_CAPTURED_OK, IntPtr.Zero, IntPtr.Zero);
                         }
+                        else
+                        {
+                            switch (sensorResponse)
+                            {
+                                case -23:
+                                    mensajeCaptura = "Sin comunicación con sensor activa, inicialice la comunicación e intentelo nuevamente";
+                                    break;
+                                case -7:
+                                    mensajeCaptura = "El dispositivo seleccionado no soporta la lectura de huellas dactilares";
+                                    break;
+                                case -8:
+                                    continue;
+                                default:
+                                    mensajeCaptura = "Se ha presentado un error desconocido, contacte al proveedor del lector para mayor información, el codigo de error es: " + sensorResponse.ToString();
+                                    break;
+
+                            }
+                        }
+                        Thread.Sleep(100);
                     }
-                    Thread.Sleep(100);
                 }
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show("Se ha presentado el siguiente error al intentar adquirir la huella dactilar: " + err.Message);
+                catch (Exception err)
+                {
+                    MessageBox.Show("Se ha presentado el siguiente error al intentar adquirir la huella dactilar: " + err.Message);
+                }
             }
         }
 
-        public string Registrando()
+        protected override void DefWndProc(ref Message m)
         {
-            this.fid = 0;
-            this.score = 0;
-            this.sensorResponse = fpInstance.Identify(CampTemp, ref this.fid, ref this.score);
-            if (zkfp.ZKFP_ERR_OK == sensorResponse)
+            switch(m.Msg)
             {
-                this.sensorResponse = fpInstance.DelRegTemplate(this.fid);
-                if (this.sensorResponse != zkfp.ZKFP_ERR_OK)
-                {
-                    switch (this.sensorResponse)
+                case MESSAGE_CAPTURED_OK:
                     {
-                        case -24:
-                            remainingCount = 0;
-                            return "El lector de huellas no se encuentra inicializado";
-                        default:
-                            remainingCount = 0;
-                            return "Se presento un error inesperado contacte al proveedor del lector de huellas, el codigo de error es: " + sensorResponse.ToString();
-                    }
-                }
-            }
-
-            if (registerCount > 0 && fpInstance.Match(CampTemp,regTemps[registerCount-1])<=0)
-            {
-                remainingCount = 0;
-                return "Ya se ha ingresado tres veces la huella dactilar";
-            }
-
-            Array.Copy(CampTemp, regTemps[registerCount], cbCampTemp);
-            registerCount++;
-
-            if (registerCount >=REGISTER_FINGER_COUNT)
-            {
-                registerCount = 0;
-                this.sensorResponse = fpInstance.GenerateRegTemplate(regTemps[0], regTemps[1], regTemps[2], RegTemp, ref regTempLen);
-                if (this.sensorResponse == zkfp.ZKFP_ERR_OK)
-                {
-                    this.sensorResponse = fpInstance.AddRegTemplate(iFid, RegTemp);
-                    if (sensorResponse == zkfp.ZKFP_ERR_OK)
-                    {
-                        zkfp.Blob2Base64String(RegTemp, regTempLen, ref fingerPrintTemplate);
-                        return "Registro exitoso";
-                    }
-                    else
-                    {
-                        switch(sensorResponse)
+                        DisplayFingerPrintImage();
+                        int ret = zkfp.ZKFP_ERR_OK;
+                        int fid = 0, score = 0;
+                        ret = fpInstance.Identify(CampTemp, ref fid, ref score); //Identifica huella
+                        if (zkfp.ZKFP_ERR_OK == ret)
                         {
-                            case -24:
-                                remainingCount = 0;
-                                return "No se encuentra inicializado el sensor de huellas dactilares";
-                            case -7:
-                                remainingCount = 0;
-                                return "El dispositivo seleccionado no tiene capacidad de lector de huellas, verifiquelo e intentelo nuevamente";
-                            default:
-                                remainingCount = 0;
-                                return "Se ha presentado un error desconocido al intentar registrar la huella dactilar, contacte al proveedor del sensor, el codigo de error es: " + sensorResponse.ToString();
+                            //Huella identificada
+                        }
+                        if (registerCount > 0 && fpInstance.Match(CampTemp,regTemps[registerCount-1])<=0)
+                        {
+                            EstadoConexion.BackColor = Color.Red;
+                            EstadoConexion.Text = "Por favor coloque el mismo dedo " + REGISTER_FINGER_COUNT + " veces para el registro de la huella";
+                            return;
+                        }
+
+                        Array.Copy(CampTemp, regTemps[registerCount], cbCampTemp);
+
+                        registerCount++;
+                        if (registerCount >= REGISTER_FINGER_COUNT)
+                        {
+                            registerCount = 0;
+                            ret = GenerateRegisteredFingerPrint();
+
+                            if (zkfp.ZKFP_ERR_OK == ret)
+                            {
+                                //Agrega template a base de datos
+                                isRegister = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show(MessageManager.msg_FP_FailedToAddTemplate);
+                            }
+                            return;
+                        }
+                        else
+                        {
+                            remainingCount = REGISTER_FINGER_COUNT - registerCount;
                         }
                     }
-                }
-                else
-                {
-                    switch (this.sensorResponse)
-                    {
-                        case -24:
-                            remainingCount = 0;
-                            return "El lector de huellas no se encuentra inicializado";
-                        case -7:
-                            remainingCount = 0;
-                            return "El dispositivo seleccionado no tiene la capacidad de lector de huellas, verifiquelo e intentlo nuevamente";
-                        default:
-                            remainingCount = 0;
-                            return "Se ha presentado un error desconocido al intentar enrolar la huella dactilar, contacte al proveedor del sensor, el codigo de error es: " + sensorResponse.ToString();
-                    }
-                }
-            }
-            else
-            {
-                remainingCount = REGISTER_FINGER_COUNT - registerCount;
-                return "Por favor coloque su huella dactilar " + remainingCount.ToString() + "veces mas";
+                    break;
+                default:
+                    base.DefWndProc(ref m);
+                    break;
             }
         }
+
+        private int GenerateRegisteredFingerPrint()
+        {
+            return fpInstance.GenerateRegTemplate(regTemps[0], regTemps[1], regTemps[2], RegTemp, ref regTempLen);
+        }
+
+        private void DisplayFingerPrintImage()
+        {
+            MemoryStream ms = new MemoryStream();
+            BitmapFormat.GetBitmap(FPBuffer, mfpWidth, mfpHeight, ref ms);
+            Bitmap bmp = new Bitmap(ms);
+            this.huellaImage.Image = bmp;
+        }
+
+
     }
 }
