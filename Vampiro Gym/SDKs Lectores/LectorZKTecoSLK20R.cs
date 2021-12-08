@@ -254,6 +254,8 @@ namespace Vampiro_Gym
                         else
                         {
                             remainingCount = REGISTER_FINGER_COUNT - registerCount;
+                            EstadoConexion.BackColor = Color.Green;
+                            EstadoConexion.Text = "Coloque el dedo " + remainingCount.ToString() + " veces mas para enrolar la huella";
                         }
                     }
                     break;

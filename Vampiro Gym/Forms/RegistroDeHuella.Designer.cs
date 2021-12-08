@@ -80,6 +80,7 @@ namespace Vampiro_Gym
             this.huellaImage.Location = new System.Drawing.Point(0, 0);
             this.huellaImage.Name = "huellaImage";
             this.huellaImage.Size = new System.Drawing.Size(264, 288);
+            this.huellaImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.huellaImage.TabIndex = 0;
             this.huellaImage.TabStop = false;
             // 

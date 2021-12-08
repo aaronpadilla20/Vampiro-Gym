@@ -18,6 +18,7 @@ namespace Vampiro_Gym
         private string resRegistro;
         string resConexionSensor;
         private bool aborted;
+        private bool registrada;
 
 
         public RegistroDeHuella()
@@ -44,6 +45,7 @@ namespace Vampiro_Gym
             #region --REGISTRO DE HUELLA--
             bIsTimeToDie = false;
             isRegister = false;
+            this.registrada = false;
             this.resultadoOperacion = PreparaLectura();
             if (resultadoOperacion.Contains("Lista para obtener lectura"))
             {
@@ -56,9 +58,11 @@ namespace Vampiro_Gym
             {
                 EstadoConexion.BackColor = Color.Green;
                 EstadoConexion.Text = "Huella registrada exitosamente";
-                DialogResult ok = MessageBox.Show("La huella se ha registrado exitosamente, regresando a formulario de registro", "Huella Registrada", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                DialogResult ok = MessageBox.Show("La huella se ha registrado exitosamente, regresando a formulario de registro", "Huella Registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (ok == DialogResult.OK)
                 {
+                    this.registrada = true;
+                    bIsTimeToDie = true;
                     this.Close();
                 }
             }
@@ -135,18 +139,21 @@ namespace Vampiro_Gym
 
         private void RegistroDeHuella_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!capturarHuella.Enabled)
+            if (!registrada)
             {
-                DialogResult res = MessageBox.Show("Actualmente esta enrolando un cliente, ¿esta seguro de querer cerrar esta ventana?", "Cerrando formulario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res ==DialogResult.No)
+                if (!capturarHuella.Enabled)
                 {
-                    e.Cancel = true;
-                }
-                else
-                {
-                    aborted = true;
-                    bIsTimeToDie = true;
-                    this.resConexionSensor = CloseConnection();
+                    DialogResult res = MessageBox.Show("Actualmente esta enrolando un cliente, ¿esta seguro de querer cerrar esta ventana?", "Cerrando formulario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        aborted = true;
+                        bIsTimeToDie = true;
+                        this.resConexionSensor = CloseConnection();
+                    }
                 }
             }
         }
