@@ -59,8 +59,6 @@ namespace Vampiro_Gym
 
         public int SetUser(string customerID, string customerName)
         {
-            MessageBox.Show(customerID);
-            MessageBox.Show(customerName);
             lector.EnableDevice(iMachineNumber, false);
             if (!lector.SSR_SetUserInfo(iMachineNumber,customerID.ToString().Trim(),customerName.Trim()," ",0,true))
             {
@@ -91,8 +89,6 @@ namespace Vampiro_Gym
 
         public int SetFingerPrintTemplate(string customerID,string fingerPrintTemplate)
         {
-            MessageBox.Show(customerID);
-            MessageBox.Show(fingerPrintTemplate);
             lector.EnableDevice(iMachineNumber, false);
             if(lector.SetUserTmpExStr(iMachineNumber,customerID,0,1,fingerPrintTemplate))
             {
