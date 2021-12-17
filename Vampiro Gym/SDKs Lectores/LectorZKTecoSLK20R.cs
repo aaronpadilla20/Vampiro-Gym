@@ -243,6 +243,8 @@ namespace Vampiro_Gym
                             if (zkfp.ZKFP_ERR_OK == ret)
                             {
                                 //Agrega template a base de datos
+                                fingerPrintTemplate = string.Empty;
+                                zkfp.Blob2Base64String(RegTemp, regTempLen, ref fingerPrintTemplate);
                                 isRegister = true;
                             }
                             else

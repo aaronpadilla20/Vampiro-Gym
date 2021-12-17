@@ -18,8 +18,8 @@ namespace Vampiro_Gym
         private string resRegistro;
         string resConexionSensor;
         private bool aborted;
-        private bool registrada;
-
+        public static  bool registrada;
+        public static string customerID;
 
         public RegistroDeHuella()
         {
@@ -45,7 +45,7 @@ namespace Vampiro_Gym
             #region --REGISTRO DE HUELLA--
             bIsTimeToDie = false;
             isRegister = false;
-            this.registrada = false;
+            registrada = false;
             this.resultadoOperacion = PreparaLectura();
             if (resultadoOperacion.Contains("Lista para obtener lectura"))
             {
@@ -57,11 +57,30 @@ namespace Vampiro_Gym
             if (res)
             {
                 EstadoConexion.BackColor = Color.Green;
+                dataBaseControl Consult = new dataBaseControl();
+                string query = "SELECT NoCliente From Customers";
+                string resConsulta = Consult.Select(query, 1);
+                string[] datos = resConsulta.Split(',');
+                string lastCustomerNumber = string.Empty;
+                foreach(string dato in datos)
+                {
+                    lastCustomerNumber = dato;
+                }
+                
+                if (lastCustomerNumber.Contains("La consulta"))
+                {
+                    customerID = "1";
+                }
+                else
+                {
+                    int consecutivo = Int32.Parse(lastCustomerNumber) + 1;
+                    customerID = consecutivo.ToString();
+                }
                 EstadoConexion.Text = "Huella registrada exitosamente";
                 DialogResult ok = MessageBox.Show("La huella se ha registrado exitosamente, regresando a formulario de registro", "Huella Registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (ok == DialogResult.OK)
                 {
-                    this.registrada = true;
+                    registrada = true;
                     bIsTimeToDie = true;
                     this.Close();
                 }

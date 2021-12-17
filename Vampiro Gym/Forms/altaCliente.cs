@@ -13,6 +13,7 @@ namespace Vampiro_Gym
 {
     public partial class formMembresia : Form
     {
+        private string firstName;
         private string file;
         private string query;
         private string resConsulta;
@@ -86,9 +87,12 @@ namespace Vampiro_Gym
 
         private void registroDeHuella_Click(object sender, EventArgs e)
         {
-            registroHuellaTextBox.Text = "Registrado";
             RegistroDeHuella registroWindow = new RegistroDeHuella();
             registroWindow.ShowDialog();
+            if (RegistroDeHuella.registrada)
+            {
+                registroHuellaTextBox.Text = "Huella Registrada";
+            }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -103,6 +107,39 @@ namespace Vampiro_Gym
                         {
                             if (!registroHuellaTextBox.Text.Contains("No registrado"))
                             {
+                                int res = 0;
+                                LectorZKTecok30 lector = new LectorZKTecok30();
+                                while (res!=1)
+                                {
+                                    res = lector.ConnectDevice();
+                                    if (res == 1)
+                                    {
+                                        break;
+                                    }
+                                }
+                                string[] nombres = nombreTextBox.Text.Split(' ');
+
+                                foreach(string nombre in nombres)
+                                {
+                                    firstName = nombre;
+                                    if (firstName!="")
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                string fullName = firstName + " " + apellidoTextBox.Text;
+
+                                res = lector.SetUser(RegistroDeHuella.customerID, fullName);
+                                res = lector.SetFingerPrintTemplate(RegistroDeHuella.customerID, RegistroDeHuella.fingerPrintTemplate);
+                                if (res ==1)
+                                {
+                                    MessageBox.Show("Enrolado con exito");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Falla ");
+                                }
                                 this.imagen = ConvertirImg(imageCliente.Image);
                                 this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                                 switch (this.ventanaTipo)

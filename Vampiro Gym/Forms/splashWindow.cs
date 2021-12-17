@@ -71,11 +71,7 @@ namespace Vampiro_Gym
                     Application.Exit();
                 }
 
-                int ret = lectorZKTecok30.ConnectTCP();
-                if (LectorZKTecok30.isConnected)
-                {
-                    lectorZKTecok30.getBiometricType();
-                }
+                int ret = lectorZKTecok30.ConnectDevice();
                 if (ret!=1)
                 {
                     MessageBox.Show("Se ha presentado un error al conectarse con el dispositivo", "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -91,11 +87,6 @@ namespace Vampiro_Gym
                 if (!resConexionLector.Contains("Conexion exitos"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar establecer comunicacion con el lector de huellas: " + resConexionLector, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                }
-                ret = getCapacityInfo();
-                if (ret !=1)
-                {
                     Application.Exit();
                 }
                 #endregion
@@ -115,6 +106,7 @@ namespace Vampiro_Gym
                 {
                     Application.Exit();
                 }
+                lectorZKTecok30.Disconnect();
                 #endregion
                 Invoke(new Action(() => progressBar1.Value = 80));
                 Thread.Sleep(1000);
@@ -123,41 +115,19 @@ namespace Vampiro_Gym
                 Thread.Sleep(1000);
             }
         }
-
+       
         private int getDeviceInfo()
         {
-            string sFirmver = "";
             string sIP = "";
-            string sMac = "";
-            string sPlatform = "";
-            string sSN = "";
-            string sProductTime = "";
-            string sDeviceName = "";
-            int iFPAlg = 0;
-            int iFaceAlg = 0;
-            string sProducter = "";
-            int res = lectorZKTecok30.GetDeviceinfo(out sFirmver, out sIP, out sMac, out sPlatform, out sSN, out sProductTime, out sDeviceName, out iFPAlg, out iFaceAlg, out sProducter);
+            int res = lectorZKTecok30.GetDeviceInfo(out sIP);
             if (res ==1)
             {
-                MessageBox.Show("Conexion exitosa con el dispositivo " + sDeviceName + " el cual se encuentra conectado a la ip " + sIP,"Conexion exitosa",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 return 1;
             }
             else
             {
                 return -1024;
             }
-        }
-        private int getCapacityInfo()
-        {
-            int adminCnt = 0;
-            int userCount = 0;
-            int fpCnt = 0;
-            int recordCnt = 0;
-            int pwdCnt = 0;
-            int oplogCnt = 0;
-            int faceCnt = 0;
-            int res =lectorZKTecok30.GetCapacityinfo(out adminCnt, out userCount, out fpCnt, out recordCnt, out pwdCnt, out oplogCnt, out faceCnt);
-            return res;
         }
     }
 }
