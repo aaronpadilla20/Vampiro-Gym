@@ -16,5 +16,17 @@ namespace Vampiro_Gym.Forms
         {
             InitializeComponent();
         }
+
+        private void pictureBoxIpl1_Click(object sender, EventArgs e)
+        {
+            DateTime fromDateValue = fromDate.Value;
+            TimeSpan fromTs = new TimeSpan(7, 00, 00);
+            fromDateValue = fromDateValue.Date + fromTs;
+
+            DateTime toDateValue = toDate.Value;
+            TimeSpan toTs = new TimeSpan(23, 00, 00);
+            toDateValue = toDateValue.Date + toTs;
+
+        }
     }
 }

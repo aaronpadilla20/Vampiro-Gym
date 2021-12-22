@@ -119,7 +119,7 @@ namespace Vampiro_Gym.Forms
             this.toDate.BorderSize = 5;
             this.toDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
             this.toDate.Location = new System.Drawing.Point(149, 77);
-            this.toDate.MinimumSize = new System.Drawing.Size(0, 35);
+            this.toDate.MinimumSize = new System.Drawing.Size(4, 35);
             this.toDate.Name = "toDate";
             this.toDate.Size = new System.Drawing.Size(368, 35);
             this.toDate.SkinColor = System.Drawing.Color.White;
@@ -145,6 +145,7 @@ namespace Vampiro_Gym.Forms
             this.pictureBoxIpl1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxIpl1.TabIndex = 6;
             this.pictureBoxIpl1.TabStop = false;
+            this.pictureBoxIpl1.Click += new System.EventHandler(this.pictureBoxIpl1_Click);
             // 
             // generalReportWindow
             // 
