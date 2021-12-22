@@ -307,6 +307,7 @@ namespace Vampiro_Gym
             this.reportesButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.reportesButton.TabIndex = 0;
             this.reportesButton.TabStop = false;
+            this.reportesButton.Click += new System.EventHandler(this.reportesButton_Click);
             // 
             // contenedorReportesLabel
             // 

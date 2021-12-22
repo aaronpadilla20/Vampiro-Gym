@@ -45,7 +45,7 @@ namespace Vampiro_Gym
 
         private void dtgvMembresias_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            Utilities paintDataGrid = new Utilities();
+            Utilerias paintDataGrid = new Utilerias();
             paintDataGrid.CellPrinting(sender, e, "edit", Properties.Resources.edit);
             paintDataGrid.CellPrinting(sender, e, "delete",Properties.Resources.delete);
         }
@@ -132,6 +132,11 @@ namespace Vampiro_Gym
                 MessageBox.Show("Se ha presentado el siguiente error al consultar la base de datos: " + err.Message);
             }
             
+        }
+
+        private void botonCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -130,7 +130,7 @@ namespace Vampiro_Gym
 
         private void dtgvClientes_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            Utilities printCell = new Utilities();
+            Utilerias printCell = new Utilerias();
             printCell.CellPrinting(sender, e, "edit", Properties.Resources.edit);
             printCell.CellPrinting(sender, e, "delete",Properties.Resources.delete);
         }
@@ -196,7 +196,7 @@ namespace Vampiro_Gym
                     this.datosReporte[2] = this.tipoMembresia;
                     this.datosReporte[3] = this.miembroDesde;
                     this.datosReporte[4] = this.fechaVencimiento.ToString();
-                    Utilities reporte = new Utilities();
+                    Utilerias reporte = new Utilerias();
                     reporte.ReportePdfIndividual("clientes", this.nombre + " " + this.apellido,"Información de " + this.nombre + " " + this.apellido,"Vampiro Gym",this.datosReporte);
                 }
             }
@@ -210,6 +210,11 @@ namespace Vampiro_Gym
         {
             Image returnImage = (Image)bitMapIn;
             return returnImage;
+        }
+
+        private void botonCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

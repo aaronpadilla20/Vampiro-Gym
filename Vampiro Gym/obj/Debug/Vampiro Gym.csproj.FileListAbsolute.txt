@@ -22,15 +22,18 @@ C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSha
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.Extensions.xml
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.UserInterface.pdb
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\bin\Debug\OpenCvSharp.UserInterface.xml
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.AssemblyReference.cache
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Interop.zkemkeeper.dll
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.ResolveComReference.cache
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.addingMembreshipForm.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.clientesForm.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.Forms.customerReportWindow.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.Forms.CustomerWIndow.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.edicionUsuario.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.eliminaUsuario.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.membresiasForm.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.RegistroDeHuella.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.Forms.ReportsWindow.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.splashWindow.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.loginWindow.resources
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.formMain.resources
@@ -43,4 +46,4 @@ C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro G
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.CopyComplete
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.exe
 C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.pdb
-C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.AssemblyReference.cache
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.Forms.generalReportWindow.resources

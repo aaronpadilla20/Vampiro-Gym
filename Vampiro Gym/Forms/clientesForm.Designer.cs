@@ -104,6 +104,7 @@ namespace Vampiro_Gym
             this.botonCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.botonCerrar.TabIndex = 0;
             this.botonCerrar.TabStop = false;
+            this.botonCerrar.Click += new System.EventHandler(this.botonCerrar_Click);
             // 
             // panel1
             // 

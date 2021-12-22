@@ -30,7 +30,7 @@ namespace Vampiro_Gym
         private const string TABLA = "Usuarios";
         private const int CAMPOSAOBTENER = 1;
 
-        Utilities utilidades = new Utilities();
+        Utilerias utilidades = new Utilerias();
         Match m;
 
         public usuarioRegistroForm()
@@ -47,7 +47,7 @@ namespace Vampiro_Gym
 
         private void tipoUsuarioCombo_DrawItem(object sender, DrawItemEventArgs e)
         {
-            Utilities drawBox = new Utilities();
+            Utilerias drawBox = new Utilerias();
             drawBox.comboBoxDrawing(sender, e);
         }
 

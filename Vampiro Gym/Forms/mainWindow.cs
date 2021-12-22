@@ -137,6 +137,10 @@ namespace Vampiro_Gym
            Vampiro_Gym.Forms.CustomerWIndow showCustomer = new Forms.CustomerWIndow(imagen,name,lastName,membershipType,startDate);
            showCustomer.ShowDialog();
         }
-      
+
+        private void reportesButton_Click(object sender, EventArgs e)
+        {
+            openChild(new Vampiro_Gym.Forms.ReportsWindow());
+        }
     }
 }

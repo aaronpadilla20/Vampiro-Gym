@@ -102,11 +102,29 @@
     <Compile Include="Forms\clientesForm.Designer.cs">
       <DependentUpon>clientesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\customerReportWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\customerReportWindow.Designer.cs">
+      <DependentUpon>customerReportWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CustomerWIndow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CustomerWIndow.Designer.cs">
       <DependentUpon>CustomerWIndow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\generalReportWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\generalReportWindow.Designer.cs">
+      <DependentUpon>generalReportWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReportsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReportsWindow.Designer.cs">
+      <DependentUpon>ReportsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -115,8 +133,14 @@
     </Compile>
     <Compile Include="SDKs Lectores\LectorZKTecok30.cs" />
     <Compile Include="SDKs Lectores\SupportBiometricType.cs" />
-    <Compile Include="Utilities\BitmapFormat.cs" />
-    <Compile Include="Utilities\dataBaseControl.cs" />
+    <Compile Include="Utilidades\BitmapFormat.cs" />
+    <Compile Include="Utilidades\comboBoxCustomized.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Utilidades\customizedSelectDate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilidades\dataBaseControl.cs" />
     <Compile Include="Forms\edicionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,7 +153,7 @@
     <Compile Include="Forms\eliminaUsuario.Designer.cs">
       <DependentUpon>eliminaUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\HeaderFooter.cs" />
+    <Compile Include="Utilidades\HeaderFooter.cs" />
     <Compile Include="SDKs Lectores\LectorZKTecoSLK20R.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,13 +207,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\MessageManager.cs" />
-    <Compile Include="Utilities\Utilities.cs" />
+    <Compile Include="Utilidades\MessageManager.cs" />
+    <Compile Include="Utilidades\Utilities.cs" />
     <EmbeddedResource Include="Forms\addingMembreshipForm.resx">
       <DependentUpon>addingMembreshipForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\clientesForm.resx">
       <DependentUpon>clientesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\customerReportWindow.resx">
+      <DependentUpon>customerReportWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CustomerWIndow.resx">
       <DependentUpon>CustomerWIndow.cs</DependentUpon>
@@ -200,11 +227,17 @@
     <EmbeddedResource Include="Forms\eliminaUsuario.resx">
       <DependentUpon>eliminaUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\generalReportWindow.resx">
+      <DependentUpon>generalReportWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\membresiasForm.resx">
       <DependentUpon>membresiasForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegistroDeHuella.resx">
       <DependentUpon>RegistroDeHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReportsWindow.resx">
+      <DependentUpon>ReportsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\splashWindow.resx">
       <DependentUpon>splashWindow.cs</DependentUpon>
@@ -260,12 +293,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Librerias\libzkfv.dll" />
+    <None Include="Resources\calendar.png" />
+    <None Include="Resources\calendar.ico" />
+    <None Include="Resources\delete.ico" />
     <None Include="Resources\lastDay.png" />
     <None Include="Resources\invalidCustomer.png" />
     <None Include="Resources\validCustomer.png" />
     <None Include="Resources\noPhotoAvailable-removebg-preview.png" />
     <None Include="Resources\report.ico" />
-    <None Include="Resources\delete.ico" />
     <None Include="Resources\edit.ico" />
     <None Include="Resources\noPhotoAvailable" />
   </ItemGroup>

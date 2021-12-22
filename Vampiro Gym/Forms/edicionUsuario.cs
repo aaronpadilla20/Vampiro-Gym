@@ -16,7 +16,7 @@ namespace Vampiro_Gym
         private const string TABLA = "Usuarios";
         private const int CAMPOSAOBTENER = 1;
 
-        Utilities utilidades = new Utilities();
+        Utilerias utilidades = new Utilerias();
 
         private string resultadoConsulta;
         private bool actualizado;
@@ -142,7 +142,7 @@ namespace Vampiro_Gym
 
         private void propiedadesComboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-            Utilities drawBox = new Utilities();
+            Utilerias drawBox = new Utilerias();
             drawBox.comboBoxDrawing(sender, e);
         }
 

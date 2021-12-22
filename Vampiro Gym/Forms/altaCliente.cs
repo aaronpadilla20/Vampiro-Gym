@@ -253,7 +253,7 @@ namespace Vampiro_Gym
 
         private void tipoMembresiasComboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-            Utilities dibujaBox = new Utilities();
+            Utilerias dibujaBox = new Utilerias();
             dibujaBox.comboBoxDrawing(sender, e);
         }
 
