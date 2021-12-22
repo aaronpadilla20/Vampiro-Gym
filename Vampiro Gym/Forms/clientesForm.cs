@@ -133,7 +133,6 @@ namespace Vampiro_Gym
             Utilities printCell = new Utilities();
             printCell.CellPrinting(sender, e, "edit", Properties.Resources.edit);
             printCell.CellPrinting(sender, e, "delete",Properties.Resources.delete);
-            printCell.CellPrinting(sender, e, "report", Properties.Resources.report);
         }
 
         private void dtgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
