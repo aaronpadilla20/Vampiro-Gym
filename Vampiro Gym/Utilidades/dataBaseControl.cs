@@ -18,7 +18,7 @@ namespace Vampiro_Gym
         {
             try
             {
-                string cadenaConexion = "Data Source=.\\SQLEXPRESS;AttachDbFilename=C:\\Program Files\\Microsoft SQL Server\\MSSQL15.SQLEXPRESS\\MSSQL\\DATA\\vampiroGym.mdf; Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30";
+                string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|vampiroGym.mdf; Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30";
                 connection = new SqlConnection(cadenaConexion);
                 connection.Open();
                 return "Conexion exitosa";
@@ -104,7 +104,25 @@ namespace Vampiro_Gym
             }
         }
 
-        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,string huellaDactilar, string tipoMembresia, string fechAlta)
+        public bool InsertNewHistoricalData(string query,string fechaAlta, string tipoMembresia,string fechaVencimiento,string nombre,string apellido)
+        {
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@fechaAlta", fechaAlta);
+            command.Parameters.AddWithValue("@tipoMembresia", tipoMembresia);
+            command.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento);
+            command.Parameters.AddWithValue("@nombre", nombre);
+            command.Parameters.AddWithValue("@apellido", apellido);
+            this.actualizado = command.ExecuteNonQuery();
+            if (actualizado ==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,string huellaDactilar, string tipoMembresia, string fechaAlta)
         {
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@imagen", imagen);
@@ -112,7 +130,8 @@ namespace Vampiro_Gym
             command.Parameters.AddWithValue("@apellido", apellido);
             command.Parameters.AddWithValue("@huellaDactilar", huellaDactilar);
             command.Parameters.AddWithValue("@tipoMembresia", tipoMembresia);
-            command.Parameters.AddWithValue("@fechaAlta", fechAlta);
+            command.Parameters.AddWithValue("@fechaAltaMembresia", fechaAlta);
+            command.Parameters.AddWithValue("@fechaAltaCliente", fechaAlta);
             this.actualizado = command.ExecuteNonQuery();
             if (actualizado == 1)
             {

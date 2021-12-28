@@ -60,6 +60,7 @@ namespace Vampiro_Gym
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando con mancuernas"));
 
+                /*
                 #region --REGION DE INICIALIZACION DE LECTORES DE HUELLA --
                
                 RegistroDeHuella conexionLector = new RegistroDeHuella();
@@ -88,10 +89,12 @@ namespace Vampiro_Gym
                     lectorZKTecok30.DelFingerPrintTemplate(clearIDs);
                 }
                 #endregion
+                */
                 Invoke(new Action(() => progressBar1.Value = 40));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando barra en pecho"));
 
+                /*
                 #region --REGION DE APERTURA DE COMUNICACION CON LECTORES DE HUELLA DACTILAR --
                 resConexionLector = conexionLector.ConnectDevice();
                 if (!resConexionLector.Contains("Conexion exitos"))
@@ -100,10 +103,12 @@ namespace Vampiro_Gym
                     Application.Exit();
                 }
                 #endregion
+                */
                 Invoke(new Action(() => progressBar1.Value = 60));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Haciendo cristos"));
 
+                /*
                 #region --REGION DE CIERRE DE COMUNICACION CON LECTOR DE HUELLA DACTILAR Y OBTENCION DE DATOS DE LECTOR K30 --
                 resConexionLector = conexionLector.CloseConnection();
                 if (!resConexionLector.Contains("Comunicación cerrada exitosamente"))
@@ -118,6 +123,7 @@ namespace Vampiro_Gym
                 }
                 lectorZKTecok30.Disconnect();
                 #endregion
+                */
                 Invoke(new Action(() => progressBar1.Value = 80));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercicio completado"));

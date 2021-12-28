@@ -19,7 +19,8 @@ namespace Vampiro_Gym
         private string apellidoDb;
         private string tipoMembresiaDb;
         private string query;
-        private string fechaAltaDb;
+        private string fechaAltaMembresiaDb;
+        private string fechaAltaClienteDb;
         private string resConsult;
         private string deletingNombre;
         private string deletingApellido;
@@ -44,6 +45,7 @@ namespace Vampiro_Gym
       
         DateTime fechaVencimiento;
         DateTime fechaActual;
+        DateTime fechaAltaCliente;
 
         public clientesForm()
         {
@@ -72,29 +74,32 @@ namespace Vampiro_Gym
                 while (filas.Read())
                 {
                     this.imagen = (Bitmap)((new ImageConverter()).ConvertFrom(filas.GetValue(1)));
-                    this.nombreDb = filas.GetString(2).ToString();
-                    this.apellidoDb = filas.GetString(3).ToString();
-                    this.tipoMembresiaDb = filas.GetString(5).ToString();
-                    this.fechaAltaDb = filas.GetString(6).ToString();
+                    this.nombreDb = filas.GetString(2);
+                    this.apellidoDb = filas.GetString(3);
+                    this.tipoMembresiaDb = filas.GetString(5);
+                    this.fechaAltaMembresiaDb = filas.GetString(6);
+                    this.fechaAltaClienteDb = filas.GetString(7);
+                    this.fechaAltaCliente = Convert.ToDateTime(fechaAltaClienteDb);
+                    this.fechaAltaClienteDb = this.fechaAltaCliente.Day + "/" + this.fechaAltaCliente.Month + "/" + this.fechaAltaCliente.Year;
                     this.query = "SELECT DuracionMembresia FROM Membresias WHERE Tipo_de_membresia='" + this.tipoMembresiaDb + "'";
                     this.resConsult=consultaMembresia.Select(query, 1);
                     this.resConsult = this.resConsult.TrimEnd(',');
-                    this.fechaVencimiento = Convert.ToDateTime(this.fechaAltaDb);
+                    this.fechaVencimiento = Convert.ToDateTime(this.fechaAltaMembresiaDb);
                     this.fechaVencimiento = fechaVencimiento.AddDays(Int32.Parse(resConsult));
                     this.fechaActual = DateTime.Now;
                     this.diasRestantes = (fechaVencimiento - fechaActual).Days;
                     this.horasRestantes = (fechaVencimiento - fechaActual).Hours;
-                    if (diasRestantes==0 && horasRestantes==0)
+                    if (diasRestantes<=0 && horasRestantes<=0)
                     {
-                        dtgvClientes.Rows.Add("", "","",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaDb,"Membresia Vencida");
+                        dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaClienteDb,"Membresia Vencida");
                     }
-                    else if (diasRestantes==0 && horasRestantes!=0)
+                    else if (diasRestantes<=0 && horasRestantes>=1)
                     {
-                        dtgvClientes.Rows.Add("", "","",this.imagen,this.nombreDb, this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaDb, "Quedan " + this.horasRestantes.ToString() + " horas para el vencimiento de la membresia");
+                        dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb, this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaClienteDb, "Quedan " + this.horasRestantes.ToString() + " horas para el vencimiento de la membresia");
                     }
                     else
                     {
-                        dtgvClientes.Rows.Add("", "","",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb, this.fechaAltaDb,this.diasRestantes.ToString() + " días");
+                        dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb, this.fechaAltaClienteDb,this.diasRestantes.ToString() + " días");
                     }
                     
                 }
@@ -142,12 +147,12 @@ namespace Vampiro_Gym
             {
                 if (this.dtgvClientes.Columns[e.ColumnIndex].Name == "edit")
                 {
-                    this.imagenData = dtgvClientes.Rows[n].Cells[3] as DataGridViewImageCell;
+                    this.imagenData = dtgvClientes.Rows[n].Cells[2] as DataGridViewImageCell;
                     this.imageArray = (Bitmap)imagenData.Value;
                     imagenCliente = byteArrayToImage(this.imageArray);
-                    this.nombre = dtgvClientes.Rows[n].Cells[4].Value.ToString();
-                    this.apellido = dtgvClientes.Rows[n].Cells[5].Value.ToString();
-                    this.tipoMembresia = dtgvClientes.Rows[n].Cells[6].Value.ToString();
+                    this.nombre = dtgvClientes.Rows[n].Cells[3].Value.ToString();
+                    this.apellido = dtgvClientes.Rows[n].Cells[4].Value.ToString();
+                    this.tipoMembresia = dtgvClientes.Rows[n].Cells[5].Value.ToString();
                     formMembresia editaValor = new formMembresia("edicion",imagenCliente,this.nombre,this.apellido,this.tipoMembresia);
                     editaValor.ShowDialog();
                     if (formMembresia.operacionExitosa)
@@ -177,27 +182,6 @@ namespace Vampiro_Gym
                             CargaDatos();
                         }
                     }
-                }
-
-                if (this.dtgvClientes.Columns[e.ColumnIndex].Name=="report")
-                {
-                    this.nombre = dtgvClientes.Rows[n].Cells[4].Value.ToString();
-                    this.apellido = dtgvClientes.Rows[n].Cells[5].Value.ToString();
-                    this.tipoMembresia = dtgvClientes.Rows[n].Cells[6].Value.ToString();
-                    this.miembroDesde = dtgvClientes.Rows[n].Cells[7].Value.ToString();
-                    this.remainingDays = dtgvClientes.Rows[n].Cells[8].Value.ToString();
-                    this.remainingDays = this.remainingDays.Substring(0, 2); //Validar 
-                    this.diasRestantes = Int32.Parse(this.remainingDays);
-                    this.fechaVencimiento = Convert.ToDateTime(this.miembroDesde);
-                    this.fechaVencimiento = this.fechaVencimiento.AddDays(this.diasRestantes + 1);
-                    this.datosReporte = new string[5];
-                    this.datosReporte[0] = this.nombre;
-                    this.datosReporte[1] = this.apellido;
-                    this.datosReporte[2] = this.tipoMembresia;
-                    this.datosReporte[3] = this.miembroDesde;
-                    this.datosReporte[4] = this.fechaVencimiento.ToString();
-                    Utilerias reporte = new Utilerias();
-                    reporte.ReportePdfIndividual("clientes", this.nombre + " " + this.apellido,"Información de " + this.nombre + " " + this.apellido,"Vampiro Gym",this.datosReporte);
                 }
             }
             else

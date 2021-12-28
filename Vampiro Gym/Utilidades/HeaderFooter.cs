@@ -21,11 +21,21 @@ namespace Vampiro_Gym
         }
         public override void OnEndPage(PdfWriter writer, Document document)
         {
-            //Begin Image
+            PdfContentByte cb = writer.DirectContentUnder;
+            //Begin Image logo
             Image logo = Image.GetInstance(this.pathImage);
             logo.SetAbsolutePosition(Utilerias.document.LeftMargin, writer.PageSize.GetTop(Utilerias.document.TopMargin) + 2);
             logo.ScaleAbsolute(30f, 30f);
-            //End Image
+            //End Image logo
+
+            //Begin background Image
+            Image imageBG = Image.GetInstance(this.pathImage);
+            imageBG.SetAbsolutePosition(100f, 100f);
+            PdfGState state = new PdfGState();
+            state.FillOpacity = 0.3f;
+            cb.SetGState(state);
+            cb.AddImage(imageBG);
+            //End background image
 
             //base.OnEndPage(writer, document);
             PdfPTable tbHeader = new PdfPTable(3);

@@ -134,6 +134,8 @@
     <Compile Include="SDKs Lectores\LectorZKTecok30.cs" />
     <Compile Include="SDKs Lectores\SupportBiometricType.cs" />
     <Compile Include="Utilidades\BitmapFormat.cs" />
+    <Compile Include="Utilidades\ClientesNuevos.cs" />
+    <Compile Include="Utilidades\ClientesProximosVencer.cs" />
     <Compile Include="Utilidades\comboBoxCustomized.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -207,7 +209,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilidades\historialMembresias.cs" />
+    <Compile Include="Utilidades\membershipTypes.cs" />
     <Compile Include="Utilidades\MessageManager.cs" />
+    <Compile Include="Utilidades\RegistrosVisita.cs" />
+    <Compile Include="Utilidades\SoldMemberships.cs" />
     <Compile Include="Utilidades\Utilities.cs" />
     <EmbeddedResource Include="Forms\addingMembreshipForm.resx">
       <DependentUpon>addingMembreshipForm.cs</DependentUpon>
@@ -293,6 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Librerias\libzkfv.dll" />
+    <None Include="Resources\logo.png" />
     <None Include="Resources\calendar.png" />
     <None Include="Resources\calendar.ico" />
     <None Include="Resources\delete.ico" />

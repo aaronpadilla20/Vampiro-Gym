@@ -87,12 +87,13 @@ namespace Vampiro_Gym
 
         private void registroDeHuella_Click(object sender, EventArgs e)
         {
-            RegistroDeHuella registroWindow = new RegistroDeHuella();
+            registroHuellaTextBox.Text = "Huella Registrada";
+            /*RegistroDeHuella registroWindow = new RegistroDeHuella();
             registroWindow.ShowDialog();
             if (RegistroDeHuella.registrada)
             {
                 registroHuellaTextBox.Text = "Huella Registrada";
-            }
+            }*/
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -108,15 +109,21 @@ namespace Vampiro_Gym
                             if (!registroHuellaTextBox.Text.Contains("No registrado"))
                             {
                                 this.imagen = ConvertirImg(imageCliente.Image);
-                                this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                                 switch (this.ventanaTipo)
                                 {
                                     case "alta":
-                                       
-                                        operacionExitosa = NuevoCliente();
+                                        this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                                        operacionExitosa = NuevoCliente(this.fechaAlta);
                                         if (!operacionExitosa)
                                         {
                                             MessageBox.Show("Se presento un problema durante el enrolamiento del usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;    
+                                        }
+                                        operacionExitosa = AgregaHistorial(fechaAlta);
+                                        if(!operacionExitosa)
+                                        {
+                                            MessageBox.Show("Se presento un problema durante el enrolamiento del usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
                                         }
                                         else
                                         {
@@ -125,10 +132,18 @@ namespace Vampiro_Gym
                                         break;
 
                                     case "edicion":
-                                        operacionExitosa = EdicionCliente();
+                                        string fecha = DateTime.Now.ToString("dd / MM / yyyy HH: mm:ss");
+                                        operacionExitosa = EdicionCliente(fecha);
                                         if (!operacionExitosa)
                                         {
                                             MessageBox.Show("Se presento un problema al actualizar la informacion del cliente intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
+                                        }
+                                        operacionExitosa = AgregaHistorial(fecha);
+                                        if(!operacionExitosa)
+                                        {
+                                            MessageBox.Show("Se presento un problema al actualizar la informacion del cliente intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
                                         }
                                         else
                                         {
@@ -165,8 +180,22 @@ namespace Vampiro_Gym
            
         }
 
-        private bool NuevoCliente()
+        private bool AgregaHistorial(string fechaAlta)
         {
+            dataBaseControl dataBaseQuery = new dataBaseControl();
+            DateTime fechaVencimiento = Convert.ToDateTime(fechaAlta);
+            this.query = "SELECT DuracionMembresia FROM Membresias WHERE Tipo_de_membresia='" + tipoMembresiasComboBox.Text + "'";
+            string resQuery = dataBaseQuery.Select(query, 1);
+            resQuery = resQuery.TrimEnd(',');
+            int membershipDuration = Int32.Parse(resQuery);
+            fechaVencimiento = fechaVencimiento.AddDays(membershipDuration);
+            this.query = "INSERT INTO Historico_Membresias(Fecha_alta_membresia,Tipo_de_membresia,Fecha_vencimiento_membresia,Nombre_Cliente,Apellido_Cliente) VALUES (@fechaAlta,@tipoMembresia,@fechaVencimiento,@nombre,@apellido)";
+            return dataBaseQuery.InsertNewHistoricalData(query, fechaAlta, tipoMembresiasComboBox.Text, fechaVencimiento.ToString(), nombreTextBox.Text, apellidoTextBox.Text);
+        }
+
+        private bool NuevoCliente(string fechaAlta)
+        {
+            /*
             int res = 0;
             LectorZKTecok30 lector = new LectorZKTecok30();
             while (res != 1)
@@ -200,14 +229,17 @@ namespace Vampiro_Gym
             {
                 return false;
             }
-
-            this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAlta)";
+            */
+            MessageBox.Show(fechaAlta);
+            this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia,Fecha_de_alta_cliente) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAltaMembresia,@fechaAltaCliente)";
             dataBaseControl altaCliente = new dataBaseControl();
-            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta);
+            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, "Prueba", tipoMembresiasComboBox.Text, fechaAlta);
+            //return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta);
         }
 
-        private bool EdicionCliente()
+        private bool EdicionCliente(string fechaNueva)
         {
+            /*
             int res = 0;
             LectorZKTecok30 lector = new LectorZKTecok30();
             while (res != 1)
@@ -238,7 +270,8 @@ namespace Vampiro_Gym
                 }
             }
             lector.SetFingerPrintTemplate(customerID, fingerPrint);
-            string fechaNueva = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            */
+            MessageBox.Show(fechaNueva);
             dataBaseControl updateTable = new dataBaseControl();
             query = "UPDATE Customers SET Tipo_de_membresia='"+tipoMembresiasComboBox.Text+"',Fecha_de_alta_membresia='"+fechaNueva+"' WHERE Nombre='"+nombreTextBox.Text+"'";
             return updateTable.Update(query);

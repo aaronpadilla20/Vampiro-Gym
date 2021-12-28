@@ -36,7 +36,7 @@ namespace Vampiro_Gym.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.fromDate = new Vampiro_Gym.Utilidades.customizedSelectDate();
             this.toDate = new Vampiro_Gym.Utilidades.customizedSelectDate();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.commentsTextBox = new System.Windows.Forms.RichTextBox();
             this.pictureBoxIpl1 = new OpenCvSharp.UserInterface.PictureBoxIpl();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).BeginInit();
@@ -52,7 +52,7 @@ namespace Vampiro_Gym.Forms
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.fromDate, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.toDate, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.commentsTextBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.pictureBoxIpl1, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -126,14 +126,14 @@ namespace Vampiro_Gym.Forms
             this.toDate.TabIndex = 4;
             this.toDate.TextColor = System.Drawing.Color.Black;
             // 
-            // richTextBox1
+            // commentsTextBox
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(149, 129);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(368, 57);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
+            this.commentsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commentsTextBox.Location = new System.Drawing.Point(149, 129);
+            this.commentsTextBox.Name = "commentsTextBox";
+            this.commentsTextBox.Size = new System.Drawing.Size(368, 57);
+            this.commentsTextBox.TabIndex = 5;
+            this.commentsTextBox.Text = "";
             // 
             // pictureBoxIpl1
             // 
@@ -169,7 +169,7 @@ namespace Vampiro_Gym.Forms
         private System.Windows.Forms.Label label3;
         private Utilidades.customizedSelectDate fromDate;
         private Utilidades.customizedSelectDate toDate;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox commentsTextBox;
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl1;
     }
 }
