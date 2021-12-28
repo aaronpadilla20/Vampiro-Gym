@@ -213,7 +213,9 @@ namespace Vampiro_Gym.Forms
             this.ClientSize = new System.Drawing.Size(498, 292);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CustomerWIndow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CustomerWIndow";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.CustomerWIndow_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

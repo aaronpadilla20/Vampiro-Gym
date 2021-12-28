@@ -14,6 +14,7 @@ namespace Vampiro_Gym
     public partial class RegistroDeHuella : Form
     {
         Thread capturaHuella;
+        bool editandoHuella;
         private string resultadoOperacion;
         private string resRegistro;
         string resConexionSensor;
@@ -21,8 +22,9 @@ namespace Vampiro_Gym
         public static  bool registrada;
         public static string customerID;
 
-        public RegistroDeHuella()
+        public RegistroDeHuella(bool editandoHuella)
         {
+            this.editandoHuella = editandoHuella;
             InitializeComponent();
         }
 
@@ -64,17 +66,27 @@ namespace Vampiro_Gym
                 string lastCustomerNumber = string.Empty;
                 foreach(string dato in datos)
                 {
-                    lastCustomerNumber = dato;
+                    if (dato != "")
+                    {
+                        lastCustomerNumber = dato;
+                    }
                 }
                 
-                if (lastCustomerNumber.Contains("La consulta"))
+                if (editandoHuella)
                 {
-                    customerID = "1";
+                    customerID = lastCustomerNumber;
                 }
                 else
                 {
-                    int consecutivo = Int32.Parse(lastCustomerNumber) + 1;
-                    customerID = consecutivo.ToString();
+                    if (lastCustomerNumber.Contains("La consulta"))
+                    {
+                        customerID = "1";
+                    }
+                    else
+                    {
+                        int consecutivo = Int32.Parse(lastCustomerNumber) + 1;
+                        customerID = consecutivo.ToString();
+                    }
                 }
                 EstadoConexion.Text = "Huella registrada exitosamente";
                 DialogResult ok = MessageBox.Show("La huella se ha registrado exitosamente, regresando a formulario de registro", "Huella Registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);

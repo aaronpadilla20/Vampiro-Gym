@@ -13,9 +13,9 @@ namespace Vampiro_Gym
         public zkemkeeper.CZKEM lector = new zkemkeeper.CZKEM();
 
         public static bool isConnected = false;
-        public static string fingerPrintTemplate = "";
         private static int iMachineNumber = 1;
         private int idwErrorCode;
+        public static string verifiedCustomerID = "";
 
         private SupportBiometricType _supportBiometricType = new SupportBiometricType();
 
@@ -148,21 +148,13 @@ namespace Vampiro_Gym
 
         private void verificationPassed(string EnrollNumber, int IsInValid, int AttState, int VerifyMethod, int Year, int Month, int Day, int Hour, int Minute, int Second, int WorkCode)
         {
-            lector.PlayVoiceByIndex(0);
             lector.EnableDevice(iMachineNumber, false);
-            fingerPrintTemplate = "";
-            int tempLenght = 0;
-            int flag = 0;
-            lector.GetUserTmpExStr(iMachineNumber, EnrollNumber, 0, out flag, out fingerPrintTemplate, out tempLenght);
+            verifiedCustomerID = EnrollNumber;
         }
 
-        public string getFingerPrintTemplate()
+        public string getVerifiedCustomerID()
         {
-            if (fingerPrintTemplate!="")
-            {
-                fingerPrintTemplate = fingerPrintTemplate.Substring(0,fingerPrintTemplate.Length - 8);
-            }
-            return fingerPrintTemplate;
+            return verifiedCustomerID;
         }
     }
 }

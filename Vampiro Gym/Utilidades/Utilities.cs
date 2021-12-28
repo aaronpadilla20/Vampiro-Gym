@@ -229,12 +229,12 @@ namespace Vampiro_Gym
 
             foreach (RegistrosVisita registro in historialVisitas)
             {
-                string[] datos = registro.getRegistroInfo.Split(',');
-                foreach (string dato in datos)
+                string[] datosVisita = registro.getRegistroInfo.Split(',');
+                foreach (string dato in datosVisita)
                 {
-                    PdfPCell _cell = new PdfPCell(new Paragraph(dato)) { Border = 0, HorizontalAlignment = Element.ALIGN_CENTER };
-                    _cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    table2.AddCell(_cell);
+                    PdfPCell _cellVisit = new PdfPCell(new Paragraph(dato)) { Border = 0, HorizontalAlignment = Element.ALIGN_CENTER };
+                    _cellVisit.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table2.AddCell(_cellVisit);
                 }
             }
             document.Add(table2);
@@ -542,14 +542,19 @@ namespace Vampiro_Gym
                         membershipType = "";
                         registra = false;
                     }
+                    else
+                    {
+                        fechaAlta = new DateTime();
+                        membershipType = "";
+                        registra = false;
+                    }
                 }
             }
-
             if (listVisitas.Count<=0)
             {
                 historialVisitas = false;
             }
-
+ 
             if (!historialMembresias && !historialVisitas) return "No existen elementos a reportar en el periodo de tiempo seleccionado";
             
             System.Drawing.Image imagen = null;

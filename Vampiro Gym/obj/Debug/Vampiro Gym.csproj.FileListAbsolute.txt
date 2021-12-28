@@ -97,3 +97,4 @@ C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro-Gym\Vampiro Gy
 C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.exe
 C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro Gym.pdb
 C:\Users\Aaron\OneDrive\Documentos\WorkSpace\Proyectos C#\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.ChangePassordWindow.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.ChangePassordWindow.resources

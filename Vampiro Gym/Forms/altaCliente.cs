@@ -13,6 +13,8 @@ namespace Vampiro_Gym
 {
     public partial class formMembresia : Form
     {
+        private bool registerUser;
+        private bool edicionHuella;
         private string firstName;
         private string file;
         private string query;
@@ -37,6 +39,8 @@ namespace Vampiro_Gym
             this.nombre = nombre;
             this.apellido = apellido;
             this.tipoMembresia = tipoMembresia;
+            registerUser = false;
+            edicionHuella = false;
         }
 
         private void takePictureButton_Click(object sender, EventArgs e)
@@ -85,15 +89,32 @@ namespace Vampiro_Gym
                 apellidoTextBox.Text = "";
         }
 
-        private void registroDeHuella_Click(object sender, EventArgs e)
+        private void registrandoHuella()
         {
-            registroHuellaTextBox.Text = "Huella Registrada";
-            /*RegistroDeHuella registroWindow = new RegistroDeHuella();
+            RegistroDeHuella registroWindow = new RegistroDeHuella(edicionHuella);
             registroWindow.ShowDialog();
             if (RegistroDeHuella.registrada)
             {
                 registroHuellaTextBox.Text = "Huella Registrada";
-            }*/
+            }
+        }
+
+        private void registroDeHuella_Click(object sender, EventArgs e)
+        {
+            if (ventanaTipo == "edicion")
+            {
+                DialogResult res = MessageBox.Show("¿Desea cambiar la huella dactilar registrada?", "Edicion huella", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
+                {
+                    edicionHuella = true;
+                    registroHuellaTextBox.Text = "Reemplazando huella dactilar";
+                    registrandoHuella();
+                }
+            }
+            else
+            {
+                registrandoHuella();
+            }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -127,7 +148,17 @@ namespace Vampiro_Gym
                                         }
                                         else
                                         {
+                                            registerUser = true;
                                             MessageBox.Show("Cliente dado de alta exitosamente", "Alta Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            DialogResult res = MessageBox.Show("Desea dar de alta un cliente adicional?", "Otro cliente?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                            if (res == DialogResult.Yes)
+                                            {
+                                                registerUser = false;
+                                            }
+                                            if (res ==DialogResult.No)
+                                            {
+                                                this.Close();
+                                            }
                                         }
                                         break;
 
@@ -147,6 +178,7 @@ namespace Vampiro_Gym
                                         }
                                         else
                                         {
+                                            registerUser = true;
                                             MessageBox.Show("Informacion de cliente actualizada correctamente", "Actualizacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                             this.Close();
                                         }
@@ -195,7 +227,6 @@ namespace Vampiro_Gym
 
         private bool NuevoCliente(string fechaAlta)
         {
-            /*
             int res = 0;
             LectorZKTecok30 lector = new LectorZKTecok30();
             while (res != 1)
@@ -229,17 +260,13 @@ namespace Vampiro_Gym
             {
                 return false;
             }
-            */
-            MessageBox.Show(fechaAlta);
             this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia,Fecha_de_alta_cliente) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAltaMembresia,@fechaAltaCliente)";
             dataBaseControl altaCliente = new dataBaseControl();
-            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, "Prueba", tipoMembresiasComboBox.Text, fechaAlta);
-            //return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta);
+            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta);
         }
 
         private bool EdicionCliente(string fechaNueva)
         {
-            /*
             int res = 0;
             LectorZKTecok30 lector = new LectorZKTecok30();
             while (res != 1)
@@ -269,11 +296,18 @@ namespace Vampiro_Gym
                     continue;
                 }
             }
-            lector.SetFingerPrintTemplate(customerID, fingerPrint);
-            */
-            MessageBox.Show(fechaNueva);
             dataBaseControl updateTable = new dataBaseControl();
-            query = "UPDATE Customers SET Tipo_de_membresia='"+tipoMembresiasComboBox.Text+"',Fecha_de_alta_membresia='"+fechaNueva+"' WHERE Nombre='"+nombreTextBox.Text+"'";
+            if (edicionHuella)
+            {
+                lector.DelFingerPrintTemplate(customerID);
+                query = "UPDATE Customers SET Tipo_de_membresia='" + tipoMembresiasComboBox.Text + "',Fecha_de_alta_membresia='" + fechaNueva + "',Huella_dactilar='" + RegistroDeHuella.fingerPrintTemplate + "' WHERE Nombre='" + nombreTextBox.Text + "'";
+                lector.SetFingerPrintTemplate(customerID, RegistroDeHuella.fingerPrintTemplate);
+            }
+            else
+            {
+                query = "UPDATE Customers SET Tipo_de_membresia='" + tipoMembresiasComboBox.Text + "',Fecha_de_alta_membresia='" + fechaNueva + "' WHERE Nombre='" + nombreTextBox.Text + "'";
+                lector.SetFingerPrintTemplate(customerID, fingerPrint);
+            }
             return updateTable.Update(query);
         }
 
@@ -330,8 +364,8 @@ namespace Vampiro_Gym
             apellidoTextBox.Enabled = false;
             tipoMembresiasComboBox.SelectedItem = this.tipoMembresia;
             registroHuellaTextBox.Text = "Registrado";
-            registroHuellaTextBox.Enabled = false;
-            fingerPrintButton.Visible = false;
+            registroHuellaTextBox.Enabled = true;
+            fingerPrintButton.Visible =true;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -370,6 +404,18 @@ namespace Vampiro_Gym
                     break;
             }
             this.ActiveControl = imageCliente;
+        }
+
+        private void formMembresia_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (registerUser == false)
+            {
+                DialogResult res = MessageBox.Show("El cliente aun no ha sido registrado, ¿Desea aborta el registro del cliente?", "Toma de decision", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

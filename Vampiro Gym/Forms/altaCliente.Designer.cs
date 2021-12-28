@@ -418,6 +418,7 @@ namespace Vampiro_Gym
             this.Name = "formMembresia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form4";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formMembresia_FormClosing);
             this.Load += new System.EventHandler(this.formMembresia_Load);
             this.panelPadreFotoRegistro.ResumeLayout(false);
             this.tableLayoutPadre.ResumeLayout(false);

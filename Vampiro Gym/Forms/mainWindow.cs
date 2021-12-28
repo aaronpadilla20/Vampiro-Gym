@@ -62,7 +62,7 @@ namespace Vampiro_Gym
 
         private void formMain_Load(object sender, EventArgs e)
         {
-            //Eliminar despues de validar
+            /*Eliminar despues de validar
             string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
             try
             {
@@ -75,7 +75,7 @@ namespace Vampiro_Gym
                 }
             }
             catch (Exception err) { }
-            //END
+            END*/
             if (loginWindow.tipoUsuario == "Administrador")
                 usuariosButton.Enabled = true;
             Thread hiloLector = new Thread(new ThreadStart(verificaHuella));
@@ -84,7 +84,7 @@ namespace Vampiro_Gym
            
         }
 
-        private void verificaHuella()
+        private async void verificaHuella()
         {
             int ret = 0;
             LectorZKTecok30 lector = new LectorZKTecok30();
@@ -97,9 +97,9 @@ namespace Vampiro_Gym
                 {
                     while (true)
                     {
-                        if (lector.getFingerPrintTemplate() != "")
+                        if (lector.getVerifiedCustomerID() != "")
                         {
-                            showCustomer();
+                            await showCustomer();
                         }
                     }
                 }
@@ -114,14 +114,14 @@ namespace Vampiro_Gym
             }
         }
 
-        private void showCustomer()
+        private async Task showCustomer()
         {
             Image imagen = null;
             string name = "";
             string lastName = "";
             string membershipType = "";
             string startDate = "";
-            string query = "SELECT Fotografia,Nombre,Apellido,Tipo_de_membresia,Fecha_de_alta_membresia FROM Customers WHERE Huella_dactilar='" + LectorZKTecok30.fingerPrintTemplate + "'";
+            string query = "SELECT Fotografia,Nombre,Apellido,Tipo_de_membresia,Fecha_de_alta_membresia FROM Customers WHERE NoCliente=" + LectorZKTecok30.verifiedCustomerID;
             try
             {
                 SqlCommand command = new SqlCommand(query, dataBaseControl.connection);
@@ -136,8 +136,8 @@ namespace Vampiro_Gym
                 }
                 if (imagen!=null && name!="" && lastName!="" && membershipType!="" && startDate != "")
                 {
-                    Thread showCustomer = new Thread(new ThreadStart(() => showWindow(imagen, name, lastName, membershipType, startDate)));
-                    showCustomer.Start();
+                    await Task.Run(()=>showWindow(imagen, name, lastName, membershipType, startDate));
+                    LectorZKTecok30.verifiedCustomerID = "";
                 }
             }
             catch(Exception err)
@@ -148,7 +148,8 @@ namespace Vampiro_Gym
 
         private void showWindow(Image imagen, string name, string lastName, string membershipType,string startDate)
         {
-            string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+            MessageBox.Show(now);
             dataBaseControl insertNewRegister = new dataBaseControl();
             string query = "INSERT INTO Historico_Visitas (Fecha_de_visita,Nombre,Apellido,Tipo_de_membresia) VALUES ('" + now + "','" + name + "','" + lastName + "','" + membershipType + "')";
             bool resQuery = insertNewRegister.Insert(query);
@@ -159,6 +160,8 @@ namespace Vampiro_Gym
             }
             Vampiro_Gym.Forms.CustomerWIndow showCustomer = new Forms.CustomerWIndow(imagen,name,lastName,membershipType,startDate);
             showCustomer.ShowDialog();
+        
+        
         }
 
         private void reportesButton_Click(object sender, EventArgs e)

@@ -32,7 +32,7 @@ namespace Vampiro_Gym.Forms
             {
                 this.Close();
             };
-            tmr.Interval = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
+            tmr.Interval = 5000;
             tmr.Start();
         }
 
@@ -77,7 +77,6 @@ namespace Vampiro_Gym.Forms
                 updateUserButton.Visible = false;
                 deleteUserButton.Visible = false;
             }
-
             this.TopMost = true;
         }
     }
