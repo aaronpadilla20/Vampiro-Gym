@@ -54,14 +54,15 @@ namespace Vampiro_Gym
                 if (!resConexion.Contains("Conexion exitosa"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar conectar con la base de datos: " + resConexion);
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 bool resQuery = conexion.BackUp();
                 if(!resQuery)
                 {
                     MessageBox.Show("Se presento un problema al generar el respaldo de la base de datos, abortando inicialización del sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
+
                 Invoke(new Action(() => progressBar1.Value = 20));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando con mancuernas"));
@@ -75,19 +76,19 @@ namespace Vampiro_Gym
                 if (!resConexionLector.Contains("Inicializacion exitosa"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar inicializar el lector de huellas: " + resConexionLector, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
 
                 string clearIDs = consultaClientes();
                 if (clearIDs.Contains("Error"))
                 {
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 int ret = lectorZKTecok30.ConnectDevice();
                 if (ret!=1)
                 {
                     MessageBox.Show("Se ha presentado un error al conectarse con el dispositivo", "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 if (clearIDs!="")
                 {
@@ -105,7 +106,7 @@ namespace Vampiro_Gym
                 if (!resConexionLector.Contains("Conexion exitos"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar establecer comunicacion con el lector de huellas: " + resConexionLector, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 #endregion
                 
@@ -119,12 +120,12 @@ namespace Vampiro_Gym
                 if (!resConexionLector.Contains("Comunicación cerrada exitosamente"))
                 {
                     MessageBox.Show("Se ha presentado el siguiente error al intentar cerra la comunicación con el sensor de huellas: " + resConexionLector,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 ret = getDeviceInfo();
                 if (ret != 1)
                 {
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 lectorZKTecok30.Disconnect();
                 #endregion
