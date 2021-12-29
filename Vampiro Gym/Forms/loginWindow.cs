@@ -16,6 +16,7 @@ namespace Vampiro_Gym
 
         public static string date;
         public static string usuario;
+        private bool passwordRecuperado;
 
         private const int CAMPOSAOBTENER = 2;
         private const string TABLA = "Usuarios";
@@ -55,6 +56,11 @@ namespace Vampiro_Gym
                     this.password = datos[1];
                     if (this.password == passwordBox.Text)
                     {
+                        if (passwordRecuperado)
+                        {
+                            ChangePassordWindow changePassword = new ChangePassordWindow(userBox.Text, passwordBox.Text);
+                            changePassword.ShowDialog();
+                        }
                         main.Show();
                         this.Close();
                     }
@@ -151,6 +157,74 @@ namespace Vampiro_Gym
                 passwordBox.Text = "";
             }
             passwordBox.UseSystemPasswordChar = true;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (userBox.Text!="" && !userBox.Text.Contains("Ingrese Usuario"))
+            {
+                string query = "SELECT Nombre,Apellido,Correo,Contrasena FROM Usuarios WHERE Usuario ='" + userBox.Text + "'";
+                dataBaseControl customerTableConsult = new dataBaseControl();
+                string resQuery = customerTableConsult.Select(query, 4);
+                string[] datos = resQuery.Split(',');
+                string name = "";
+                string lastName = "";
+                string email = "";
+                string password = "";
+                foreach(string dato in datos)
+                {
+                    if(dato!="")
+                    {
+                        if (!dato.Contains("La consulta"))
+                        {
+                            if (name=="")
+                            {
+                                name = dato;
+                                continue;
+                            }
+
+                            if(lastName == "")
+                            {
+                                lastName = dato;
+                                continue;
+                            }
+
+                            if(email == "")
+                            {
+                                email = dato;
+                                continue;
+                            }
+
+                            if(password == "")
+                            {
+                                password = dato;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No existe información para el usuario ingresado verifiquelo e intentelo nuevamente", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+                var mailService = new SystemSupportMail();
+                mailService.sendMail(
+                    subject: "SISTEMA: Solicitud de recuperación de password",
+                    body: "Hola " + name + " " + lastName + "\n Este es un correo en respuesta a la solicitud de password del sistema de accesos Vampiro Gym.\n" +
+                    "A continuación encontraras la información de tu cuenta: \n" +
+                    "Tu actual constraseña es: " + password +
+                    "\n De cualquier manera, te solicitamos cambies tu password inmediatamente entres al sistema",
+                    recipientMail: new List<string> { email }
+                    );
+                MessageBox.Show("Hola " + name + "\n Tu solicitud de recuperación de password ha sido atendida exitosamente" +
+                    "\n Por favor revisa tu correo " + email +" en caso de no encontrarlo en la bandeja de entrada revisa la bandeja de SPAM" + 
+                    "\n De cualquier manera te solicitamos realices el cambio de tu password una vez entres al sistema", "Contraseña recuperada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                passwordRecuperado = true;
+            }
+            else
+            {
+                MessageBox.Show("Es necesario introducir el nombre de usuario para la recuperación del password", "Usuario no intruducido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Vampiro_Gym.Forms
         private string lastName;
         private string membershipType;
         private string fechaInicio;
+        private System.Windows.Forms.Timer tmr;
 
         public CustomerWIndow(Image imagen,string name, string lastName, string membershipType,string startDate)
         {
@@ -26,6 +27,13 @@ namespace Vampiro_Gym.Forms
             this.lastName = lastName;
             this.membershipType = membershipType;
             this.fechaInicio = startDate;
+            tmr = new System.Windows.Forms.Timer();
+            tmr.Tick += delegate
+            {
+                this.Close();
+            };
+            tmr.Interval = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
+            tmr.Start();
         }
 
         private void CustomerWIndow_Load(object sender, EventArgs e)

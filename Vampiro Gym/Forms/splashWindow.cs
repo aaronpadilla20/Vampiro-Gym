@@ -56,6 +56,12 @@ namespace Vampiro_Gym
                     MessageBox.Show("Se ha presentado el siguiente error al intentar conectar con la base de datos: " + resConexion);
                     Application.Exit();
                 }
+                bool resQuery = conexion.BackUp();
+                if(!resQuery)
+                {
+                    MessageBox.Show("Se presento un problema al generar el respaldo de la base de datos, abortando inicialización del sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
                 Invoke(new Action(() => progressBar1.Value = 20));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando con mancuernas"));

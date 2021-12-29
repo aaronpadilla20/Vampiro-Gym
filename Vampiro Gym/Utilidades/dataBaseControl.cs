@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data;
+using System.IO;
 
 namespace Vampiro_Gym
 {
@@ -26,6 +27,25 @@ namespace Vampiro_Gym
             catch (Exception e)
             {
                 return e.Message;
+            }
+        }
+
+        public bool BackUp()
+        {
+            string ruta = Directory.GetCurrentDirectory();
+            if (!Directory.Exists(ruta + "\\DataBaseBackUp\\")) Directory.CreateDirectory(ruta + "\\DataBaseBackUp\\");
+            var dbName = connection.Database;
+            string nombre_copia = (System.DateTime.Today.Day.ToString() + "-" + System.DateTime.Today.Month.ToString() + "-" + System.DateTime.Today.Year.ToString() + "-" + System.DateTime.Now.Hour.ToString() + "-" + System.DateTime.Now.Minute.ToString() + "-" + System.DateTime.Now.Second.ToString() + "-VampiroGymDataBaseBackup.bak");
+            string query = "BACKUP DATABASE [" + dbName + "] TO DISK = N'"+ ruta + "\\DataBaseBackUp\\" + nombre_copia + "' WITH NOFORMAT, NOINIT, NAME = N'vampiroGym-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            try
+            {
+                this.actualizado = cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception err)
+            {
+                return false;
             }
         }
 

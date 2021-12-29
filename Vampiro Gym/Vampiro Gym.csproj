@@ -96,6 +96,12 @@
     <Compile Include="Forms\addingMembreshipForm.Designer.cs">
       <DependentUpon>addingMembreshipForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ChangePassordWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePassordWindow.Designer.cs">
+      <DependentUpon>ChangePassordWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\clientesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,13 +216,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\historialMembresias.cs" />
+    <Compile Include="Utilidades\MasterEmailServer.cs" />
     <Compile Include="Utilidades\membershipTypes.cs" />
     <Compile Include="Utilidades\MessageManager.cs" />
     <Compile Include="Utilidades\RegistrosVisita.cs" />
     <Compile Include="Utilidades\SoldMemberships.cs" />
+    <Compile Include="Utilidades\SystemSupportMail.cs" />
     <Compile Include="Utilidades\Utilities.cs" />
     <EmbeddedResource Include="Forms\addingMembreshipForm.resx">
       <DependentUpon>addingMembreshipForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangePassordWindow.resx">
+      <DependentUpon>ChangePassordWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\clientesForm.resx">
       <DependentUpon>clientesForm.cs</DependentUpon>
