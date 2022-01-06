@@ -130,6 +130,43 @@ namespace Vampiro_Gym
                             if (!registroHuellaTextBox.Text.Contains("No registrado"))
                             {
                                 this.imagen = ConvertirImg(imageCliente.Image);
+                                DialogResult res = MessageBox.Show("Se dara de alta el cliente " + nombreTextBox.Text + " " + apellidoTextBox.Text + " con una membresia tipo " + tipoMembresiasComboBox.Text + " ¿Esta seguro de darlo de alta de esta manera?","Confirma Alta",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                                if (res == DialogResult.Yes)
+                                {
+                                    string costo = cobro();
+                                    MessageBox.Show("Realice el cobro de la membresia tipo " + tipoMembresiasComboBox.Text + " por la cantidad de " + costo + " pesos y posteriormente de clic en el botón de aceptar", "Realice Cobro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    res = MessageBox.Show("¿Desea modificar el nombre del cliente?", "Modifica Nombre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    if (res == DialogResult.Yes)
+                                    {
+                                        takePictureButton.Enabled = false;
+                                        nombreTextBox.Text = " ";
+                                        apellidoTextBox.Text = " ";
+                                        tipoMembresiasComboBox.Enabled = false;
+                                        fingerPrintButton.Enabled = false;
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        res = MessageBox.Show("¿Desea modificar el tipo de membresia asignada?", "Modifica Membresia", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                        if (res == DialogResult.Yes)
+                                        {
+                                            takePictureButton.Enabled = false;
+                                            nombreTextBox.Enabled = false;
+                                            apellidoTextBox.Enabled = false;
+                                            tipoMembresiasComboBox.SelectedIndex = 0;
+                                            fingerPrintButton.Enabled = false;
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Se ha abortado el registro del cliente", "Registo abortado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            this.Close();
+                                        }
+                                    }
+                                }
                                 switch (this.ventanaTipo)
                                 {
                                     case "alta":
@@ -150,7 +187,7 @@ namespace Vampiro_Gym
                                         {
                                             registerUser = true;
                                             MessageBox.Show("Cliente dado de alta exitosamente", "Alta Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            DialogResult res = MessageBox.Show("Desea dar de alta un cliente adicional?", "Otro cliente?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                            res = MessageBox.Show("Desea dar de alta un cliente adicional?", "Otro cliente?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                             if (res == DialogResult.Yes)
                                             {
                                                 registerUser = false;
@@ -210,6 +247,15 @@ namespace Vampiro_Gym
                 MessageBox.Show("Imposible dar de alta al cliente, es necesario capturar una imagen del cliente");
             }
            
+        }
+
+        private string cobro()
+        {
+            string query = "SELECT Costo FROM Membresias WHERE Tipo_de_membresia='" + tipoMembresiasComboBox.Text + "'";
+            dataBaseControl consultCost = new dataBaseControl();
+            string costo = consultCost.Select(query, 1);
+            costo = costo.TrimEnd(',');
+            return costo;
         }
 
         private bool AgregaHistorial(string fechaAlta)

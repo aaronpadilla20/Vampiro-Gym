@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vampiro Gym", "Vampiro Gym\Vampiro Gym.csproj", "{39D298B3-DC59-4583-B826-44586E91384C}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Vampiro Gym Set Up", "Vampiro Gym Set Up\Vampiro Gym Set Up.vdproj", "{C78053A7-14F4-4032-A27D-FF1757CB7034}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{39D298B3-DC59-4583-B826-44586E91384C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39D298B3-DC59-4583-B826-44586E91384C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39D298B3-DC59-4583-B826-44586E91384C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78053A7-14F4-4032-A27D-FF1757CB7034}.Debug|Any CPU.ActiveCfg = Debug
+		{C78053A7-14F4-4032-A27D-FF1757CB7034}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

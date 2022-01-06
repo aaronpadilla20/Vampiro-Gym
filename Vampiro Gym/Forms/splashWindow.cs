@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.ServiceProcess;
+using System.IO;
 
 namespace Vampiro_Gym
 {
@@ -47,6 +48,27 @@ namespace Vampiro_Gym
         {    
             if (InvokeRequired)
             {
+                bool servicioExiste = verificaServicio("MSSQL$SQLEXPRESS");
+                if (!servicioExiste)
+                {
+                    MessageBox.Show("No es posible inicializar la aplicación debido a que no cuenta con el servidor SQL 2019 instalado en su equipo de computo, instalelo e intentelo nuevamente");
+                    Environment.Exit(0);
+                }
+                bool servicioDetenido = stopService("MSSQL$SQLEXPRESS");
+                if(!servicioDetenido)
+                {
+                    Environment.Exit(0);
+                }
+                bool servicioIniciado = startService("MSSQL$SQLEXPRESS");
+                if(!servicioIniciado)
+                {
+                    Environment.Exit(0);
+                }
+                if(!File.Exists("C:\\Program Files\\Microsoft SQL Server\\MSSQL15.SQLEXPRESS\\MSSQL\\DATA\\vampiroGym.mdf"))
+                {
+                    bool dbAgregada = addDataBase();
+                    if (!dbAgregada) Environment.Exit(0);
+                }
                 Invoke(new Action(() => this.Show()));
                 Invoke(new Action(() => instructionLabel.Text = "Calentando"));
                 dataBaseControl conexion = new dataBaseControl();
@@ -66,7 +88,7 @@ namespace Vampiro_Gym
                 Invoke(new Action(() => progressBar1.Value = 20));
                 Thread.Sleep(1000);
                 Invoke(new Action(() => instructionLabel.Text = "Ejercitando con mancuernas"));
-
+                
                 #region --REGION DE INICIALIZACION DE LECTORES DE HUELLA --
                
                 RegistroDeHuella conexionLector = new RegistroDeHuella(false);
@@ -75,7 +97,7 @@ namespace Vampiro_Gym
                 string resConexionLector = conexionLector.InitializeDevice(); //Realiza conexion con el lector de huellas
                 if (!resConexionLector.Contains("Inicializacion exitosa"))
                 {
-                    MessageBox.Show("Se ha presentado el siguiente error al intentar inicializar el lector de huellas: " + resConexionLector, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Se ha presentado el siguiente error al intentar inicializar el lector de huellas ZKTeco SLK20R: " + resConexionLector, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Environment.Exit(0);
                 }
 
@@ -87,7 +109,7 @@ namespace Vampiro_Gym
                 int ret = lectorZKTecok30.ConnectDevice();
                 if (ret!=1)
                 {
-                    MessageBox.Show("Se ha presentado un error al conectarse con el dispositivo", "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Se ha presentado un error al conectarse con el dispositivo ZKTecok30", "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     Environment.Exit(0);
                 }
                 if (clearIDs!="")
@@ -138,6 +160,76 @@ namespace Vampiro_Gym
             }
         }
 
+        private bool verificaServicio(string serviceName)
+        {
+            return ServiceController.GetServices().Any(serviceController => serviceController.ServiceName.Equals(serviceName));
+        }
+
+        private bool addDataBase()
+        {
+            string path = Directory.GetCurrentDirectory();
+            try
+            {
+                File.Copy(path + "\\vampiroGym.mdf", "C:\\Program Files\\Microsoft SQL Server\\MSSQL15.SQLEXPRESS\\MSSQL\\DATA\\vampiroGym.mdf");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se ha presentado el siguiente error al intentar descargar la base de datos a la ruta 'C:\\Program Files\\Microsoft SQL Server\\MSSQL15.SQLEXPRESS\\MSSQL\\DATA\\ : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private bool stopService(string serviceName)
+        {
+            ServiceController sc = new ServiceController();
+            sc.ServiceName = serviceName;
+
+            if(sc.Status == ServiceControllerStatus.Running)
+            {
+                try
+                {
+                    sc.Stop();
+                    sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                    return true;
+                }
+                catch(Exception err)
+                {
+                    MessageBox.Show("Se ha presentado el siguiente error al intentar detener el servicio " + serviceName + ": " + err.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return false;
+
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool startService(string serviceName)
+        {
+            ServiceController sc = new ServiceController();
+            sc.ServiceName = serviceName;
+
+            if(sc.Status == ServiceControllerStatus.Stopped)
+            {
+                try
+                {
+                    sc.Start();
+                    sc.WaitForStatus(ServiceControllerStatus.Running);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Se ha producido el siguiente error al intentar inicializar el servicio " + serviceName + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
         private string consultaClientes()
         {
             string customerIDs = "";

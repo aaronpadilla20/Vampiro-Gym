@@ -32,11 +32,9 @@ namespace Vampiro_Gym
 
         public bool BackUp()
         {
-            string ruta = Directory.GetCurrentDirectory();
-            if (!Directory.Exists("C:\\VampiroGym\\DataBase BackUp\\")) Directory.CreateDirectory("C:\\VampiroGym\\DataBase BackUp\\");
             var dbName = connection.Database;
             string nombre_copia = (System.DateTime.Today.Day.ToString() + "-" + System.DateTime.Today.Month.ToString() + "-" + System.DateTime.Today.Year.ToString() + "-" + System.DateTime.Now.Hour.ToString() + "-" + System.DateTime.Now.Minute.ToString() + "-" + System.DateTime.Now.Second.ToString() + "-VampiroGymDataBaseBackup.bak");
-            string query = "BACKUP DATABASE [" + dbName + "] TO DISK = N'C:\\VampiroGym\\DataBase BackUp\\" + nombre_copia + "' WITH NOFORMAT, NOINIT, NAME = N'vampiroGym-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+            string query = "BACKUP DATABASE [" + dbName + "] TO DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL15.SQLEXPRESS\\MSSQL\\Backup\\" + nombre_copia + "' WITH NOFORMAT, NOINIT, NAME = N'vampiroGym-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
             SqlCommand cmd = new SqlCommand(query, connection);
             try
             {
