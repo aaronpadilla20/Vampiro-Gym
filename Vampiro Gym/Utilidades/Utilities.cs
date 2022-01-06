@@ -262,8 +262,16 @@ namespace Vampiro_Gym
                 {
                     if (tipoMembresia=="")
                     {
-                        tipoMembresia = dato;
-                        continue;
+                        try
+                        {
+                            DateTime esFecha = Convert.ToDateTime(dato);
+                            continue;
+                        }
+                        catch
+                        {
+                            tipoMembresia = dato;
+                            continue;
+                        }
                     }
 
                     if(fechaAlta==new DateTime())
@@ -284,21 +292,27 @@ namespace Vampiro_Gym
             float membershipCost = 0;
             float totalCost = 0;
             string lastMembershipType = "";
+            List<string> membresiasIngresadas = new List<string>();
             List<SoldMemberships> listMembership = new List<SoldMemberships>();
             foreach(membershipTypes membershipType in listMembershipType)
             {
                 if (lastMembershipType!=membershipType.getMembershipTypeInfo)
                 {
-                    membershipQuantity = listMembershipType.Where(x => x.getMembershipTypeInfo == membershipType.getMembershipTypeInfo).Count();
-                    string membershipTableQuery = "SELECT Costo FROM Membresias WHERE Tipo_de_membresia = '" + membershipType.getMembershipTypeInfo + "'";
-                    dataBaseControl consultMembershipTable = new dataBaseControl();
-                    string resMembershipQuery = consultMembershipTable.Select(membershipTableQuery, 1);
-                    resMembershipQuery = resMembershipQuery.TrimEnd(',');
-                    membershipCost = float.Parse(resMembershipQuery);
-                    totalCost = membershipQuantity * membershipCost;
-                    lastMembershipType = membershipType.getMembershipTypeInfo;
-                    SoldMemberships newMembershipType = new SoldMemberships(membershipType.getMembershipTypeInfo, membershipCost.ToString(), membershipQuantity.ToString(), totalCost.ToString());
-                    listMembership.Add(newMembershipType);
+                    bool elementoRegistrado = membresiasIngresadas.Any(x => x == membershipType.getMembershipTypeInfo);
+                    if (!elementoRegistrado)
+                    {
+                        membresiasIngresadas.Add(membershipType.getMembershipTypeInfo);
+                        membershipQuantity = listMembershipType.Where(x => x.getMembershipTypeInfo == membershipType.getMembershipTypeInfo).Count();
+                        string membershipTableQuery = "SELECT Costo FROM Membresias WHERE Tipo_de_membresia = '" + membershipType.getMembershipTypeInfo + "'";
+                        dataBaseControl consultMembershipTable = new dataBaseControl();
+                        string resMembershipQuery = consultMembershipTable.Select(membershipTableQuery, 1);
+                        resMembershipQuery = resMembershipQuery.TrimEnd(',');
+                        membershipCost = float.Parse(resMembershipQuery);
+                        totalCost = membershipQuantity * membershipCost;
+                        lastMembershipType = membershipType.getMembershipTypeInfo;
+                        SoldMemberships newMembershipType = new SoldMemberships(membershipType.getMembershipTypeInfo, membershipCost.ToString(), membershipQuantity.ToString(), totalCost.ToString());
+                        listMembership.Add(newMembershipType);
+                    }
                 }
             }
 
