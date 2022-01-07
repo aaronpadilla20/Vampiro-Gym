@@ -19,6 +19,7 @@ namespace Vampiro_Gym
         public static Document document;
         private bool GenerateGeneralPDF(List<SoldMemberships> listSoldMemberships, List<ClientesProximosVencer> listCustomersCloseToEnd, List<ClientesNuevos> listNewCustomers,DateTime fromDate, DateTime toDate, string comments)
         {
+            List<SoldMemberships> listSoldMembershipsWithoutDuplicates = listSoldMemberships.Distinct().ToList();
             string tipoReporte = "";
             string ruta = Directory.GetCurrentDirectory();
             string archivo = "Reporte general_" + DateTime.Now.ToString("dd_MM_yyyy") + ".pdf";
@@ -69,7 +70,8 @@ namespace Vampiro_Gym
             table.AddCell(cantidadMembresiasVendidas);
             table.AddCell(gananciaTotal);
 
-            foreach(SoldMemberships soldMembershipValue in listSoldMemberships)
+
+            foreach(SoldMemberships soldMembershipValue in listSoldMembershipsWithoutDuplicates)
             {
                 string[] datos = soldMembershipValue.getSoldMembershipsInfo.Split(',');
                 foreach(string dato in datos)

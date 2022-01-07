@@ -57,7 +57,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3DBC205621974DF1A02C4006C0B7D94B"
+        "MsmKey" = "8:_5FD1D7C21B0E4168B98AEAC5F61193AB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -375,9 +375,9 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3DBC205621974DF1A02C4006C0B7D94B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5FD1D7C21B0E4168B98AEAC5F61193AB"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\..\\..\\Downloads\\logo.png"
+            "SourcePath" = "8:..\\..\\logo.png"
             "TargetName" = "8:logo.png"
             "Tag" = "8:"
             "Folder" = "8:_D9091157809C4534BE8207A60985D252"
