@@ -197,6 +197,7 @@ namespace Vampiro_Gym
                                             res = MessageBox.Show("Desea dar de alta un cliente adicional?", "Otro cliente?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                             if (res == DialogResult.Yes)
                                             {
+                                                clearWindow();
                                                 registerUser = false;
                                             }
                                             if (res ==DialogResult.No)
@@ -254,6 +255,18 @@ namespace Vampiro_Gym
                 MessageBox.Show("Imposible dar de alta al cliente, es necesario capturar una imagen del cliente");
             }
            
+        }
+
+        private void clearWindow()
+        {
+            imageCliente.Image = Properties.Resources.noPhotoAvailable;
+            takePictureButton.Enabled = true;
+            nombreTextBox.Text = "Nombre(s):";
+            apellidoTextBox.Text = "Apellido:";
+            tipoMembresiasComboBox.SelectedIndex = 0;
+            registroHuellaTextBox.Text = "No registrado";
+            fingerPrintButton.Enabled = true;
+            RegistroDeHuella.fingerPrintTemplate = null;
         }
 
         private string cobro()

@@ -52,7 +52,7 @@ namespace Vampiro_Gym
             {
                 tipoReporte = "Rango no especificado";
             }
-            pw.PageEvent = new HeaderFooter("Reporte General " + tipoReporte, "Vampiro Gym", "Resources\\logo.png");
+            pw.PageEvent = new HeaderFooter("Reporte General " + tipoReporte, "Vampiro Gym", ruta + "\\Resources\\logo.png");
             document.Open();
             Paragraph soldMembership = new Paragraph("MEMBRESIAS VENDIDAS EN EL PERIODO");
             soldMembership.SpacingAfter = 20;
@@ -162,7 +162,7 @@ namespace Vampiro_Gym
             FileStream fs = new FileStream(ruta + "\\Reportes\\Clientes\\" + archivo, FileMode.Create);
             document = new Document(iTextSharp.text.PageSize.LETTER, 30f, 20f, 50f, 40f);
             PdfWriter pw = PdfWriter.GetInstance(document, fs);
-            pw.PageEvent = new HeaderFooter("Reporte de cliente", "Vampiro Gym","Resources\\logo.png");
+            pw.PageEvent = new HeaderFooter("Reporte de cliente", "Vampiro Gym",ruta + "\\Resources\\logo.png");
             PdfWriter imageW = PdfWriter.GetInstance(document, new FileStream("image.pdf", FileMode.Create));
             document.Open();
             iTextSharp.text.Image customerImage = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Jpeg);

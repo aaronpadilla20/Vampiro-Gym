@@ -62,20 +62,6 @@ namespace Vampiro_Gym
 
         private void formMain_Load(object sender, EventArgs e)
         {
-            /*Eliminar despues de validar
-            string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
-            try
-            {
-                dataBaseControl insertNewRegister = new dataBaseControl();
-                string query = "INSERT INTO Historico_Visitas (Fecha_de_visita,Nombre,Apellido,Tipo_de_membresia) VALUES ('" + now + "','Aaron Jesus','Padilla Ramirez','Mensual')";
-                bool resQuery = insertNewRegister.Insert(query);
-                if (!resQuery)
-                {
-                    MessageBox.Show("Se ha presentado un problema al crear el nuevo registro de visita", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception err) { }
-            END*/
             if (loginWindow.tipoUsuario == "Administrador")
                 usuariosButton.Enabled = true;
             Thread hiloLector = new Thread(new ThreadStart(verificaHuella));
@@ -149,7 +135,6 @@ namespace Vampiro_Gym
         private void showWindow(Image imagen, string name, string lastName, string membershipType,string startDate)
         {
             string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
-            MessageBox.Show(now);
             dataBaseControl insertNewRegister = new dataBaseControl();
             string query = "INSERT INTO Historico_Visitas (Fecha_de_visita,Nombre,Apellido,Tipo_de_membresia) VALUES ('" + now + "','" + name + "','" + lastName + "','" + membershipType + "')";
             bool resQuery = insertNewRegister.Insert(query);

@@ -40,50 +40,23 @@ namespace Vampiro_Gym
 
         private void CaptureCameraCallback()
         {
-            try
-            {
-                while(true)
-                {
-                    frame = new Mat();
-                    capture = new VideoCapture();
-                    capture.Open(0);
+            frame = new Mat();
+            capture = new VideoCapture();
+            capture.Open(1);
 
-                    if (capture.IsOpened())
-                    {
-                        button1.Text = "Detener";
-                        button2.Text = "Guardar";
-                        isCameraRunning = true;
-                        Thread.Sleep(1000);
-                        while (isCameraRunning)
-                        {
-                            capture.Read(frame);
-                            image = BitmapConverter.ToBitmap(frame);
-                            if (pictureBox1.Image != null)
-                            {
-                                pictureBox1.Image.Dispose();
-                            }
-                            pictureBox1.Image = image;
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        DialogResult res = MessageBox.Show("¿Tiene conectada una web cam a la PC?", "Verificando Conexion de web cam", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (res == DialogResult.Yes)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Imposible capturar imagen en tiempo real si no tiene conectada una web cam, cerrando ventana", "Cerrando", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
+            if (capture.IsOpened())
             {
-                MessageBox.Show("Imposible inicializar web cam, verifique que tenga conectada una al sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Thread.Sleep(1000);
+                while (isCameraRunning)
+                {
+                    capture.Read(frame);
+                    image = BitmapConverter.ToBitmap(frame);
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                    }
+                    pictureBox1.Image = image;
+                }
             }
         }
 
@@ -92,6 +65,9 @@ namespace Vampiro_Gym
             if (button1.Text.Equals("Tomar Foto"))
             {
                 CaptureCamera();
+                button1.Text = "Detener";
+                button2.Text = "Guardar";
+                isCameraRunning = true;
             }
             else
             {
