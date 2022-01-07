@@ -70,91 +70,99 @@ namespace Vampiro_Gym
                     emailValido = utilidades.validaEmail(emailBox.Text);
                     if (emailValido)
                     {
-                        if (!passwordBox.Text.Contains("Ingrese Password") && passwordBox.Text != "")
+                        if (!userTextBox.Text.Contains("Ingrese") && userTextBox.Text != "")
                         {
-                            if (!confirmePasswordBox.Text.Contains("Confirme Password") && confirmePasswordBox.Text != "" && passwordBox.Text == confirmePasswordBox.Text)
+                            if (!passwordBox.Text.Contains("Ingrese Password") && passwordBox.Text != "")
                             {
-                                DialogResult res = MessageBox.Show("Se creara un usuario con los siguientes datos:\n" +
-                                    "Tipo de usuario: " + tipoUsuarioCombo.Text + "\n" +
-                                    "Nombre: " + nombreBox.Text + "\n" + 
-                                    "Apellido: " + apellidoTextBox.Text + "\n" +
-                                    "Correo: " + emailBox.Text + "\n" +
-                                    "Password: " + passwordBox.Text + "\n" +
-                                    "¿Esta seguro de crear el usuario con los datos anteriormente especificados?","Confirmacion",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
-                                if (res == DialogResult.Yes)
+                                if (!confirmePasswordBox.Text.Contains("Confirme Password") && confirmePasswordBox.Text != "" && passwordBox.Text == confirmePasswordBox.Text)
                                 {
-                                    datos = new string[] { };
-                                    try
+                                    DialogResult res = MessageBox.Show("Se creara un usuario con los siguientes datos:\n" +
+                                        "Tipo de usuario: " + tipoUsuarioCombo.Text + "\n" +
+                                        "Nombre: " + nombreBox.Text + "\n" +
+                                        "Apellido: " + apellidoTextBox.Text + "\n" +
+                                        "Correo: " + emailBox.Text + "\n" +
+                                        "Usuario: " + userTextBox.Text + "\n" + 
+                                        "Password: " + passwordBox.Text + "\n" +
+                                        "¿Esta seguro de crear el usuario con los datos anteriormente especificados?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                    if (res == DialogResult.Yes)
                                     {
-                                        consult = new dataBaseControl();
-                                        usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
-                                        this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
-                                        this.resultadoConsulta1 = consult.Select(query,1);
-                                        if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
+                                        datos = new string[] { };
+                                        try
                                         {
-                                            this.resultadoConsulta1 = this.resultadoConsulta1.TrimEnd(',');
-                                            datos = resultadoConsulta1.Split(',');
-                                            foreach (string dato in datos)
+                                            consult = new dataBaseControl();
+                                            usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
+                                            this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
+                                            this.resultadoConsulta1 = consult.Select(query, 1);
+                                            if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
                                             {
-                                                this.lastSimilarUser = dato;
-                                            }
-                                            this.query = "SELECT Nombre,Apellido FROM " + TABLA + " WHERE (Nombre='" + nombreBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')"; //Consulta de nombre y apellido
-                                            this.resultadoConsulta2 = consult.Select(query,2); // Realizamos consulta
-                                            if (resultadoConsulta2.Contains("La consulta no genero resultados")) // Si el usuario no existe
-                                            {
-                                                this.m = Regex.Match(this.lastSimilarUser, "(\\d)"); //Verificamos si el usario ya tiene un numero
-                                                num = string.Empty; //Inicializamos variable donde capturaremos numero
-                                                if (m.Success) //Si el usuario ya tiene un numero
+                                                this.resultadoConsulta1 = this.resultadoConsulta1.TrimEnd(',');
+                                                datos = resultadoConsulta1.Split(',');
+                                                foreach (string dato in datos)
                                                 {
-                                                    num = m.Value; //Obtenemos el numero
-                                                    newNum = Int32.Parse(num); //Lo convertimos a int
-                                                    newNum++; //Incrementamos su valor en 1
-                                                    usuario += newNum.ToString(); //Cocatenamos el numero al usuario
+                                                    this.lastSimilarUser = dato;
+                                                }
+                                                this.query = "SELECT Nombre,Apellido FROM " + TABLA + " WHERE (Nombre='" + nombreBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')"; //Consulta de nombre y apellido
+                                                this.resultadoConsulta2 = consult.Select(query, 2); // Realizamos consulta
+                                                if (resultadoConsulta2.Contains("La consulta no genero resultados")) // Si el usuario no existe
+                                                {
+                                                    this.m = Regex.Match(this.lastSimilarUser, "(\\d)"); //Verificamos si el usario ya tiene un numero
+                                                    num = string.Empty; //Inicializamos variable donde capturaremos numero
+                                                    if (m.Success) //Si el usuario ya tiene un numero
+                                                    {
+                                                        num = m.Value; //Obtenemos el numero
+                                                        newNum = Int32.Parse(num); //Lo convertimos a int
+                                                        newNum++; //Incrementamos su valor en 1
+                                                        usuario += newNum.ToString(); //Cocatenamos el numero al usuario
+                                                    }
+                                                    else
+                                                    {
+                                                        usuario += "1";
+                                                    }
+                                                    this.query = "SELECT Correo FROM " + TABLA + " WHERE Correo='" + emailBox.Text + "'";
+                                                    this.resultadoConsulta3 = consult.Select(query, 1);
+                                                    if (resultadoConsulta3.Contains("La consulta no genero resultados"))
+                                                    {
+                                                        RegistraUsuario();
+                                                    }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Imposible crear el usuario debido a que el correo especificado ya esta dado de alta con otro usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    usuario += "1";
-                                                }
-                                                this.query = "SELECT Correo FROM " + TABLA + " WHERE Correo='" + emailBox.Text + "'";
-                                                this.resultadoConsulta3 = consult.Select(query,1);
-                                                if (resultadoConsulta3.Contains("La consulta no genero resultados"))
-                                                {
-                                                    RegistraUsuario();
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Imposible crear el usuario debido a que el correo especificado ya esta dado de alta con otro usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    MessageBox.Show("El usuario ya se encuentra registrado no se puede duplicar el usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    clearWindow();
                                                 }
                                             }
                                             else
                                             {
-                                                MessageBox.Show("El usuario ya se encuentra registrado no se puede duplicar el usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                clearWindow();
+                                                RegistraUsuario();
                                             }
                                         }
-                                        else
+                                        catch (Exception er)
                                         {
-                                            RegistraUsuario();
+                                            MessageBox.Show("Ha ocurrido el siguiente error al crear el usuario" + er.ToString());
                                         }
                                     }
-                                    catch (Exception er)
+                                    else
                                     {
-                                        MessageBox.Show("Ha ocurrido el siguiente error al crear el usuario" + er.ToString());
+                                        clearWindow();
                                     }
                                 }
                                 else
                                 {
-                                    clearWindow();
+                                    MessageBox.Show("No coinciden los password compruebelo e intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("No coinciden los password compruebelo e intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Es necesario especificar un password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Es necesario especificar un password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Es necesario especificar un usuario para darlo de alta en sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -178,7 +186,7 @@ namespace Vampiro_Gym
             this.query = "INSERT INTO " + TABLA + " (Tipo_de_usuario,Nombre,Apellido,Correo,Contrasena,Usuario) VALUES ('" + tipoUsuarioCombo.Text + "','" + nombreBox.Text + "','" + apellidoTextBox.Text + "','" + emailBox.Text + "','" + passwordBox.Text + "','" + usuario + "')";
             dataBaseControl insert = new dataBaseControl();
             this.insertado = insert.Insert(query);
-            MessageBox.Show("Se ha creado el usuario " + usuario + " exisosamente", "Usuario creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Se ha creado el usuario " + userTextBox.Text + " exisosamente", "Usuario creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearWindow();
             if (loginWindow.inicializandoSistema == true)
             {
@@ -326,6 +334,11 @@ namespace Vampiro_Gym
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void userTextBox_Enter(object sender, EventArgs e)
+        {
+            if (userTextBox.Text.Contains("Ingrese")) userTextBox.Text = "";
         }
     }
 }

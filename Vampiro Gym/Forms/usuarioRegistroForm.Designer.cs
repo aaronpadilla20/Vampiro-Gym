@@ -39,6 +39,7 @@ namespace Vampiro_Gym
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.passwordBox = new System.Windows.Forms.TextBox();
             this.confirmePasswordBox = new System.Windows.Forms.TextBox();
+            this.userTextBox = new System.Windows.Forms.TextBox();
             this.contenedorTipoUsuario = new System.Windows.Forms.Panel();
             this.tipoUsuarioLogo = new System.Windows.Forms.PictureBox();
             this.panelUsuario = new System.Windows.Forms.Panel();
@@ -65,7 +66,6 @@ namespace Vampiro_Gym
             this.contenedorValidarForm = new System.Windows.Forms.Panel();
             this.validarFormularioButton = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.headerTable.SuspendLayout();
             this.contenedorBotonCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
@@ -178,7 +178,7 @@ namespace Vampiro_Gym
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.passwordBox, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.confirmePasswordBox, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.userTextBox, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(194, 456);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -215,6 +215,18 @@ namespace Vampiro_Gym
             this.confirmePasswordBox.Text = "Confirme Password";
             this.confirmePasswordBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.confirmePasswordBox.Enter += new System.EventHandler(this.passwordTextBox_Enter);
+            // 
+            // userTextBox
+            // 
+            this.userTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userTextBox.Location = new System.Drawing.Point(10, 10);
+            this.userTextBox.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.userTextBox.Name = "userTextBox";
+            this.userTextBox.Size = new System.Drawing.Size(760, 26);
+            this.userTextBox.TabIndex = 1;
+            this.userTextBox.Text = "Ingrese Usuario";
+            this.userTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.userTextBox.Enter += new System.EventHandler(this.userTextBox_Enter);
             // 
             // contenedorTipoUsuario
             // 
@@ -520,17 +532,6 @@ namespace Vampiro_Gym
             this.validarFormularioButton.Click += new System.EventHandler(this.validarFormularioButton_Click);
             this.validarFormularioButton.MouseEnter += new System.EventHandler(this.validarFormularioButton_MouseEnter);
             // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(10, 10);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(760, 26);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "Ingrese Usuario";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // usuarioRegistroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -615,6 +616,6 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.PictureBox deleteUserButton;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox userTextBox;
     }
 }
