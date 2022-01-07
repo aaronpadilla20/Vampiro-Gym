@@ -25,6 +25,7 @@ namespace Vampiro_Gym
 
         private string query;
         private bool deleted;
+        private DataTable dt;
 
         public membresiasForm()
         {
@@ -52,17 +53,28 @@ namespace Vampiro_Gym
 
         private void membresiasForm_Load(object sender, EventArgs e)
         {
+            CargaDatos();
+            columnaComboBox.SelectedIndex = 0;
             if (loginWindow.tipoUsuario != "Administrador")
                 agregarMembresiaButton.Enabled = false;
+            dtgvMembresias.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvMembresias.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dtgvMembresias.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvMembresias.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             dtgvMembresias.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvMembresias.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dtgvMembresias.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dtgvMembresias.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+            dtgvMembresias.Columns.Add(btnEditar);
+            btnEditar.Name = "edit";
+            btnEditar.UseColumnTextForButtonValue = true;
 
-            dtgvMembresias.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dtgvMembresias.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            CargaDatos();
+            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+            dtgvMembresias.Columns.Add(btnEliminar);
+            btnEliminar.Name = "delete";
+            btnEliminar.UseColumnTextForButtonValue = true;
         }
 
         private void dtgvMembresias_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -86,6 +98,14 @@ namespace Vampiro_Gym
                     DialogResult res = MessageBox.Show("¿Esta seguro de querer eliminar la membresia?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
+                        this.query = "SELECT Nombre,Apellido FROM Customers WHERE TIpo_de_membresia='" + deletingMembership + "'";
+                        dataBaseControl deleteMembership = new dataBaseControl();
+                        string membresiaAsignada = deleteMembership.Select(query, 2);
+                        if (!membresiaAsignada.Contains("La consulta no genero resultados"))
+                        {
+                            MessageBox.Show("Imposible eliminar este tipo de membresia ya que actualmente se encuentra asignada al menos a 1 cliente","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            return;
+                        }
                         try
                         {
                             this.query = "DELETE FROM " + TABLA + " WHERE Tipo_de_membresia='" + this.deletingMembership + "'";
@@ -112,7 +132,10 @@ namespace Vampiro_Gym
 
         private void CargaDatos()
         {
-            dtgvMembresias.Rows.Clear();
+            dt = new DataTable();
+            dt.Columns.Add("Membresias");
+            dt.Columns.Add("Duracion");
+            dt.Columns.Add("Precio");
             this.query = "SELECT * FROM " + TABLA;
             try
             {
@@ -123,8 +146,10 @@ namespace Vampiro_Gym
                     membershipType = filas.GetString(0).ToString();
                     membershipDuration = filas.GetInt32(1).ToString();
                     membershipCost = filas.GetDecimal(2).ToString();
-                    dtgvMembresias.Rows.Add("","",membershipType,Convert.ToString(membershipDuration) + " días","$ " + Convert.ToString(membershipCost));
+                    dt.Rows.Add(membershipType, Convert.ToString(membershipDuration) + " días", "$ " + Convert.ToString(membershipCost));
+                    //dtgvMembresias.Rows.Add("","",membershipType,Convert.ToString(membershipDuration) + " días","$ " + Convert.ToString(membershipCost));
                 }
+                dtgvMembresias.DataSource = dt;
                 filas.Close();
             }
             catch (Exception err)
@@ -137,6 +162,11 @@ namespace Vampiro_Gym
         private void botonCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void valueTextBox_TextChanged(object sender, EventArgs e)
+        {
+            dt.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%'", columnaComboBox.Text, valueTextBox.Text);
         }
     }
 }

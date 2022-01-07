@@ -17,14 +17,15 @@ namespace Vampiro_Gym
     class Utilerias
     {
         public static Document document;
-        private bool GenerateGeneralPDF(List<SoldMemberships> listSoldMemberships, List<ClientesProximosVencer> listCustomersCloseToEnd, List<ClientesNuevos> listNewCustomers,DateTime fromDate, DateTime toDate, string comments)
+        private string GenerateGeneralPDF(List<SoldMemberships> listSoldMemberships, List<ClientesProximosVencer> listCustomersCloseToEnd, List<ClientesNuevos> listNewCustomers,DateTime fromDate, DateTime toDate, string comments)
         {
             List<SoldMemberships> listSoldMembershipsWithoutDuplicates = listSoldMemberships.Distinct().ToList();
             string tipoReporte = "";
             string ruta = Directory.GetCurrentDirectory();
             string archivo = "Reporte general_" + DateTime.Now.ToString("dd_MM_yyyy") + ".pdf";
+            string rutaFinal = ruta + "\\Reportes\\General\\" + archivo;
             if (!Directory.Exists(ruta + "\\Reportes\\General\\")) Directory.CreateDirectory(ruta + "\\Reportes\\General");
-            FileStream fs = new FileStream(ruta + "\\Reportes\\General\\" + archivo, FileMode.Create);
+            FileStream fs = new FileStream(rutaFinal, FileMode.Create);
             document = new Document(iTextSharp.text.PageSize.LETTER, 30f, 20f, 50f, 40f);
             PdfWriter pw = PdfWriter.GetInstance(document, fs);
             DateTime now = DateTime.Now;
@@ -151,17 +152,18 @@ namespace Vampiro_Gym
             comment.Alignment = 1;
             document.Add(comment);
             document.Close();
-            return true;
+            return rutaFinal;
         }
 
-        private bool GenerateCustomerPDF(List<historialMembresias> historialMembresias, List<RegistrosVisita> historialVisitas,System.Drawing.Image image, string memberSinceValue, string currentMembershipType,string name, string lastName )
+        private string GenerateCustomerPDF(List<historialMembresias> historialMembresias, List<RegistrosVisita> historialVisitas,System.Drawing.Image image, string memberSinceValue, string currentMembershipType,string name, string lastName )
         {
             DateTime fechaAltaClienteValue = Convert.ToDateTime(memberSinceValue);
             string fechaAlta = fechaAltaClienteValue.Day.ToString() + "/" + fechaAltaClienteValue.Month.ToString() + "/" + fechaAltaClienteValue.Year.ToString(); 
             string archivo = name + "_" + lastName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + ".pdf";
             string ruta = Directory.GetCurrentDirectory();
+            string rutaFinal = ruta + "\\Reportes\\Clientes\\" + archivo;
             if (!Directory.Exists(ruta + "\\Reportes\\Clientes\\")) Directory.CreateDirectory(ruta + "\\Reportes\\Clientes\\");
-            FileStream fs = new FileStream(ruta + "\\Reportes\\Clientes\\" + archivo, FileMode.Create);
+            FileStream fs = new FileStream(rutaFinal, FileMode.Create);
             document = new Document(iTextSharp.text.PageSize.LETTER, 30f, 20f, 50f, 40f);
             PdfWriter pw = PdfWriter.GetInstance(document, fs);
             pw.PageEvent = new HeaderFooter("Reporte de cliente", "Vampiro Gym",ruta + "\\Resources\\logo.png");
@@ -241,10 +243,10 @@ namespace Vampiro_Gym
             }
             document.Add(table2);
             document.Close();   
-            return true;
+            return rutaFinal;
         }
 
-        public string generalReport(DateTime fromDate, DateTime toDate, string comment)
+        public (string,string) generalReport(DateTime fromDate, DateTime toDate, string comment)
         {
             string soldMembership = "";
             string customerCloseToEnd = "";
@@ -403,20 +405,16 @@ namespace Vampiro_Gym
 
             if(soldMembership.Contains("Sin registro para mostrar") && customerCloseToEnd.Contains("Sin registro para mostrar") && newCustomers.Contains("Sin registro para mostrar"))
             {
-                return "No existen registros para mostrar en el periodo de tiempo especificado";
-            }
-            bool successReportCreation = GenerateGeneralPDF(listMembership, listCustomerCloseToEnd, listNewCustomer,fromDate,toDate,comment);
-            if (successReportCreation)
-            {
-                return "El reporte se ha generado exitosamente";
+                return ("Error","No existen registros para mostrar en el periodo de tiempo especificado");
             }
             else
             {
-                return "Se ha presentado un problema al generar el reporte";
+                string rutaFinal = GenerateGeneralPDF(listMembership, listCustomerCloseToEnd, listNewCustomer, fromDate, toDate, comment);
+                return ("El reporte se ha generado exitosamente",rutaFinal);
             }
         }
 
-        public string customerReport(DateTime fromDate, DateTime toDate,string customer,string comments)
+        public (string,string) customerReport(DateTime fromDate, DateTime toDate,string customer,string comments)
         {
             bool historialMembresias = true;
             bool historialVisitas = true;
@@ -571,7 +569,7 @@ namespace Vampiro_Gym
                 historialVisitas = false;
             }
  
-            if (!historialMembresias && !historialVisitas) return "No existen elementos a reportar en el periodo de tiempo seleccionado";
+            if (!historialMembresias && !historialVisitas) return ("No existen elementos a reportar en el periodo de tiempo seleccionado","Error");
             
             System.Drawing.Image imagen = null;
             string memberSince = "";
@@ -585,15 +583,8 @@ namespace Vampiro_Gym
                 memberSince = filas.GetString(1);
                 currentMembershipType = filas.GetString(2);
             }
-            bool res = GenerateCustomerPDF(listaDatos, listVisitas,imagen, memberSince, currentMembershipType, name, apellidos);
-            if (res)
-            {
-                return "El reporte se ha generado exitosamente";
-            }
-            else
-            {
-                return "Se ha presentado un problema al generar el reporte";
-            }
+            string ruta = GenerateCustomerPDF(listaDatos, listVisitas,imagen, memberSince, currentMembershipType, name, apellidos);
+            return ("El reporte se ha generado exitosamente",ruta);
         }
         public void comboBoxDrawing(object sender,DrawItemEventArgs e)
         {

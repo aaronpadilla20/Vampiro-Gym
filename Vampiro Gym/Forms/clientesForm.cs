@@ -32,6 +32,7 @@ namespace Vampiro_Gym
         private string fechaAlta;
         private string[] datosReporte;
         private string remainingDays;
+        private DataTable dt;
 
         private bool deleted;
         Image imagen;
@@ -64,7 +65,13 @@ namespace Vampiro_Gym
 
         private void CargaDatos()
         {
-            dtgvClientes.Rows.Clear();
+            dt = new DataTable();
+            dt.Columns.Add("Fotografia",typeof(Image));
+            dt.Columns.Add("Nombre");
+            dt.Columns.Add("Apellidos");
+            dt.Columns.Add("Tipo_de_membresia");
+            dt.Columns.Add("Miembro_desde");
+            dt.Columns.Add("Dias_restantes");
             dataBaseControl consultaMembresia = new dataBaseControl();
             this.query = "SELECT * FROM Customers";
             try
@@ -91,18 +98,21 @@ namespace Vampiro_Gym
                     this.horasRestantes = (fechaVencimiento - fechaActual).Hours;
                     if (diasRestantes<=0 && horasRestantes<=0)
                     {
-                        dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaClienteDb,"Membresia Vencida");
+                        dt.Rows.Add(this.imagen, this.nombreDb, this.apellidoDb, this.tipoMembresiaDb, this.fechaAltaClienteDb, "Membresia Vencida");
+                        //dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaClienteDb,"Membresia Vencida");
                     }
                     else if (diasRestantes<=0 && horasRestantes>=1)
                     {
-                        dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb, this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaClienteDb, "Quedan " + this.horasRestantes.ToString() + " horas para el vencimiento de la membresia");
+                        dt.Rows.Add(this.imagen, this.nombreDb, this.apellidoDb, this.tipoMembresiaDb, this.fechaAltaClienteDb, "Quedan " + this.horasRestantes.ToString() + " horas para el vencimiento de la membresia");
+                        //dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb, this.apellidoDb,this.tipoMembresiaDb,this.fechaAltaClienteDb, "Quedan " + this.horasRestantes.ToString() + " horas para el vencimiento de la membresia");
                     }
                     else
                     {
-                        dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb, this.fechaAltaClienteDb,this.diasRestantes.ToString() + " días");
-                    }
-                    
+                        dt.Rows.Add(this.imagen, this.nombreDb, this.apellidoDb, this.tipoMembresiaDb, this.fechaAltaClienteDb, this.diasRestantes.ToString() + " días");
+                        //dtgvClientes.Rows.Add("", "",this.imagen,this.nombreDb,this.apellidoDb,this.tipoMembresiaDb, this.fechaAltaClienteDb,this.diasRestantes.ToString() + " días");
+                    }    
                 }
+                dtgvClientes.DataSource = dt;
                 filas.Close();
             }
             catch (Exception err)
@@ -113,6 +123,15 @@ namespace Vampiro_Gym
 
         private void clientesForm_Load(object sender, EventArgs e)
         {
+            CargaDatos();
+            columnaComboBox.SelectedIndex = 0;
+
+            dtgvClientes.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvClientes.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dtgvClientes.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvClientes.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             dtgvClientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvClientes.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
@@ -125,12 +144,17 @@ namespace Vampiro_Gym
             dtgvClientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvClientes.Columns[5].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dtgvClientes.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dtgvClientes.Columns[6].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ((DataGridViewImageColumn)dtgvClientes.Columns[0]).ImageLayout = DataGridViewImageCellLayout.Zoom;
 
-            dtgvClientes.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dtgvClientes.Columns[7].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            CargaDatos();
+            DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+            dtgvClientes.Columns.Add(btnEditar);
+            btnEditar.Name = "edit";
+            btnEditar.UseColumnTextForButtonValue = true;
+
+            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+            dtgvClientes.Columns.Add(btnEliminar);
+            btnEliminar.Name = "delete";
+            btnEliminar.UseColumnTextForButtonValue = true;
         }
 
         private void dtgvClientes_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
@@ -161,8 +185,8 @@ namespace Vampiro_Gym
 
                 if (this.dtgvClientes.Columns[e.ColumnIndex].Name == "delete")
                 {
-                    this.deletingNombre = dtgvClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
-                    this.deletingApellido = dtgvClientes.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    this.deletingNombre = dtgvClientes.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    this.deletingApellido = dtgvClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
                     DialogResult res = MessageBox.Show("¿Esta seguro de querer eliminar al cliente seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
@@ -199,6 +223,11 @@ namespace Vampiro_Gym
         private void botonCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void valorTextBox_TextChanged(object sender, EventArgs e)
+        {
+            dt.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%'", columnaComboBox.Text, valorTextBox.Text);
         }
     }
 }

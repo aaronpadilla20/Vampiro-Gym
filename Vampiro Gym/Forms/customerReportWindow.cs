@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Vampiro_Gym.Forms
 {
@@ -76,7 +77,7 @@ namespace Vampiro_Gym.Forms
                     toDateValue = toDateValue.Date + toTs;
 
                     Utilerias generateReport = new Utilerias();
-                    string resGenerationReport = generateReport.customerReport(fromDateValue, toDateValue, customerName.Texts,commentTextBox.Text);
+                    var (resGenerationReport,ruta) = generateReport.customerReport(fromDateValue, toDateValue, customerName.Texts,commentTextBox.Text);
                     if (!resGenerationReport.Contains("El reporte se ha generado exitosamente"))
                     {
                         MessageBox.Show(resGenerationReport, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -84,6 +85,17 @@ namespace Vampiro_Gym.Forms
                     else
                     {
                         MessageBox.Show(resGenerationReport, "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        res = MessageBox.Show("¿Desea visualizar el reporte generado?", "Visualiza reporte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (res == DialogResult.Yes)
+                        {
+                            Process.Start(ruta);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Si desea visualizar el reporte posteriormente navegue a la direccion " + ruta);
+                            this.Close();
+                        }
                     }
                 }
                 

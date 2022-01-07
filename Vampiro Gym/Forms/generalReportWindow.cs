@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Vampiro_Gym.Forms
 {
@@ -36,7 +37,7 @@ namespace Vampiro_Gym.Forms
                     toDateValue = toDateValue.Date + toTs;
 
                     Utilerias generateReport = new Utilerias();
-                    string resGenerationReport = generateReport.generalReport(fromDateValue, toDateValue, commentsTextBox.Text);
+                    var (resGenerationReport,ruta) = generateReport.generalReport(fromDateValue, toDateValue, commentsTextBox.Text);
                     if (!resGenerationReport.Contains("El reporte se ha generado exitosamente"))
                     {
                         MessageBox.Show(resGenerationReport, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -44,6 +45,17 @@ namespace Vampiro_Gym.Forms
                     else
                     {
                         MessageBox.Show(resGenerationReport, "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        res = MessageBox.Show("¿Desea visualizar el reporte generado?", "Visualizar archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (res == DialogResult.Yes)
+                        {
+                            Process.Start(ruta);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Si desea visualizar el archivo posteriormente vaya a la siguiente dirección" + ruta);
+                            this.Close();
+                        }
                     }
                 }
 
@@ -74,7 +86,7 @@ namespace Vampiro_Gym.Forms
 
                 if (res == DialogResult.Cancel)
                 {
-                    MessageBox.Show("Se ha abortado la generación del reporte del cliente");
+                    MessageBox.Show("Se ha abortado la generación del reporte general");
                     this.Close();
                     return;
                 }
