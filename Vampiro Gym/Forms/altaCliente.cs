@@ -56,8 +56,15 @@ namespace Vampiro_Gym
                 {
                     takePictureForm takePicture = new takePictureForm(nombreTextBox.Text,apellidoTextBox.Text);
                     takePicture.ShowDialog();
-                    imageCliente.Image = System.Drawing.Image.FromFile(takePicture.file);
-                    imageCliente.Tag = takePicture.file;
+                    if (takePicture.file != null)
+                    {
+                        imageCliente.Image = System.Drawing.Image.FromFile(takePicture.file);
+                        imageCliente.Tag = takePicture.file;
+                    }
+                    else
+                    {
+                        MessageBox.Show("La captura de imagen mediante web cam fue abortada", "Captura de imagen abortada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
