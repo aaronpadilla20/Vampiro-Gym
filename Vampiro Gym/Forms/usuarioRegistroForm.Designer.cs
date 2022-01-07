@@ -37,9 +37,7 @@ namespace Vampiro_Gym
             this.contenedorUsuario = new System.Windows.Forms.Panel();
             this.tableForm = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.passwordBox = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.confirmePasswordBox = new System.Windows.Forms.TextBox();
             this.contenedorTipoUsuario = new System.Windows.Forms.Panel();
             this.tipoUsuarioLogo = new System.Windows.Forms.PictureBox();
@@ -67,14 +65,13 @@ namespace Vampiro_Gym
             this.contenedorValidarForm = new System.Windows.Forms.Panel();
             this.validarFormularioButton = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.headerTable.SuspendLayout();
             this.contenedorBotonCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
             this.contenedorUsuario.SuspendLayout();
             this.tableForm.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.contenedorTipoUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tipoUsuarioLogo)).BeginInit();
             this.panelUsuario.SuspendLayout();
@@ -110,16 +107,17 @@ namespace Vampiro_Gym
             this.headerTable.Name = "headerTable";
             this.headerTable.RowCount = 1;
             this.headerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.headerTable.Size = new System.Drawing.Size(649, 43);
+            this.headerTable.Size = new System.Drawing.Size(974, 66);
             this.headerTable.TabIndex = 1;
             // 
             // contenedorBotonCerrar
             // 
             this.contenedorBotonCerrar.Controls.Add(this.botonCerrar);
             this.contenedorBotonCerrar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.contenedorBotonCerrar.Location = new System.Drawing.Point(538, 3);
+            this.contenedorBotonCerrar.Location = new System.Drawing.Point(808, 5);
+            this.contenedorBotonCerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.contenedorBotonCerrar.Name = "contenedorBotonCerrar";
-            this.contenedorBotonCerrar.Size = new System.Drawing.Size(108, 37);
+            this.contenedorBotonCerrar.Size = new System.Drawing.Size(162, 56);
             this.contenedorBotonCerrar.TabIndex = 0;
             // 
             // botonCerrar
@@ -127,9 +125,10 @@ namespace Vampiro_Gym
             this.botonCerrar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.botonCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.botonCerrar.Image = ((System.Drawing.Image)(resources.GetObject("botonCerrar.Image")));
-            this.botonCerrar.Location = new System.Drawing.Point(40, 12);
+            this.botonCerrar.Location = new System.Drawing.Point(60, 18);
+            this.botonCerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.botonCerrar.Name = "botonCerrar";
-            this.botonCerrar.Size = new System.Drawing.Size(36, 17);
+            this.botonCerrar.Size = new System.Drawing.Size(54, 26);
             this.botonCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.botonCerrar.TabIndex = 0;
             this.botonCerrar.TabStop = false;
@@ -139,9 +138,10 @@ namespace Vampiro_Gym
             // 
             this.contenedorUsuario.Controls.Add(this.tableForm);
             this.contenedorUsuario.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contenedorUsuario.Location = new System.Drawing.Point(0, 43);
+            this.contenedorUsuario.Location = new System.Drawing.Point(0, 66);
+            this.contenedorUsuario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.contenedorUsuario.Name = "contenedorUsuario";
-            this.contenedorUsuario.Size = new System.Drawing.Size(649, 495);
+            this.contenedorUsuario.Size = new System.Drawing.Size(974, 762);
             this.contenedorUsuario.TabIndex = 2;
             // 
             // tableForm
@@ -160,6 +160,7 @@ namespace Vampiro_Gym
             this.tableForm.Controls.Add(this.tableLayoutPanel3, 1, 4);
             this.tableForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableForm.Location = new System.Drawing.Point(0, 0);
+            this.tableForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableForm.Name = "tableForm";
             this.tableForm.RowCount = 5;
             this.tableForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -167,67 +168,49 @@ namespace Vampiro_Gym
             this.tableForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableForm.Size = new System.Drawing.Size(649, 495);
+            this.tableForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableForm.Size = new System.Drawing.Size(974, 762);
             this.tableForm.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.passwordBox, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.confirmePasswordBox, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(129, 297);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(194, 456);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(520, 99);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(780, 152);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.passwordBox);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(10, 14, 10, 0);
-            this.panel1.Size = new System.Drawing.Size(520, 49);
-            this.panel1.TabIndex = 0;
             // 
             // passwordBox
             // 
             this.passwordBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.passwordBox.Location = new System.Drawing.Point(10, 14);
+            this.passwordBox.Location = new System.Drawing.Point(10, 60);
+            this.passwordBox.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.passwordBox.MaxLength = 10;
             this.passwordBox.Name = "passwordBox";
-            this.passwordBox.Size = new System.Drawing.Size(500, 20);
+            this.passwordBox.Size = new System.Drawing.Size(760, 26);
             this.passwordBox.TabIndex = 0;
             this.passwordBox.Text = "Ingrese Password";
             this.passwordBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.passwordBox.Enter += new System.EventHandler(this.passwordBox_Enter);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.confirmePasswordBox);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 49);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(10, 14, 10, 0);
-            this.panel2.Size = new System.Drawing.Size(520, 50);
-            this.panel2.TabIndex = 1;
-            // 
             // confirmePasswordBox
             // 
             this.confirmePasswordBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.confirmePasswordBox.Location = new System.Drawing.Point(10, 14);
+            this.confirmePasswordBox.Location = new System.Drawing.Point(10, 110);
+            this.confirmePasswordBox.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.confirmePasswordBox.MaxLength = 10;
             this.confirmePasswordBox.Name = "confirmePasswordBox";
-            this.confirmePasswordBox.Size = new System.Drawing.Size(500, 20);
+            this.confirmePasswordBox.Size = new System.Drawing.Size(760, 26);
             this.confirmePasswordBox.TabIndex = 0;
             this.confirmePasswordBox.Text = "Confirme Password";
             this.confirmePasswordBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -240,7 +223,7 @@ namespace Vampiro_Gym
             this.contenedorTipoUsuario.Location = new System.Drawing.Point(0, 0);
             this.contenedorTipoUsuario.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorTipoUsuario.Name = "contenedorTipoUsuario";
-            this.contenedorTipoUsuario.Size = new System.Drawing.Size(129, 99);
+            this.contenedorTipoUsuario.Size = new System.Drawing.Size(194, 152);
             this.contenedorTipoUsuario.TabIndex = 0;
             // 
             // tipoUsuarioLogo
@@ -248,8 +231,9 @@ namespace Vampiro_Gym
             this.tipoUsuarioLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tipoUsuarioLogo.Image = ((System.Drawing.Image)(resources.GetObject("tipoUsuarioLogo.Image")));
             this.tipoUsuarioLogo.Location = new System.Drawing.Point(0, 0);
+            this.tipoUsuarioLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tipoUsuarioLogo.Name = "tipoUsuarioLogo";
-            this.tipoUsuarioLogo.Size = new System.Drawing.Size(126, 96);
+            this.tipoUsuarioLogo.Size = new System.Drawing.Size(189, 148);
             this.tipoUsuarioLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.tipoUsuarioLogo.TabIndex = 0;
             this.tipoUsuarioLogo.TabStop = false;
@@ -258,19 +242,20 @@ namespace Vampiro_Gym
             // 
             this.panelUsuario.Controls.Add(this.usuarioLogo);
             this.panelUsuario.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelUsuario.Location = new System.Drawing.Point(0, 99);
+            this.panelUsuario.Location = new System.Drawing.Point(0, 152);
             this.panelUsuario.Margin = new System.Windows.Forms.Padding(0);
             this.panelUsuario.Name = "panelUsuario";
-            this.panelUsuario.Size = new System.Drawing.Size(129, 99);
+            this.panelUsuario.Size = new System.Drawing.Size(194, 152);
             this.panelUsuario.TabIndex = 1;
             // 
             // usuarioLogo
             // 
             this.usuarioLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.usuarioLogo.Image = ((System.Drawing.Image)(resources.GetObject("usuarioLogo.Image")));
-            this.usuarioLogo.Location = new System.Drawing.Point(3, 3);
+            this.usuarioLogo.Location = new System.Drawing.Point(4, 5);
+            this.usuarioLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usuarioLogo.Name = "usuarioLogo";
-            this.usuarioLogo.Size = new System.Drawing.Size(123, 90);
+            this.usuarioLogo.Size = new System.Drawing.Size(184, 138);
             this.usuarioLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.usuarioLogo.TabIndex = 0;
             this.usuarioLogo.TabStop = false;
@@ -279,11 +264,11 @@ namespace Vampiro_Gym
             // 
             this.contenedorTipoComboBox.Controls.Add(this.tipoUsuarioCombo);
             this.contenedorTipoComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contenedorTipoComboBox.Location = new System.Drawing.Point(129, 0);
+            this.contenedorTipoComboBox.Location = new System.Drawing.Point(194, 0);
             this.contenedorTipoComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorTipoComboBox.Name = "contenedorTipoComboBox";
-            this.contenedorTipoComboBox.Padding = new System.Windows.Forms.Padding(10, 40, 10, 0);
-            this.contenedorTipoComboBox.Size = new System.Drawing.Size(520, 99);
+            this.contenedorTipoComboBox.Padding = new System.Windows.Forms.Padding(15, 62, 15, 0);
+            this.contenedorTipoComboBox.Size = new System.Drawing.Size(780, 152);
             this.contenedorTipoComboBox.TabIndex = 3;
             // 
             // tipoUsuarioCombo
@@ -295,9 +280,10 @@ namespace Vampiro_Gym
             this.tipoUsuarioCombo.Items.AddRange(new object[] {
             "Administrador",
             "Empleado"});
-            this.tipoUsuarioCombo.Location = new System.Drawing.Point(10, 40);
+            this.tipoUsuarioCombo.Location = new System.Drawing.Point(15, 62);
+            this.tipoUsuarioCombo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tipoUsuarioCombo.Name = "tipoUsuarioCombo";
-            this.tipoUsuarioCombo.Size = new System.Drawing.Size(500, 21);
+            this.tipoUsuarioCombo.Size = new System.Drawing.Size(750, 27);
             this.tipoUsuarioCombo.TabIndex = 0;
             this.tipoUsuarioCombo.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tipoUsuarioCombo_DrawItem);
             // 
@@ -305,20 +291,21 @@ namespace Vampiro_Gym
             // 
             this.contenedorEmailBox.Controls.Add(this.emailBox);
             this.contenedorEmailBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contenedorEmailBox.Location = new System.Drawing.Point(129, 198);
+            this.contenedorEmailBox.Location = new System.Drawing.Point(194, 304);
             this.contenedorEmailBox.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorEmailBox.Name = "contenedorEmailBox";
-            this.contenedorEmailBox.Padding = new System.Windows.Forms.Padding(10, 40, 10, 0);
-            this.contenedorEmailBox.Size = new System.Drawing.Size(520, 99);
+            this.contenedorEmailBox.Padding = new System.Windows.Forms.Padding(15, 62, 15, 0);
+            this.contenedorEmailBox.Size = new System.Drawing.Size(780, 152);
             this.contenedorEmailBox.TabIndex = 6;
             // 
             // emailBox
             // 
             this.emailBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.emailBox.Location = new System.Drawing.Point(10, 40);
+            this.emailBox.Location = new System.Drawing.Point(15, 62);
+            this.emailBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.emailBox.MaxLength = 60;
             this.emailBox.Name = "emailBox";
-            this.emailBox.Size = new System.Drawing.Size(500, 20);
+            this.emailBox.Size = new System.Drawing.Size(750, 26);
             this.emailBox.TabIndex = 0;
             this.emailBox.Text = "Ingrese correo de usuario";
             this.emailBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -328,9 +315,10 @@ namespace Vampiro_Gym
             // 
             this.contenedorCorreo.Controls.Add(this.contenedorPassword);
             this.contenedorCorreo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contenedorCorreo.Location = new System.Drawing.Point(3, 300);
+            this.contenedorCorreo.Location = new System.Drawing.Point(4, 461);
+            this.contenedorCorreo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.contenedorCorreo.Name = "contenedorCorreo";
-            this.contenedorCorreo.Size = new System.Drawing.Size(123, 93);
+            this.contenedorCorreo.Size = new System.Drawing.Size(186, 142);
             this.contenedorCorreo.TabIndex = 7;
             // 
             // contenedorPassword
@@ -340,17 +328,17 @@ namespace Vampiro_Gym
             this.contenedorPassword.Location = new System.Drawing.Point(0, 0);
             this.contenedorPassword.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorPassword.Name = "contenedorPassword";
-            this.contenedorPassword.Size = new System.Drawing.Size(123, 93);
+            this.contenedorPassword.Size = new System.Drawing.Size(186, 142);
             this.contenedorPassword.TabIndex = 2;
             // 
             // passwordLogo
             // 
             this.passwordLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.passwordLogo.Image = ((System.Drawing.Image)(resources.GetObject("passwordLogo.Image")));
-            this.passwordLogo.Location = new System.Drawing.Point(0, 0);
+            this.passwordLogo.Location = new System.Drawing.Point(1, 0);
             this.passwordLogo.Margin = new System.Windows.Forms.Padding(0);
             this.passwordLogo.Name = "passwordLogo";
-            this.passwordLogo.Size = new System.Drawing.Size(123, 93);
+            this.passwordLogo.Size = new System.Drawing.Size(184, 143);
             this.passwordLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.passwordLogo.TabIndex = 0;
             this.passwordLogo.TabStop = false;
@@ -359,10 +347,10 @@ namespace Vampiro_Gym
             // 
             this.panel3.Controls.Add(this.emailLogo);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 198);
+            this.panel3.Location = new System.Drawing.Point(0, 304);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(129, 99);
+            this.panel3.Size = new System.Drawing.Size(194, 152);
             this.panel3.TabIndex = 8;
             // 
             // emailLogo
@@ -370,8 +358,9 @@ namespace Vampiro_Gym
             this.emailLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.emailLogo.Image = ((System.Drawing.Image)(resources.GetObject("emailLogo.Image")));
             this.emailLogo.Location = new System.Drawing.Point(0, 0);
+            this.emailLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.emailLogo.Name = "emailLogo";
-            this.emailLogo.Size = new System.Drawing.Size(126, 96);
+            this.emailLogo.Size = new System.Drawing.Size(189, 148);
             this.emailLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.emailLogo.TabIndex = 0;
             this.emailLogo.TabStop = false;
@@ -384,11 +373,12 @@ namespace Vampiro_Gym
             this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(132, 102);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(198, 157);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(514, 93);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(772, 142);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
             // panel4
@@ -398,16 +388,17 @@ namespace Vampiro_Gym
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(10, 30, 10, 0);
-            this.panel4.Size = new System.Drawing.Size(257, 93);
+            this.panel4.Padding = new System.Windows.Forms.Padding(15, 46, 15, 0);
+            this.panel4.Size = new System.Drawing.Size(386, 142);
             this.panel4.TabIndex = 0;
             // 
             // nombreBox
             // 
             this.nombreBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nombreBox.Location = new System.Drawing.Point(10, 30);
+            this.nombreBox.Location = new System.Drawing.Point(15, 46);
+            this.nombreBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nombreBox.Name = "nombreBox";
-            this.nombreBox.Size = new System.Drawing.Size(237, 20);
+            this.nombreBox.Size = new System.Drawing.Size(356, 26);
             this.nombreBox.TabIndex = 0;
             this.nombreBox.Text = "Ingrese Nombre:";
             this.nombreBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -417,19 +408,20 @@ namespace Vampiro_Gym
             // 
             this.panel5.Controls.Add(this.apellidoTextBox);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(257, 0);
+            this.panel5.Location = new System.Drawing.Point(386, 0);
             this.panel5.Margin = new System.Windows.Forms.Padding(0);
             this.panel5.Name = "panel5";
-            this.panel5.Padding = new System.Windows.Forms.Padding(10, 30, 10, 0);
-            this.panel5.Size = new System.Drawing.Size(257, 93);
+            this.panel5.Padding = new System.Windows.Forms.Padding(15, 46, 15, 0);
+            this.panel5.Size = new System.Drawing.Size(386, 142);
             this.panel5.TabIndex = 1;
             // 
             // apellidoTextBox
             // 
             this.apellidoTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.apellidoTextBox.Location = new System.Drawing.Point(10, 30);
+            this.apellidoTextBox.Location = new System.Drawing.Point(15, 46);
+            this.apellidoTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.apellidoTextBox.Name = "apellidoTextBox";
-            this.apellidoTextBox.Size = new System.Drawing.Size(237, 20);
+            this.apellidoTextBox.Size = new System.Drawing.Size(356, 26);
             this.apellidoTextBox.TabIndex = 0;
             this.apellidoTextBox.Text = "Ingrese apellido:";
             this.apellidoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -445,21 +437,22 @@ namespace Vampiro_Gym
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.contenedorValidarForm, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(132, 399);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(198, 613);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(514, 93);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(772, 144);
             this.tableLayoutPanel3.TabIndex = 10;
             // 
             // panel7
             // 
             this.panel7.Controls.Add(this.editButton);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(171, 0);
+            this.panel7.Location = new System.Drawing.Point(257, 0);
             this.panel7.Margin = new System.Windows.Forms.Padding(0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(171, 93);
+            this.panel7.Size = new System.Drawing.Size(257, 144);
             this.panel7.TabIndex = 7;
             // 
             // editButton
@@ -467,9 +460,10 @@ namespace Vampiro_Gym
             this.editButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.editButton.Image = ((System.Drawing.Image)(resources.GetObject("editButton.Image")));
-            this.editButton.Location = new System.Drawing.Point(26, 12);
+            this.editButton.Location = new System.Drawing.Point(39, 19);
+            this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(113, 60);
+            this.editButton.Size = new System.Drawing.Size(170, 92);
             this.editButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.editButton.TabIndex = 0;
             this.editButton.TabStop = false;
@@ -483,7 +477,7 @@ namespace Vampiro_Gym
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(171, 93);
+            this.panel6.Size = new System.Drawing.Size(257, 144);
             this.panel6.TabIndex = 6;
             // 
             // deleteUserButton
@@ -491,9 +485,10 @@ namespace Vampiro_Gym
             this.deleteUserButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.deleteUserButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.deleteUserButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteUserButton.Image")));
-            this.deleteUserButton.Location = new System.Drawing.Point(26, 12);
+            this.deleteUserButton.Location = new System.Drawing.Point(39, 19);
+            this.deleteUserButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteUserButton.Name = "deleteUserButton";
-            this.deleteUserButton.Size = new System.Drawing.Size(113, 60);
+            this.deleteUserButton.Size = new System.Drawing.Size(170, 92);
             this.deleteUserButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.deleteUserButton.TabIndex = 0;
             this.deleteUserButton.TabStop = false;
@@ -504,10 +499,10 @@ namespace Vampiro_Gym
             // 
             this.contenedorValidarForm.Controls.Add(this.validarFormularioButton);
             this.contenedorValidarForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contenedorValidarForm.Location = new System.Drawing.Point(342, 0);
+            this.contenedorValidarForm.Location = new System.Drawing.Point(514, 0);
             this.contenedorValidarForm.Margin = new System.Windows.Forms.Padding(0);
             this.contenedorValidarForm.Name = "contenedorValidarForm";
-            this.contenedorValidarForm.Size = new System.Drawing.Size(172, 93);
+            this.contenedorValidarForm.Size = new System.Drawing.Size(258, 144);
             this.contenedorValidarForm.TabIndex = 5;
             // 
             // validarFormularioButton
@@ -515,24 +510,37 @@ namespace Vampiro_Gym
             this.validarFormularioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.validarFormularioButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.validarFormularioButton.Image = ((System.Drawing.Image)(resources.GetObject("validarFormularioButton.Image")));
-            this.validarFormularioButton.Location = new System.Drawing.Point(27, 12);
+            this.validarFormularioButton.Location = new System.Drawing.Point(40, 19);
+            this.validarFormularioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.validarFormularioButton.Name = "validarFormularioButton";
-            this.validarFormularioButton.Size = new System.Drawing.Size(113, 60);
+            this.validarFormularioButton.Size = new System.Drawing.Size(170, 92);
             this.validarFormularioButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.validarFormularioButton.TabIndex = 0;
             this.validarFormularioButton.TabStop = false;
             this.validarFormularioButton.Click += new System.EventHandler(this.validarFormularioButton_Click);
             this.validarFormularioButton.MouseEnter += new System.EventHandler(this.validarFormularioButton_MouseEnter);
             // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(10, 10);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(760, 26);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "Ingrese Usuario";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // usuarioRegistroForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            this.ClientSize = new System.Drawing.Size(649, 538);
+            this.ClientSize = new System.Drawing.Size(974, 828);
             this.Controls.Add(this.contenedorUsuario);
             this.Controls.Add(this.headerTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "usuarioRegistroForm";
             this.Text = "Vampiro Gym - Registro Usuario";
             this.Load += new System.EventHandler(this.usuarioRegistroForm_Load);
@@ -542,10 +550,7 @@ namespace Vampiro_Gym
             this.contenedorUsuario.ResumeLayout(false);
             this.tableForm.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.tableLayoutPanel1.PerformLayout();
             this.contenedorTipoUsuario.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tipoUsuarioLogo)).EndInit();
             this.panelUsuario.ResumeLayout(false);
@@ -594,9 +599,7 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel contenedorEmailBox;
         private System.Windows.Forms.TextBox confirmePasswordBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox passwordBox;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel contenedorCorreo;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox emailLogo;
@@ -612,5 +615,6 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.PictureBox deleteUserButton;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
