@@ -38,11 +38,7 @@ namespace Vampiro_Gym
             this.botonCerrar = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.valorTextBox = new System.Windows.Forms.TextBox();
             this.altaClienteButton = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dtgvClientes = new System.Windows.Forms.DataGridView();
@@ -54,25 +50,31 @@ namespace Vampiro_Gym
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.columnaComboBox = new System.Windows.Forms.ComboBox();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
             this.headerTable.SuspendLayout();
             this.contenedorBotonCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.altaClienteButton)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvClientes)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // headerTable
             // 
-            this.headerTable.ColumnCount = 2;
+            this.headerTable.ColumnCount = 3;
             this.headerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.headerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.headerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.headerTable.Controls.Add(this.contenedorBotonCerrar, 1, 0);
             this.headerTable.Dock = System.Windows.Forms.DockStyle.Top;
             this.headerTable.Location = new System.Drawing.Point(0, 0);
@@ -80,16 +82,17 @@ namespace Vampiro_Gym
             this.headerTable.Name = "headerTable";
             this.headerTable.RowCount = 1;
             this.headerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.headerTable.Size = new System.Drawing.Size(649, 43);
+            this.headerTable.Size = new System.Drawing.Size(974, 66);
             this.headerTable.TabIndex = 2;
             // 
             // contenedorBotonCerrar
             // 
             this.contenedorBotonCerrar.Controls.Add(this.botonCerrar);
             this.contenedorBotonCerrar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.contenedorBotonCerrar.Location = new System.Drawing.Point(538, 3);
+            this.contenedorBotonCerrar.Location = new System.Drawing.Point(788, 5);
+            this.contenedorBotonCerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.contenedorBotonCerrar.Name = "contenedorBotonCerrar";
-            this.contenedorBotonCerrar.Size = new System.Drawing.Size(108, 37);
+            this.contenedorBotonCerrar.Size = new System.Drawing.Size(162, 56);
             this.contenedorBotonCerrar.TabIndex = 0;
             // 
             // botonCerrar
@@ -97,9 +100,10 @@ namespace Vampiro_Gym
             this.botonCerrar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.botonCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.botonCerrar.Image = ((System.Drawing.Image)(resources.GetObject("botonCerrar.Image")));
-            this.botonCerrar.Location = new System.Drawing.Point(48, 4);
+            this.botonCerrar.Location = new System.Drawing.Point(72, 6);
+            this.botonCerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.botonCerrar.Name = "botonCerrar";
-            this.botonCerrar.Size = new System.Drawing.Size(36, 17);
+            this.botonCerrar.Size = new System.Drawing.Size(54, 26);
             this.botonCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.botonCerrar.TabIndex = 0;
             this.botonCerrar.TabStop = false;
@@ -109,86 +113,46 @@ namespace Vampiro_Gym
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 43);
+            this.panel1.Location = new System.Drawing.Point(0, 66);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(649, 67);
+            this.panel1.Size = new System.Drawing.Size(974, 103);
             this.panel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.53153F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.46847F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel4, 2, 0);
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 92.91581F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.084189F));
+            this.tableLayoutPanel1.Controls.Add(this.altaClienteButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(649, 67);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 103);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // panel2
+            // valorTextBox
             // 
-            this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(10, 20, 0, 0);
-            this.panel2.Size = new System.Drawing.Size(397, 67);
-            this.panel2.TabIndex = 0;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Location = new System.Drawing.Point(10, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(387, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(397, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(158, 67);
-            this.panel3.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 15);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(31, 30);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.altaClienteButton);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(555, 0);
-            this.panel4.Margin = new System.Windows.Forms.Padding(0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(94, 67);
-            this.panel4.TabIndex = 2;
+            this.valorTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.valorTextBox.Location = new System.Drawing.Point(127, 32);
+            this.valorTextBox.Margin = new System.Windows.Forms.Padding(10, 32, 10, 0);
+            this.valorTextBox.Name = "valorTextBox";
+            this.valorTextBox.Size = new System.Drawing.Size(306, 26);
+            this.valorTextBox.TabIndex = 0;
             // 
             // altaClienteButton
             // 
-            this.altaClienteButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.altaClienteButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.altaClienteButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.altaClienteButton.Image = ((System.Drawing.Image)(resources.GetObject("altaClienteButton.Image")));
-            this.altaClienteButton.Location = new System.Drawing.Point(16, 8);
+            this.altaClienteButton.Location = new System.Drawing.Point(908, 5);
+            this.altaClienteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.altaClienteButton.Name = "altaClienteButton";
-            this.altaClienteButton.Size = new System.Drawing.Size(56, 49);
+            this.altaClienteButton.Size = new System.Drawing.Size(62, 93);
             this.altaClienteButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.altaClienteButton.TabIndex = 0;
             this.altaClienteButton.TabStop = false;
@@ -198,9 +162,10 @@ namespace Vampiro_Gym
             // 
             this.panel5.Controls.Add(this.dtgvClientes);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 110);
+            this.panel5.Location = new System.Drawing.Point(0, 169);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(649, 428);
+            this.panel5.Size = new System.Drawing.Size(974, 659);
             this.panel5.TabIndex = 4;
             // 
             // dtgvClientes
@@ -244,9 +209,11 @@ namespace Vampiro_Gym
             this.dtgvClientes.EnableHeadersVisualStyles = false;
             this.dtgvClientes.GridColor = System.Drawing.Color.LightSteelBlue;
             this.dtgvClientes.Location = new System.Drawing.Point(0, 0);
+            this.dtgvClientes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtgvClientes.Name = "dtgvClientes";
             this.dtgvClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dtgvClientes.RowHeadersVisible = false;
+            this.dtgvClientes.RowHeadersWidth = 62;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
@@ -254,7 +221,7 @@ namespace Vampiro_Gym
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             this.dtgvClientes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgvClientes.Size = new System.Drawing.Size(649, 428);
+            this.dtgvClientes.Size = new System.Drawing.Size(974, 659);
             this.dtgvClientes.TabIndex = 1;
             this.dtgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvClientes_CellClick);
             this.dtgvClientes.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgvClientes_CellPainting_1);
@@ -263,57 +230,145 @@ namespace Vampiro_Gym
             // 
             this.edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.edit.HeaderText = "";
+            this.edit.MinimumWidth = 8;
             this.edit.Name = "edit";
             // 
             // delete
             // 
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete.HeaderText = "";
+            this.delete.MinimumWidth = 8;
             this.delete.Name = "delete";
             // 
             // image
             // 
             this.image.HeaderText = "Fotografia";
             this.image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.image.MinimumWidth = 8;
             this.image.Name = "image";
             // 
             // name
             // 
             this.name.HeaderText = "Nombre";
+            this.name.MinimumWidth = 8;
             this.name.Name = "name";
             // 
             // Duracion
             // 
             this.Duracion.HeaderText = "Apellidos";
+            this.Duracion.MinimumWidth = 8;
             this.Duracion.Name = "Duracion";
             // 
             // Precio
             // 
             this.Precio.HeaderText = "Tipo de membresia";
+            this.Precio.MinimumWidth = 8;
             this.Precio.Name = "Precio";
             // 
             // startDay
             // 
             this.startDay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.startDay.HeaderText = "Miembro desde";
+            this.startDay.MinimumWidth = 8;
             this.startDay.Name = "startDay";
-            this.startDay.Width = 95;
+            this.startDay.Width = 138;
             // 
             // restante
             // 
             this.restante.HeaderText = "Dias restantes";
+            this.restante.MinimumWidth = 8;
             this.restante.Name = "restante";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(898, 97);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.28217F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.71783F));
+            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.columnaComboBox, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(443, 91);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 91);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Columna";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // columnaComboBox
+            // 
+            this.columnaComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.columnaComboBox.FormattingEnabled = true;
+            this.columnaComboBox.Location = new System.Drawing.Point(122, 32);
+            this.columnaComboBox.Margin = new System.Windows.Forms.Padding(10, 32, 10, 0);
+            this.columnaComboBox.Name = "columnaComboBox";
+            this.columnaComboBox.Size = new System.Drawing.Size(311, 28);
+            this.columnaComboBox.TabIndex = 1;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.63657F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.36343F));
+            this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.valorTextBox, 1, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(452, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(443, 91);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 91);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Busca: ";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // clientesForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            this.ClientSize = new System.Drawing.Size(649, 538);
+            this.ClientSize = new System.Drawing.Size(974, 828);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.headerTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "clientesForm";
             this.Text = "clientesForm";
             this.Load += new System.EventHandler(this.clientesForm_Load);
@@ -322,14 +377,13 @@ namespace Vampiro_Gym
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.altaClienteButton)).EndInit();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvClientes)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -341,11 +395,7 @@ namespace Vampiro_Gym
         private System.Windows.Forms.PictureBox botonCerrar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox valorTextBox;
         private System.Windows.Forms.PictureBox altaClienteButton;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataGridView dtgvClientes;
@@ -357,5 +407,11 @@ namespace Vampiro_Gym
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn startDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn restante;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox columnaComboBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label label2;
     }
 }
