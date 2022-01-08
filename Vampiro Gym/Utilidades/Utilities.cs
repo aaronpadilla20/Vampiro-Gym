@@ -45,17 +45,28 @@ namespace Vampiro_Gym
             table.AddCell(cantidadMembresiasVendidas);
             table.AddCell(gananciaTotal);
 
-
+            float totalEarnings = 0;
+            int totalMembresiasVendidas = 0;
             foreach(SoldMemberships soldMembershipValue in listSoldMembershipsWithoutDuplicates)
             {
                 string[] datos = soldMembershipValue.getSoldMembershipsInfo.Split(',');
-                foreach(string dato in datos)
+                totalMembresiasVendidas += Int32.Parse(datos[2]);
+                totalEarnings += float.Parse(datos[3]);
+                foreach (string dato in datos)
                 {
                     PdfPCell _cell = new PdfPCell(new Paragraph(dato)) { Border = 0, HorizontalAlignment = Element.ALIGN_CENTER };
                     _cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     table.AddCell(_cell);
                 }
             }
+            var totales = new PdfPCell(new Phrase("TOTAL", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var withoutData = new PdfPCell(new Phrase("-", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var totalMembershipsColumn = new PdfPCell(new Phrase(totalMembresiasVendidas.ToString(), tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var totalEarningColumn = new PdfPCell(new Phrase(totalEarnings.ToString(), tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            table.AddCell(totales);
+            table.AddCell(withoutData);
+            table.AddCell(totalMembershipsColumn);
+            table.AddCell(totalEarningColumn);
             document.Add(table);
 
             Paragraph membresiasVendidasPorEmpleado = new Paragraph("CANTIDAD DE MEMBRESIAS VENDIDAS POR EMPLEADO");
@@ -76,9 +87,13 @@ namespace Vampiro_Gym
             table2.AddCell(_membershipQty);
             table2.AddCell(_totalCost);
 
+            int _totalMemberships = 0;
+            float _totalCostByEmployee = 0;
             foreach (MembresiasVendidasPorEmpleado membresiaVendida in listMembresiasVendiasEmpleado)
             {
                 string[] datos = membresiaVendida.getInfo.Split(',');
+                _totalMemberships += Int32.Parse(datos[3]);
+                _totalCostByEmployee += float.Parse(datos[4]);
                 foreach (string dato in datos)
                 {
                     PdfPCell _cell = new PdfPCell(new Paragraph(dato)) { Border = 0, HorizontalAlignment = Element.ALIGN_CENTER };
@@ -86,6 +101,16 @@ namespace Vampiro_Gym
                     table2.AddCell(_cell);
                 }
             }
+            var totalColumn = new PdfPCell(new Phrase("TOTALES", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var noData = new PdfPCell(new Phrase("-", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var membershipCostColumn = new PdfPCell(new Phrase("-", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var membershipQtyColumn = new PdfPCell(new Phrase(_totalMemberships.ToString(), tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var totalEarningsColumn = new PdfPCell(new Phrase(_totalCostByEmployee.ToString(), tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            table2.AddCell(totalColumn);
+            table2.AddCell(noData);
+            table2.AddCell(membershipCostColumn);
+            table2.AddCell(membershipQtyColumn);
+            table2.AddCell(totalEarningsColumn);
 
             document.Add(table2);
 

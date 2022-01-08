@@ -55,7 +55,7 @@ namespace Vampiro_Gym.Forms
                 fromDateValue = fromDateValue.Date + fromTs;
 
                 DateTime toDateValue = toDate.Value;
-                TimeSpan toTs = new TimeSpan(23, 00, 00);
+                TimeSpan toTs = new TimeSpan(23, 59, 59);
                 toDateValue = toDateValue.Date + toTs;
 
                 Utilerias generateReport = new Utilerias();

@@ -32,9 +32,7 @@ namespace Vampiro_Gym
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
             this.Header = new System.Windows.Forms.Panel();
             this.tableHeader = new System.Windows.Forms.TableLayoutPanel();
-            this.contenedorLogo = new System.Windows.Forms.Panel();
             this.logo = new System.Windows.Forms.PictureBox();
-            this.contenedorBotonClose = new System.Windows.Forms.Panel();
             this.botonClose = new System.Windows.Forms.PictureBox();
             this.divisionSuperior = new System.Windows.Forms.Panel();
             this.panelMenuLateral = new System.Windows.Forms.Panel();
@@ -58,11 +56,11 @@ namespace Vampiro_Gym
             this.separacionVertical = new System.Windows.Forms.Panel();
             this.panelContenedorForm = new System.Windows.Forms.Panel();
             this.logoContainerForm = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.usuarioActivoLabel = new System.Windows.Forms.Label();
             this.Header.SuspendLayout();
             this.tableHeader.SuspendLayout();
-            this.contenedorLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
-            this.contenedorBotonClose.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonClose)).BeginInit();
             this.panelMenuLateral.SuspendLayout();
             this.tableMenuLateral.SuspendLayout();
@@ -80,6 +78,7 @@ namespace Vampiro_Gym
             this.contenedorClientesLabel.SuspendLayout();
             this.panelContenedorForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoContainerForm)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Header
@@ -95,28 +94,19 @@ namespace Vampiro_Gym
             // 
             // tableHeader
             // 
-            this.tableHeader.ColumnCount = 2;
-            this.tableHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableHeader.Controls.Add(this.contenedorLogo, 0, 0);
-            this.tableHeader.Controls.Add(this.contenedorBotonClose, 1, 0);
+            this.tableHeader.ColumnCount = 3;
+            this.tableHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 93.73627F));
+            this.tableHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.263736F));
+            this.tableHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableHeader.Controls.Add(this.botonClose, 1, 0);
+            this.tableHeader.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.tableHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableHeader.Location = new System.Drawing.Point(0, 0);
             this.tableHeader.Name = "tableHeader";
             this.tableHeader.RowCount = 1;
-            this.tableHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableHeader.Size = new System.Drawing.Size(931, 100);
             this.tableHeader.TabIndex = 0;
-            // 
-            // contenedorLogo
-            // 
-            this.contenedorLogo.Controls.Add(this.logo);
-            this.contenedorLogo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.contenedorLogo.Location = new System.Drawing.Point(0, 5);
-            this.contenedorLogo.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.contenedorLogo.Name = "contenedorLogo";
-            this.contenedorLogo.Size = new System.Drawing.Size(197, 90);
-            this.contenedorLogo.TabIndex = 0;
             // 
             // logo
             // 
@@ -125,31 +115,21 @@ namespace Vampiro_Gym
             this.logo.Location = new System.Drawing.Point(0, 0);
             this.logo.Margin = new System.Windows.Forms.Padding(0);
             this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(197, 90);
+            this.logo.Size = new System.Drawing.Size(142, 94);
             this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logo.TabIndex = 0;
             this.logo.TabStop = false;
             // 
-            // contenedorBotonClose
-            // 
-            this.contenedorBotonClose.Controls.Add(this.botonClose);
-            this.contenedorBotonClose.Dock = System.Windows.Forms.DockStyle.Right;
-            this.contenedorBotonClose.Location = new System.Drawing.Point(731, 5);
-            this.contenedorBotonClose.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.contenedorBotonClose.Name = "contenedorBotonClose";
-            this.contenedorBotonClose.Size = new System.Drawing.Size(200, 90);
-            this.contenedorBotonClose.TabIndex = 1;
-            // 
             // botonClose
             // 
-            this.botonClose.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.botonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.botonClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botonClose.Image = ((System.Drawing.Image)(resources.GetObject("botonClose.Image")));
-            this.botonClose.Location = new System.Drawing.Point(57, 17);
+            this.botonClose.Location = new System.Drawing.Point(853, 0);
             this.botonClose.Margin = new System.Windows.Forms.Padding(0);
             this.botonClose.Name = "botonClose";
-            this.botonClose.Size = new System.Drawing.Size(86, 55);
+            this.botonClose.Size = new System.Drawing.Size(57, 100);
             this.botonClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.botonClose.TabIndex = 0;
             this.botonClose.TabStop = false;
@@ -404,6 +384,33 @@ namespace Vampiro_Gym
             this.logoContainerForm.TabIndex = 0;
             this.logoContainerForm.TabStop = false;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.87817F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.12183F));
+            this.tableLayoutPanel1.Controls.Add(this.logo, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.usuarioActivoLabel, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(847, 94);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // usuarioActivoLabel
+            // 
+            this.usuarioActivoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usuarioActivoLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usuarioActivoLabel.ForeColor = System.Drawing.Color.White;
+            this.usuarioActivoLabel.Location = new System.Drawing.Point(145, 0);
+            this.usuarioActivoLabel.Name = "usuarioActivoLabel";
+            this.usuarioActivoLabel.Size = new System.Drawing.Size(699, 94);
+            this.usuarioActivoLabel.TabIndex = 1;
+            this.usuarioActivoLabel.Text = "Sesión activa con usuario: ";
+            this.usuarioActivoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,9 +427,7 @@ namespace Vampiro_Gym
             this.Load += new System.EventHandler(this.formMain_Load);
             this.Header.ResumeLayout(false);
             this.tableHeader.ResumeLayout(false);
-            this.contenedorLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
-            this.contenedorBotonClose.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.botonClose)).EndInit();
             this.panelMenuLateral.ResumeLayout(false);
             this.tableMenuLateral.ResumeLayout(false);
@@ -440,6 +445,7 @@ namespace Vampiro_Gym
             this.contenedorClientesLabel.ResumeLayout(false);
             this.panelContenedorForm.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logoContainerForm)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -448,9 +454,7 @@ namespace Vampiro_Gym
 
         private System.Windows.Forms.Panel Header;
         private System.Windows.Forms.TableLayoutPanel tableHeader;
-        private System.Windows.Forms.Panel contenedorLogo;
         private System.Windows.Forms.PictureBox logo;
-        private System.Windows.Forms.Panel contenedorBotonClose;
         private System.Windows.Forms.PictureBox botonClose;
         private System.Windows.Forms.Panel divisionSuperior;
         private System.Windows.Forms.Panel panelMenuLateral;
@@ -474,5 +478,7 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel separacionVertical;
         private System.Windows.Forms.Panel panelContenedorForm;
         private System.Windows.Forms.PictureBox logoContainerForm;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label usuarioActivoLabel;
     }
 }

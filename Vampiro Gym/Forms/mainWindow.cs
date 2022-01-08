@@ -77,6 +77,30 @@ namespace Vampiro_Gym
             Thread hiloLector = new Thread(new ThreadStart(verificaHuella));
             hiloLector.IsBackground = true;
             hiloLector.Start();
+            string query = "SELECT Nombre,Apellido FROM Usuarios WHERE Usuario='" + loginWindow.usuario + "'";
+            dataBaseControl getName = new dataBaseControl();
+            string resQuery = getName.Select(query, 2);
+            string[] datos = resQuery.Split(',');
+            string name = "";
+            string lastName = "";
+            foreach(string dato in datos)
+            {
+                if (dato !="")
+                {
+                    if (name == "")
+                    {
+                        name = dato;
+                        continue;
+                    }
+
+                    if (lastName == "")
+                    {
+                        lastName = dato;
+                    }
+                }
+            }
+            string fullName = name + " " + lastName;
+            usuarioActivoLabel.Text = "Sesión: " + fullName;
             System.Drawing.Rectangle rect = Screen.GetWorkingArea(this);
             this.MaximizedBounds = Screen.GetWorkingArea(this);
             this.WindowState = FormWindowState.Maximized;
