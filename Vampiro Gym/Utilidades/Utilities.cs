@@ -17,10 +17,9 @@ namespace Vampiro_Gym
     class Utilerias
     {
         public static Document document;
-        private string GenerateGeneralPDF(List<SoldMemberships> listSoldMemberships, List<ClientesProximosVencer> listCustomersCloseToEnd, List<ClientesNuevos> listNewCustomers,DateTime fromDate, DateTime toDate, string comments)
+        private string GenerateGeneralPDF(List<SoldMemberships> listSoldMemberships,List<MembresiasVendidasPorEmpleado> listMembresiasVendiasEmpleado, List<ClientesProximosVencer> listCustomersCloseToEnd, List<ClientesNuevos> listNewCustomers,DateTime fromDate, DateTime toDate, string comments)
         {
             List<SoldMemberships> listSoldMembershipsWithoutDuplicates = listSoldMemberships.Distinct().ToList();
-            string tipoReporte = "";
             string ruta = Directory.GetCurrentDirectory();
             string archivo = "Reporte general_" + DateTime.Now.ToString("dd_MM_yyyy") + ".pdf";
             string rutaFinal = ruta + "\\Reportes\\General\\" + archivo;
@@ -28,33 +27,8 @@ namespace Vampiro_Gym
             FileStream fs = new FileStream(rutaFinal, FileMode.Create);
             document = new Document(iTextSharp.text.PageSize.LETTER, 30f, 20f, 50f, 40f);
             PdfWriter pw = PdfWriter.GetInstance(document, fs);
-            DateTime now = DateTime.Now;
-            int daysPassed = (toDate - fromDate).Days;
-            if (daysPassed>=2 && daysPassed <=7)
-            {
-                tipoReporte = "Semanal";
-            }
-            else if(daysPassed >=8 && daysPassed <=15)
-            {
-                tipoReporte = "Quincenal";
-            }
-            else if(daysPassed >= 16 && daysPassed<=30)
-            {
-                tipoReporte = "Mensual";
-            }
-            else if(daysPassed >= 31 && daysPassed <=60)
-            {
-                tipoReporte = "BiMensual";
-            }
-            else if(daysPassed >=150 && daysPassed <=360)
-            {
-                tipoReporte = "Anual";
-            }
-            else
-            {
-                tipoReporte = "Rango no especificado";
-            }
-            pw.PageEvent = new HeaderFooter("Reporte General " + tipoReporte, "Vampiro Gym", ruta + "\\Resources\\logo.png");
+            
+            pw.PageEvent = new HeaderFooter("Reporte General desde el " + fromDate + " hasta el " + toDate, "Vampiro Gym", ruta + "\\Resources\\logo.png");
             document.Open();
             Paragraph soldMembership = new Paragraph("MEMBRESIAS VENDIDAS EN EL PERIODO");
             soldMembership.SpacingAfter = 20;
@@ -84,25 +58,27 @@ namespace Vampiro_Gym
             }
             document.Add(table);
 
-            Paragraph customerCloseToEnd = new Paragraph("MEMBRESIAS PROXIMAS A VENCER");
-            customerCloseToEnd.SpacingBefore = 15;
-            customerCloseToEnd.SpacingAfter = 20;
-            customerCloseToEnd.Alignment = 1;
-            document.Add(customerCloseToEnd);
+            Paragraph membresiasVendidasPorEmpleado = new Paragraph("CANTIDAD DE MEMBRESIAS VENDIDAS POR EMPLEADO");
+            membresiasVendidasPorEmpleado.SpacingBefore = 15;
+            membresiasVendidasPorEmpleado.SpacingAfter = 20;
+            membresiasVendidasPorEmpleado.Alignment = 1;
+            document.Add(membresiasVendidasPorEmpleado);
 
-            PdfPTable table2 = new PdfPTable(4);
-            var customerName = new PdfPCell(new Phrase("Nombre del cliente", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            var membershipType = new PdfPCell(new Phrase("Tipo de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            var startDate = new PdfPCell(new Phrase("Fecha de alta de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            var endDate = new PdfPCell(new Phrase("Fecha de vencimiento de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            table2.AddCell(customerName);
-            table2.AddCell(membershipType);
-            table2.AddCell(startDate);
-            table2.AddCell(endDate);
+            PdfPTable table2 = new PdfPTable(5);
+            var employeeName = new PdfPCell(new Phrase("Nombre del empleado", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var _membershipType = new PdfPCell(new Phrase("Tipo de membresia vendida", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var _membershipCost = new PdfPCell(new Phrase("Costo de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var _membershipQty = new PdfPCell(new Phrase("Cantidad vendida", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var _totalCost = new PdfPCell(new Phrase("Ganancias generadas", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            table2.AddCell(employeeName);
+            table2.AddCell(_membershipType);
+            table2.AddCell(_membershipCost);
+            table2.AddCell(_membershipQty);
+            table2.AddCell(_totalCost);
 
-            foreach (ClientesProximosVencer cliente in listCustomersCloseToEnd)
+            foreach (MembresiasVendidasPorEmpleado membresiaVendida in listMembresiasVendiasEmpleado)
             {
-                string[] datos = cliente.getCustomerInfo.Split(',');
+                string[] datos = membresiaVendida.getInfo.Split(',');
                 foreach (string dato in datos)
                 {
                     PdfPCell _cell = new PdfPCell(new Paragraph(dato)) { Border = 0, HorizontalAlignment = Element.ALIGN_CENTER };
@@ -113,23 +89,23 @@ namespace Vampiro_Gym
 
             document.Add(table2);
 
-            Paragraph newCustomer = new Paragraph("CLIENTES NUEVOS");
-            newCustomer.SpacingBefore = 15;
-            newCustomer.SpacingAfter = 20;
-            newCustomer.Alignment = 1;
-            document.Add(newCustomer);
+            Paragraph customerCloseToEnd = new Paragraph("MEMBRESIAS PROXIMAS A VENCER");
+            customerCloseToEnd.SpacingBefore = 15;
+            customerCloseToEnd.SpacingAfter = 20;
+            customerCloseToEnd.Alignment = 1;
+            document.Add(customerCloseToEnd);
 
             PdfPTable table3 = new PdfPTable(4);
-            var customerName2 = new PdfPCell(new Phrase("Nombre del cliente", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            var membershipType2 = new PdfPCell(new Phrase("Tipo de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            var startDate2 = new PdfPCell(new Phrase("Fecha de alta de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            var endDate2 = new PdfPCell(new Phrase("Fecha de vencimiento de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
-            table3.AddCell(customerName2);
-            table3.AddCell(membershipType2);
-            table3.AddCell(startDate2);
-            table3.AddCell(endDate2);
+            var customerName = new PdfPCell(new Phrase("Nombre del cliente", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var membershipType = new PdfPCell(new Phrase("Tipo de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var startDate = new PdfPCell(new Phrase("Fecha de alta de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var endDate = new PdfPCell(new Phrase("Fecha de vencimiento de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            table3.AddCell(customerName);
+            table3.AddCell(membershipType);
+            table3.AddCell(startDate);
+            table3.AddCell(endDate);
 
-            foreach (ClientesNuevos cliente in listNewCustomers)
+            foreach (ClientesProximosVencer cliente in listCustomersCloseToEnd)
             {
                 string[] datos = cliente.getCustomerInfo.Split(',');
                 foreach (string dato in datos)
@@ -141,6 +117,35 @@ namespace Vampiro_Gym
             }
 
             document.Add(table3);
+
+            Paragraph newCustomer = new Paragraph("CLIENTES NUEVOS");
+            newCustomer.SpacingBefore = 15;
+            newCustomer.SpacingAfter = 20;
+            newCustomer.Alignment = 1;
+            document.Add(newCustomer);
+
+            PdfPTable table4 = new PdfPTable(4);
+            var customerName2 = new PdfPCell(new Phrase("Nombre del cliente", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var membershipType2 = new PdfPCell(new Phrase("Tipo de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var startDate2 = new PdfPCell(new Phrase("Fecha de alta de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            var endDate2 = new PdfPCell(new Phrase("Fecha de vencimiento de membresia", tHeader)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0, BorderWidthTop = 5f, BorderColor = new BaseColor(148, 40, 74), PaddingTop = 10f };
+            table4.AddCell(customerName2);
+            table4.AddCell(membershipType2);
+            table4.AddCell(startDate2);
+            table4.AddCell(endDate2);
+
+            foreach (ClientesNuevos cliente in listNewCustomers)
+            {
+                string[] datos = cliente.getCustomerInfo.Split(',');
+                foreach (string dato in datos)
+                {
+                    PdfPCell _cell = new PdfPCell(new Paragraph(dato)) { Border = 0, HorizontalAlignment = Element.ALIGN_CENTER };
+                    _cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table4.AddCell(_cell);
+                }
+            }
+
+            document.Add(table4);
 
             Paragraph commentHeader = new Paragraph("COMENTARIOS");
             commentHeader.SpacingBefore = 15;
@@ -255,13 +260,15 @@ namespace Vampiro_Gym
             string soldMembership = "";
             string customerCloseToEnd = "";
             string newCustomers = "";
-            string query = "SELECT Tipo_de_membresia,Fecha_de_alta_membresia FROM Customers";
+            string query = "SELECT Tipo_de_membresia,Dado_de_alta_por,Fecha_de_alta_membresia FROM Customers";
             dataBaseControl customersConsult = new dataBaseControl();
-            string resQuery = customersConsult.Select(query, 2);
+            string resQuery = customersConsult.Select(query, 3);
             string[] datos = resQuery.Split(',');
             List<membershipTypes> listMembershipType = new List<membershipTypes>();
+            List<Empleados> listEmpleados = new List<Empleados>();
             DateTime fechaAlta = new DateTime();
             string tipoMembresia = "";
+            string membresiaVendidaPor = "";
             foreach(string dato in datos)
             {
                 if (dato!="")
@@ -272,15 +279,24 @@ namespace Vampiro_Gym
                         continue;
                     }
 
+                    if (membresiaVendidaPor == "")
+                    {
+                        membresiaVendidaPor = dato;
+                        continue;
+                    }
+
                     if(fechaAlta==new DateTime())
                     {
                         fechaAlta = Convert.ToDateTime(dato);
                         if (fechaAlta >= fromDate && fechaAlta <= toDate)
                         {
                             membershipTypes newRegister = new membershipTypes(tipoMembresia);
+                            Empleados newEmployee = new Empleados(membresiaVendidaPor);
                             listMembershipType.Add(newRegister);
+                            listEmpleados.Add(newEmployee);
                             tipoMembresia = "";
                             fechaAlta = new DateTime();
+                            membresiaVendidaPor = "";
                         }
                         else
                         {
@@ -288,6 +304,48 @@ namespace Vampiro_Gym
                             fechaAlta = new DateTime();
                         }
                     }
+                }
+            }
+
+            int soldedMembershipQty = 0;
+            string membership_type = "";
+            string ultimaMembresia = "";
+            float _membreshipCost = 0;
+            float _totalCosto = 0;
+            List<string> membresiaRegistrada = new List<string>();
+            List<string> empleadoRegistrado = new List<string>();
+            List<MembresiasVendidasPorEmpleado> listMembresiasVendidas = new List<MembresiasVendidasPorEmpleado>();
+            foreach(Empleados empleado in listEmpleados)
+            {
+                bool employeeRegister = empleadoRegistrado.Any(x => x == empleado.getEmployeeName);
+                if (!employeeRegister)
+                {
+                    empleadoRegistrado.Add(empleado.getEmployeeName);
+                    query = "SELECT Tipo_de_membresia FROM Customers WHERE Dado_de_alta_por='" + empleado.getEmployeeName + "'";
+                    dataBaseControl getMembershipType = new dataBaseControl();
+                    resQuery = getMembershipType.Select(query, 1);
+                    string[] membresias = resQuery.Split(',');
+                    foreach (string membresia in membresias)
+                    {
+                        if (membresia != "")
+                        {
+                            bool elementRegistered = membresiaRegistrada.Any(x => x == membresia);
+                            if (!elementRegistered)
+                            {
+                                membresiaRegistrada.Add(membresia);
+                                soldedMembershipQty = membresias.Where(x => x == membresia).Count();
+                                query = "SELECT Costo FROM Membresias WHERE Tipo_de_membresia ='" + membresia + "'";
+                                dataBaseControl getMembershipCost = new dataBaseControl();
+                                resQuery = getMembershipCost.Select(query, 1);
+                                resQuery = resQuery.Trim(',');
+                                _membreshipCost = float.Parse(resQuery);
+                                _totalCosto = _membreshipCost * soldedMembershipQty;
+                                MembresiasVendidasPorEmpleado nuevoRegistro = new MembresiasVendidasPorEmpleado(empleado.getEmployeeName, membresia, _membreshipCost.ToString(), soldedMembershipQty.ToString(), _totalCosto.ToString());
+                                listMembresiasVendidas.Add(nuevoRegistro);
+                            }
+                        }
+                    }
+                    membresiaRegistrada = new List<string>();
                 }
             }
 
@@ -417,7 +475,7 @@ namespace Vampiro_Gym
             }
             else
             {
-                string rutaFinal = GenerateGeneralPDF(listMembership, listCustomerCloseToEnd, listNewCustomer, fromDate, toDate, comment);
+                string rutaFinal = GenerateGeneralPDF(listMembership, listMembresiasVendidas,listCustomerCloseToEnd, listNewCustomer, fromDate, toDate, comment);
                 return ("El reporte se ha generado exitosamente",rutaFinal);
             }
         }

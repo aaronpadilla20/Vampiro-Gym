@@ -146,14 +146,28 @@ namespace Vampiro_Gym
 
         private void showWindow(Image imagen, string name, string lastName, string membershipType,string startDate)
         {
-            string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
-            dataBaseControl insertNewRegister = new dataBaseControl();
-            string query = "INSERT INTO Historico_Visitas (Fecha_de_visita,Nombre,Apellido,Tipo_de_membresia) VALUES ('" + now + "','" + name + "','" + lastName + "','" + membershipType + "')";
-            bool resQuery = insertNewRegister.Insert(query);
-            if (!resQuery)
+            while (true)
             {
-                MessageBox.Show("Se ha presentado un problema al crear el nuevo registro de visita", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                try
+                {
+                    string now = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+                    dataBaseControl insertNewRegister = new dataBaseControl();
+                    string query = "INSERT INTO Historico_Visitas (Fecha_de_visita,Nombre,Apellido,Tipo_de_membresia) VALUES ('" + now + "','" + name + "','" + lastName + "','" + membershipType + "')";
+                    bool resQuery = insertNewRegister.Insert(query);
+                    if (!resQuery)
+                    {
+                        MessageBox.Show("Se ha presentado un problema al crear el nuevo registro de visita", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
             }
             Vampiro_Gym.Forms.CustomerWIndow showCustomer = new Forms.CustomerWIndow(imagen,name,lastName,membershipType,startDate);
             showCustomer.ShowDialog();

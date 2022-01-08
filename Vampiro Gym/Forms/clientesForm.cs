@@ -222,21 +222,12 @@ namespace Vampiro_Gym
 
         private void altaUsuarioButton_Click(object sender, EventArgs e)
         {
-            if(loginWindow.tipoUsuario == "Administrador" || loginWindow.tipoUsuario == "administrador")
+            formMembresia nuevoCliente = new formMembresia("alta", Properties.Resources.noPhotoAvailable, "", "", "");
+            nuevoCliente.ShowDialog();
+            if (formMembresia.operacionExitosa)
             {
-                formMembresia nuevoCliente = new formMembresia("alta", Properties.Resources.noPhotoAvailable, "", "", "");
-                nuevoCliente.ShowDialog();
-                if (formMembresia.operacionExitosa)
-                {
-                    CargaDatos();
-                }
+                CargaDatos();
             }
-            else
-            {
-                MessageBox.Show("Error: Un nuevo cliente solamente puede ser creado por un usuario con privilegios de administrador", "Privilegios insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            
-
         }
     }
 }

@@ -218,7 +218,77 @@ namespace Vampiro_Gym
                                         }
                                         else
                                         {
-                                            clearWindow();
+                                            res = MessageBox.Show("¿Desea modificar el tipo de usuario?", "Modifica tipo usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                            if (res == DialogResult.Yes)
+                                            {
+                                                tipoUsuarioCombo.SelectedIndex = 0;
+                                                nombreBox.Enabled = false;
+                                                apellidoTextBox.Enabled = false;
+                                                emailBox.Enabled = false;
+                                                userTextBox.Enabled = false;
+                                                passwordBox.Enabled = false;
+                                                confirmePasswordBox.Enabled = false;
+                                            }
+                                            else
+                                            {
+                                                res = MessageBox.Show("¿Desea modificar el nombre del usuario?", "Modifica nombre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                                if (res == DialogResult.Yes)
+                                                {
+                                                    tipoUsuarioCombo.Enabled = false;
+                                                    nombreBox.Text = "";
+                                                    apellidoTextBox.Text = "";
+                                                    emailBox.Enabled = false;
+                                                    userTextBox.Enabled = false;
+                                                    passwordBox.Enabled = false;
+                                                    confirmePasswordBox.Enabled = false;
+                                                }
+                                                else
+                                                {
+                                                    res = MessageBox.Show("¿Desea modificar el email del usuario?", "Modifica nombre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                                    if (res == DialogResult.Yes)
+                                                    {
+                                                        tipoUsuarioCombo.Enabled = false;
+                                                        nombreBox.Enabled = false;
+                                                        apellidoTextBox.Enabled = false;
+                                                        emailBox.Text = "";
+                                                        userTextBox.Enabled = false;
+                                                        passwordBox.Enabled = false;
+                                                        confirmePasswordBox.Enabled = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        res = MessageBox.Show("¿Desea modificar el nombre de usuario del usuario?", "Modifica nombre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                                        if (res == DialogResult.Yes)
+                                                        {
+                                                            tipoUsuarioCombo.Enabled = false;
+                                                            nombreBox.Enabled = false;
+                                                            apellidoTextBox.Enabled = false;
+                                                            emailBox.Enabled = false;
+                                                            userTextBox.Text = "";
+                                                            passwordBox.Enabled = false;
+                                                            confirmePasswordBox.Enabled = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            res = MessageBox.Show("¿Desea modificar el password del usuario?", "Modifica nombre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                                            if (res == DialogResult.Yes)
+                                                            {
+                                                                tipoUsuarioCombo.Enabled = false;
+                                                                nombreBox.Enabled = false;
+                                                                apellidoTextBox.Enabled = false;
+                                                                emailBox.Enabled = false;
+                                                                userTextBox.Enabled = false;
+                                                                passwordBox.Text = "";
+                                                                confirmePasswordBox.Text = "";
+                                                            }
+                                                            else
+                                                            {
+                                                                MessageBox.Show("Se ha abortado la creacion del usuario", "Creacion de usuario abortada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                     else

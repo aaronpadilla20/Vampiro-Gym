@@ -234,6 +234,8 @@
     <Compile Include="Utilidades\historialMembresias.cs" />
     <Compile Include="Utilidades\MasterEmailServer.cs" />
     <Compile Include="Utilidades\membershipTypes.cs" />
+    <Compile Include="Utilidades\Empleados.cs" />
+    <Compile Include="Utilidades\MembresiasVendidasPorEmpleado.cs" />
     <Compile Include="Utilidades\MessageManager.cs" />
     <Compile Include="Utilidades\RegistrosVisita.cs" />
     <Compile Include="Utilidades\SoldMemberships.cs" />

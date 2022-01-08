@@ -261,6 +261,7 @@ namespace Vampiro_Gym
         private void clearWindow()
         {
             imageCliente.Image = Properties.Resources.noPhotoAvailable;
+            imageCliente.Tag = null;
             takePictureButton.Enabled = true;
             nombreTextBox.Enabled = true;
             nombreTextBox.Text = "Nombre(s):";
