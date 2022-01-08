@@ -130,11 +130,23 @@
     <Compile Include="Forms\generalReportWindow.Designer.cs">
       <DependentUpon>generalReportWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\optionWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\optionWindow.Designer.cs">
+      <DependentUpon>optionWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ReportsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ReportsWindow.Designer.cs">
       <DependentUpon>ReportsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UsuariosWIndow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UsuariosWIndow.Designer.cs">
+      <DependentUpon>UsuariosWIndow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -254,6 +266,9 @@
     <EmbeddedResource Include="Forms\membresiasForm.resx">
       <DependentUpon>membresiasForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\optionWindow.resx">
+      <DependentUpon>optionWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegistroDeHuella.resx">
       <DependentUpon>RegistroDeHuella.cs</DependentUpon>
     </EmbeddedResource>
@@ -277,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\usuarioRegistroForm.resx">
       <DependentUpon>usuarioRegistroForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UsuariosWIndow.resx">
+      <DependentUpon>UsuariosWIndow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

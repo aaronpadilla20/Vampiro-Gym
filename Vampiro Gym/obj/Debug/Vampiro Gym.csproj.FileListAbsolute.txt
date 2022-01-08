@@ -98,3 +98,5 @@ C:\Users\ajpadill\OneDrive - Intel Corporation\Documents\WorkSpace\C#\Vampiro-Gy
 C:\Users\ajpadill\OneDrive - Intel Corporation\Documents\WorkSpace\C#\Vampiro-Gym (New)\Vampiro Gym\obj\Debug\Vampiro Gym.exe
 C:\Users\ajpadill\OneDrive - Intel Corporation\Documents\WorkSpace\C#\Vampiro-Gym (New)\Vampiro Gym\obj\Debug\Vampiro Gym.pdb
 C:\Users\ajpadill\OneDrive - Intel Corporation\Documents\WorkSpace\C#\Vampiro-Gym (New)\Vampiro Gym\obj\Debug\Vampiro Gym.csproj.AssemblyReference.cache
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.OptionWindow.resources
+C:\Users\VAMPIRO\Documents\WorkSpace\Vampiro-Gym\Vampiro Gym\obj\Debug\Vampiro_Gym.UsuariosWIndow.resources

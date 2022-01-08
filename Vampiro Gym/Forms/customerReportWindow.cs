@@ -58,96 +58,120 @@ namespace Vampiro_Gym.Forms
 
         private void generateButton_Click(object sender, EventArgs e)
         {
-            if (!customerName.Texts.Contains("--") && commentTextBox.Text!="")
+            if (customerName.Texts.Length!=0 && !customerName.Texts.Contains("--"))
             {
-                DialogResult res = MessageBox.Show("Desea generar el reporte del cliente " + customerName.Texts + " desde la fecha " + fromDate.Text + " hasta la fecha " + toDate.Text + " y agregar el comentario " + commentTextBox.Text + "?", "Generando Reporte", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                toDate.Enabled = true;
-                fromDate.Enabled = true;
-                customerName.Enabled = true;
-                commentTextBox.Enabled = true;
-                if (res==DialogResult.Yes)
+                if (commentTextBox.Text == "")
                 {
-                    DateTime fromDateValue = fromDate.Value;
-                    TimeSpan fromTs = new TimeSpan(7, 00, 00);
-                    fromDateValue = fromDateValue.Date + fromTs;
-
-
-                    DateTime toDateValue = toDate.Value;
-                    TimeSpan toTs = new TimeSpan(23, 00, 00);
-                    toDateValue = toDateValue.Date + toTs;
-
-                    Utilerias generateReport = new Utilerias();
-                    var (resGenerationReport,ruta) = generateReport.customerReport(fromDateValue, toDateValue, customerName.Texts,commentTextBox.Text);
-                    if (!resGenerationReport.Contains("El reporte se ha generado exitosamente"))
+                    DialogResult res = MessageBox.Show("No se ha ingresado un comentario, ¿Desea generar el reporte sin comentarios?", "Reporte sin comentarios", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
                     {
-                        MessageBox.Show(resGenerationReport, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        generaReporte("Sin comentarios");
                     }
                     else
                     {
-                        MessageBox.Show(resGenerationReport, "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        res = MessageBox.Show("¿Desea visualizar el reporte generado?", "Visualiza reporte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (res == DialogResult.Yes)
-                        {
-                            Process.Start(ruta);
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Si desea visualizar el reporte posteriormente navegue a la direccion " + ruta);
-                            this.Close();
-                        }
-                    }
-                }
-                
-                if (res==DialogResult.No)
-                {
-                    DialogResult resQuestion = MessageBox.Show("Desea generar el reporte para un cliente diferente?", "Selecciona otro cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resQuestion == DialogResult.Yes)
-                    {
-                        customerName.Texts = "";
+                        customerName.Enabled = false;
                         fromDate.Enabled = false;
                         toDate.Enabled = false;
-                        commentTextBox.Enabled = false;
-                    }
-                    else
-                    {
-                        DialogResult resQuestion2 = MessageBox.Show("Desea elegir un periodo de tiempo diferente?", "Selección de tiempo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (resQuestion2 == DialogResult.Yes)
-                        {
-                            customerName.Enabled = false;
-                            commentTextBox.Enabled = false;
-                        }
-                        else
-                        {
-                            DialogResult resQuestion3 = MessageBox.Show("Desea cambiar el comentario?", "Modifique Comentario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (resQuestion3 == DialogResult.Yes)
-                            {
-                                commentTextBox.Text = "";
-                                customerName.Enabled = false;
-                                fromDate.Enabled = false;
-                                toDate.Enabled = false;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Se ha abortado la generación del reporte del cliente");
-                                this.Close();
-                                return;
-                            }
-                        }
                     }
                 }
-                
-                if(res==DialogResult.Cancel)
+                else
                 {
-                    MessageBox.Show("Se ha abortado la generación del reporte del cliente");
-                    this.Close();
-                    return;
+                    generaReporte(commentTextBox.Text);
                 }
             }
             else
             {
-                if (customerName.Texts.Contains("--"))MessageBox.Show("Es necesario seleccionar un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (commentTextBox.Text =="") MessageBox.Show("Es necesario ingresar un comentario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (customerName.Texts.Contains("--") || customerName.Texts.Contains(""))
+                {
+                    MessageBox.Show("Es necesario seleccionar un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }   
+            }
+        }
+
+        private void generaReporte(string comentario)
+        {
+            DialogResult res = MessageBox.Show("Desea generar el reporte del cliente " + customerName.Texts + " desde la fecha " + fromDate.Text + " hasta la fecha " + toDate.Text + " y agregar el comentario " + comentario + "?", "Generando Reporte", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            toDate.Enabled = true;
+            fromDate.Enabled = true;
+            customerName.Enabled = true;
+            commentTextBox.Enabled = true;
+            if (res == DialogResult.Yes)
+            {
+                DateTime fromDateValue = fromDate.Value;
+                TimeSpan fromTs = new TimeSpan(00, 00, 00);
+                fromDateValue = fromDateValue.Date + fromTs;
+
+
+                DateTime toDateValue = toDate.Value;
+                TimeSpan toTs = new TimeSpan(23, 00, 00);
+                toDateValue = toDateValue.Date + toTs;
+
+                Utilerias generateReport = new Utilerias();
+                var (resGenerationReport, ruta) = generateReport.customerReport(fromDateValue, toDateValue, customerName.Texts, commentTextBox.Text);
+                if (!resGenerationReport.Contains("El reporte se ha generado exitosamente"))
+                {
+                    MessageBox.Show(resGenerationReport, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show(resGenerationReport, "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    res = MessageBox.Show("¿Desea visualizar el reporte generado?", "Visualiza reporte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        Process.Start(ruta);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Si desea visualizar el reporte posteriormente navegue a la direccion " + ruta);
+                        this.Close();
+                    }
+                }
+            }
+
+            if (res == DialogResult.No)
+            {
+                DialogResult resQuestion = MessageBox.Show("Desea generar el reporte para un cliente diferente?", "Selecciona otro cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resQuestion == DialogResult.Yes)
+                {
+                    customerName.Texts = "";
+                    fromDate.Enabled = false;
+                    toDate.Enabled = false;
+                    commentTextBox.Enabled = false;
+                }
+                else
+                {
+                    DialogResult resQuestion2 = MessageBox.Show("Desea elegir un periodo de tiempo diferente?", "Selección de tiempo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resQuestion2 == DialogResult.Yes)
+                    {
+                        customerName.Enabled = false;
+                        commentTextBox.Enabled = false;
+                    }
+                    else
+                    {
+                        DialogResult resQuestion3 = MessageBox.Show("Desea cambiar el comentario?", "Modifique Comentario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (resQuestion3 == DialogResult.Yes)
+                        {
+                            commentTextBox.Text = "";
+                            customerName.Enabled = false;
+                            fromDate.Enabled = false;
+                            toDate.Enabled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Se ha abortado la generación del reporte del cliente");
+                            this.Close();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (res == DialogResult.Cancel)
+            {
+                MessageBox.Show("Se ha abortado la generación del reporte del cliente");
+                this.Close();
+                return;
             }
         }
     }

@@ -30,15 +30,15 @@ namespace Vampiro_Gym
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(clientesForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.headerTable = new System.Windows.Forms.TableLayoutPanel();
             this.contenedorBotonCerrar = new System.Windows.Forms.Panel();
             this.botonCerrar = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.altaClienteButton = new System.Windows.Forms.PictureBox();
+            this.altaUsuarioButton = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@ namespace Vampiro_Gym
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.altaClienteButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.altaUsuarioButton)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -113,7 +113,7 @@ namespace Vampiro_Gym
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 92.91581F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.084189F));
-            this.tableLayoutPanel1.Controls.Add(this.altaClienteButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.altaUsuarioButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -123,18 +123,18 @@ namespace Vampiro_Gym
             this.tableLayoutPanel1.Size = new System.Drawing.Size(649, 67);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // altaClienteButton
+            // altaUsuarioButton
             // 
-            this.altaClienteButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.altaClienteButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.altaClienteButton.Image = ((System.Drawing.Image)(resources.GetObject("altaClienteButton.Image")));
-            this.altaClienteButton.Location = new System.Drawing.Point(606, 3);
-            this.altaClienteButton.Name = "altaClienteButton";
-            this.altaClienteButton.Size = new System.Drawing.Size(40, 61);
-            this.altaClienteButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.altaClienteButton.TabIndex = 0;
-            this.altaClienteButton.TabStop = false;
-            this.altaClienteButton.Click += new System.EventHandler(this.altaClienteButton_Click);
+            this.altaUsuarioButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.altaUsuarioButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.altaUsuarioButton.Image = ((System.Drawing.Image)(resources.GetObject("altaUsuarioButton.Image")));
+            this.altaUsuarioButton.Location = new System.Drawing.Point(606, 3);
+            this.altaUsuarioButton.Name = "altaUsuarioButton";
+            this.altaUsuarioButton.Size = new System.Drawing.Size(40, 61);
+            this.altaUsuarioButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.altaUsuarioButton.TabIndex = 0;
+            this.altaUsuarioButton.TabStop = false;
+            this.altaUsuarioButton.Click += new System.EventHandler(this.altaUsuarioButton_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -256,23 +256,23 @@ namespace Vampiro_Gym
             this.dtgvClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgvClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dtgvClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvClientes.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvClientes.DefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvClientes.EnableHeadersVisualStyles = false;
             this.dtgvClientes.GridColor = System.Drawing.Color.LightSteelBlue;
@@ -281,12 +281,12 @@ namespace Vampiro_Gym
             this.dtgvClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dtgvClientes.RowHeadersVisible = false;
             this.dtgvClientes.RowHeadersWidth = 62;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvClientes.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightBlue;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvClientes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvClientes.Size = new System.Drawing.Size(649, 371);
             this.dtgvClientes.TabIndex = 1;
@@ -311,7 +311,7 @@ namespace Vampiro_Gym
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.altaClienteButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.altaUsuarioButton)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -330,7 +330,7 @@ namespace Vampiro_Gym
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox valorTextBox;
-        private System.Windows.Forms.PictureBox altaClienteButton;
+        private System.Windows.Forms.PictureBox altaUsuarioButton;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataGridView dtgvClientes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

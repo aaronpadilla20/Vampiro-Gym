@@ -53,16 +53,6 @@ namespace Vampiro_Gym
             InitializeComponent();
         }
 
-        private void altaClienteButton_Click(object sender, EventArgs e)
-        {
-            formMembresia nuevoCliente = new formMembresia("alta",Properties.Resources.noPhotoAvailable,"","","");
-            nuevoCliente.ShowDialog();
-            if (formMembresia.operacionExitosa)
-            {
-                CargaDatos();
-            }
-        }
-
         private void CargaDatos()
         {
             dt = new DataTable();
@@ -228,6 +218,25 @@ namespace Vampiro_Gym
         private void valorTextBox_TextChanged(object sender, EventArgs e)
         {
             dt.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%'", columnaComboBox.Text, valorTextBox.Text);
+        }
+
+        private void altaUsuarioButton_Click(object sender, EventArgs e)
+        {
+            if(loginWindow.tipoUsuario == "Administrador" || loginWindow.tipoUsuario == "administrador")
+            {
+                formMembresia nuevoCliente = new formMembresia("alta", Properties.Resources.noPhotoAvailable, "", "", "");
+                nuevoCliente.ShowDialog();
+                if (formMembresia.operacionExitosa)
+                {
+                    CargaDatos();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error: Un nuevo cliente solamente puede ser creado por un usuario con privilegios de administrador", "Privilegios insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+
         }
     }
 }

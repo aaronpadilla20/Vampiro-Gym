@@ -155,7 +155,7 @@ namespace Vampiro_Gym
             return rutaFinal;
         }
 
-        private string GenerateCustomerPDF(List<historialMembresias> historialMembresias, List<RegistrosVisita> historialVisitas,System.Drawing.Image image, string memberSinceValue, string currentMembershipType,string name, string lastName )
+        private string GenerateCustomerPDF(List<historialMembresias> historialMembresias, List<RegistrosVisita> historialVisitas,System.Drawing.Image image, string memberSinceValue, string currentMembershipType,string name, string lastName,string dadoDeAltaPor )
         {
             DateTime fechaAltaClienteValue = Convert.ToDateTime(memberSinceValue);
             string fechaAlta = fechaAltaClienteValue.Day.ToString() + "/" + fechaAltaClienteValue.Month.ToString() + "/" + fechaAltaClienteValue.Year.ToString(); 
@@ -187,6 +187,10 @@ namespace Vampiro_Gym
             memberSice.SpacingBefore = 15;
             memberSice.Alignment = 0;
             document.Add(memberSice);
+            Paragraph createdBy = new Paragraph("Dado de alta por: " + dadoDeAltaPor);
+            createdBy.SpacingBefore = 15;
+            createdBy.Alignment = 0;
+            document.Add(createdBy);
 
             Paragraph membershipsHistory = new Paragraph("HISTORIAL DE MEMBRESIAS");
             membershipsHistory.SpacingBefore = 20;
@@ -264,16 +268,8 @@ namespace Vampiro_Gym
                 {
                     if (tipoMembresia=="")
                     {
-                        try
-                        {
-                            DateTime esFecha = Convert.ToDateTime(dato);
-                            continue;
-                        }
-                        catch
-                        {
-                            tipoMembresia = dato;
-                            continue;
-                        }
+                        tipoMembresia = dato;
+                        continue;
                     }
 
                     if(fechaAlta==new DateTime())
@@ -283,6 +279,11 @@ namespace Vampiro_Gym
                         {
                             membershipTypes newRegister = new membershipTypes(tipoMembresia);
                             listMembershipType.Add(newRegister);
+                            tipoMembresia = "";
+                            fechaAlta = new DateTime();
+                        }
+                        else
+                        {
                             tipoMembresia = "";
                             fechaAlta = new DateTime();
                         }
@@ -384,6 +385,13 @@ namespace Vampiro_Gym
                                 ClientesProximosVencer newRegister = new ClientesProximosVencer(fullName, tipoMembresia, fechaAlta.ToString(), endDate.ToString());
                                 listCustomerCloseToEnd.Add(newRegister);
                             }
+                            name = "";
+                            lastName = "";
+                            tipoMembresia = "";
+                            fechaAlta = new DateTime();
+                        }
+                        else
+                        {
                             name = "";
                             lastName = "";
                             tipoMembresia = "";
@@ -570,11 +578,12 @@ namespace Vampiro_Gym
             }
  
             if (!historialMembresias && !historialVisitas) return ("No existen elementos a reportar en el periodo de tiempo seleccionado","Error");
-            
+
             System.Drawing.Image imagen = null;
             string memberSince = "";
             string currentMembershipType = "";
-            query = "SELECT Fotografia,Fecha_de_alta_cliente,Tipo_de_membresia FROM Customers WHERE Nombre='" + name + "' AND Apellido='" + apellidos + "'";
+            string dadoDeAltaPor = "";
+            query = "SELECT Fotografia,Fecha_de_alta_cliente,Tipo_de_membresia,Dado_de_alta_por FROM Customers WHERE Nombre='" + name + "' AND Apellido='" + apellidos + "'";
             SqlCommand command = new SqlCommand(query, dataBaseControl.connection);
             SqlDataReader filas = command.ExecuteReader();
             while(filas.Read())
@@ -582,8 +591,9 @@ namespace Vampiro_Gym
                 imagen = (Bitmap)((new ImageConverter()).ConvertFrom(filas.GetValue(0)));
                 memberSince = filas.GetString(1);
                 currentMembershipType = filas.GetString(2);
+                dadoDeAltaPor = filas.GetString(3);
             }
-            string ruta = GenerateCustomerPDF(listaDatos, listVisitas,imagen, memberSince, currentMembershipType, name, apellidos);
+            string ruta = GenerateCustomerPDF(listaDatos, listVisitas,imagen, memberSince, currentMembershipType, name, apellidos,dadoDeAltaPor);
             return ("El reporte se ha generado exitosamente",ruta);
         }
         public void comboBoxDrawing(object sender,DrawItemEventArgs e)

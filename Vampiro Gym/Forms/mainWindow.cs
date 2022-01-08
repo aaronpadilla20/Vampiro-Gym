@@ -40,9 +40,20 @@ namespace Vampiro_Gym
 
         private void botonClose_Click(object sender, EventArgs e)
         {
-            DialogResult res = MessageBox.Show("¿Desea cerrar la aplicación?", "Cerrando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (res == DialogResult.Yes)
+            OptionWindow ventanaCierre = new OptionWindow();
+            ventanaCierre.ShowDialog();
+            if (ventanaCierre.getOpcion == "sesion")
+            {
+                this.Close();
+                loginWindow loginwindow = new loginWindow();
+                loginwindow.Show();
+                LectorZKTecok30 lectorClientes = new LectorZKTecok30();
+                lectorClientes.Disconnect();
+            }
+            else
+            {
                 Application.Exit();
+            }
         }
 
         private void membresias_Click(object sender, EventArgs e)
@@ -52,7 +63,7 @@ namespace Vampiro_Gym
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            openChild(new usuarioRegistroForm());
+            openChild(new UsuariosWIndow());
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -62,12 +73,12 @@ namespace Vampiro_Gym
 
         private void formMain_Load(object sender, EventArgs e)
         {
-            if (loginWindow.tipoUsuario == "Administrador")
-                usuariosButton.Enabled = true;
             Thread hiloLector = new Thread(new ThreadStart(verificaHuella));
             hiloLector.IsBackground = true;
             hiloLector.Start();
-           
+            System.Drawing.Rectangle rect = Screen.GetWorkingArea(this);
+            this.MaximizedBounds = Screen.GetWorkingArea(this);
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private async void verificaHuella()

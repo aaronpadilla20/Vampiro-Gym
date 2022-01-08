@@ -15,6 +15,14 @@ namespace Vampiro_Gym
 {
     public partial class usuarioRegistroForm : Form
     {
+        private string tipoUsuario;
+        private string nombre;
+        private string apellido;
+        private string correo;
+        private string user;
+        private string password;
+        private string confirmPassword;
+
         private bool emailValido;
         private string usuario;
         private string query;
@@ -26,6 +34,7 @@ namespace Vampiro_Gym
         private string num;
         private int newNum;
         private bool insertado;
+        private string tipoVentana;
 
         private const string TABLA = "Usuarios";
         private const int CAMPOSAOBTENER = 1;
@@ -33,9 +42,25 @@ namespace Vampiro_Gym
         Utilerias utilidades = new Utilerias();
         Match m;
 
-        public usuarioRegistroForm()
+        public usuarioRegistroForm(string tipoVentana,string tipoUsuario,string nombre, string apellido, string correo, string user, string password, string confirmPassword)
         {
+            this.tipoVentana = tipoVentana;
+            this.tipoUsuario = tipoUsuario;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.correo = correo;
+            this.user = user;
+            this.password = password;
+            this.confirmPassword = confirmPassword;
             InitializeComponent();
+        }
+
+        public bool getInsertado
+        {
+            get
+            {
+                return insertado;
+            }
         }
 
         private void botonCerrar_Click(object sender, EventArgs e)
@@ -60,6 +85,85 @@ namespace Vampiro_Gym
             }
         }
 
+        private void RegisterUser()
+        {
+            datos = new string[] { };
+            try
+            {
+                dataBaseControl consult = new dataBaseControl();
+                usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
+                this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
+                this.resultadoConsulta1 = consult.Select(query, 1);
+                if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
+                {
+                    this.resultadoConsulta1 = this.resultadoConsulta1.TrimEnd(',');
+                    datos = resultadoConsulta1.Split(',');
+                    foreach (string dato in datos)
+                    {
+                        this.lastSimilarUser = dato;
+                    }
+                    this.query = "SELECT Nombre,Apellido FROM " + TABLA + " WHERE (Nombre='" + nombreBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')"; //Consulta de nombre y apellido
+                    this.resultadoConsulta2 = consult.Select(query, 2); // Realizamos consulta
+                    if (resultadoConsulta2.Contains("La consulta no genero resultados")) // Si el usuario no existe
+                    {
+                        this.m = Regex.Match(this.lastSimilarUser, "(\\d)"); //Verificamos si el usario ya tiene un numero
+                        num = string.Empty; //Inicializamos variable donde capturaremos numero
+                        if (m.Success) //Si el usuario ya tiene un numero
+                        {
+                            num = m.Value; //Obtenemos el numero
+                            newNum = Int32.Parse(num); //Lo convertimos a int
+                            newNum++; //Incrementamos su valor en 1
+                            usuario += newNum.ToString(); //Cocatenamos el numero al usuario
+                        }
+                        else
+                        {
+                            usuario += "1";
+                        }
+                        this.query = "SELECT Correo FROM " + TABLA + " WHERE Correo='" + emailBox.Text + "'";
+                        this.resultadoConsulta3 = consult.Select(query, 1);
+                        if (resultadoConsulta3.Contains("La consulta no genero resultados"))
+                        {
+                            RegistraUsuario();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Imposible crear el usuario debido a que el correo especificado ya esta dado de alta con otro usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El usuario ya se encuentra registrado no se puede duplicar el usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        clearWindow();
+                    }
+                }
+                else
+                {
+                    RegistraUsuario();
+                    this.Close();
+                }
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("Ha ocurrido el siguiente error al crear el usuario" + er.ToString());
+            }
+        }
+
+        private void EditUser()
+        {
+            dataBaseControl updateUserTable = new dataBaseControl();
+            string query = "UPDATE Usuarios SET Tipo_de_usuario='" + tipoUsuarioCombo.Text + "',Correo='" + emailBox.Text + "',Contrasena='" + confirmePasswordBox.Text + "' WHERE Usuario='"+userTextBox.Text+"'";
+            bool updatedTable = updateUserTable.Update(query);
+            if (updatedTable)
+            {
+                MessageBox.Show("Informacion de usuario modificada correctamente", "Usuario modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Se presento un error al intentar actualizar la información del usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void validarFormularioButton_Click(object sender, EventArgs e)
         {
             dataBaseControl consult = new dataBaseControl();
@@ -76,6 +180,17 @@ namespace Vampiro_Gym
                             {
                                 if (!confirmePasswordBox.Text.Contains("Confirme Password") && confirmePasswordBox.Text != "" && passwordBox.Text == confirmePasswordBox.Text)
                                 {
+                                    string action = "";
+                                    switch (tipoVentana)
+                                    {
+                                        case "alta":
+                                            action = "crear";
+                                            break;
+                                        case "edicion":
+                                            action = "editar";
+                                            break;
+                                    }
+
                                     DialogResult res = MessageBox.Show("Se creara un usuario con los siguientes datos:\n" +
                                         "Tipo de usuario: " + tipoUsuarioCombo.Text + "\n" +
                                         "Nombre: " + nombreBox.Text + "\n" +
@@ -83,66 +198,17 @@ namespace Vampiro_Gym
                                         "Correo: " + emailBox.Text + "\n" +
                                         "Usuario: " + userTextBox.Text + "\n" + 
                                         "Password: " + passwordBox.Text + "\n" +
-                                        "¿Esta seguro de crear el usuario con los datos anteriormente especificados?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                        "¿Esta seguro de " + action + " el usuario con los datos anteriormente especificados?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                                     if (res == DialogResult.Yes)
                                     {
-                                        datos = new string[] { };
-                                        try
+                                        switch (tipoVentana)
                                         {
-                                            consult = new dataBaseControl();
-                                            usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
-                                            this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
-                                            this.resultadoConsulta1 = consult.Select(query, 1);
-                                            if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
-                                            {
-                                                this.resultadoConsulta1 = this.resultadoConsulta1.TrimEnd(',');
-                                                datos = resultadoConsulta1.Split(',');
-                                                foreach (string dato in datos)
-                                                {
-                                                    this.lastSimilarUser = dato;
-                                                }
-                                                this.query = "SELECT Nombre,Apellido FROM " + TABLA + " WHERE (Nombre='" + nombreBox.Text + "') AND (Apellido='" + apellidoTextBox.Text + "')"; //Consulta de nombre y apellido
-                                                this.resultadoConsulta2 = consult.Select(query, 2); // Realizamos consulta
-                                                if (resultadoConsulta2.Contains("La consulta no genero resultados")) // Si el usuario no existe
-                                                {
-                                                    this.m = Regex.Match(this.lastSimilarUser, "(\\d)"); //Verificamos si el usario ya tiene un numero
-                                                    num = string.Empty; //Inicializamos variable donde capturaremos numero
-                                                    if (m.Success) //Si el usuario ya tiene un numero
-                                                    {
-                                                        num = m.Value; //Obtenemos el numero
-                                                        newNum = Int32.Parse(num); //Lo convertimos a int
-                                                        newNum++; //Incrementamos su valor en 1
-                                                        usuario += newNum.ToString(); //Cocatenamos el numero al usuario
-                                                    }
-                                                    else
-                                                    {
-                                                        usuario += "1";
-                                                    }
-                                                    this.query = "SELECT Correo FROM " + TABLA + " WHERE Correo='" + emailBox.Text + "'";
-                                                    this.resultadoConsulta3 = consult.Select(query, 1);
-                                                    if (resultadoConsulta3.Contains("La consulta no genero resultados"))
-                                                    {
-                                                        RegistraUsuario();
-                                                    }
-                                                    else
-                                                    {
-                                                        MessageBox.Show("Imposible crear el usuario debido a que el correo especificado ya esta dado de alta con otro usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("El usuario ya se encuentra registrado no se puede duplicar el usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    clearWindow();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                RegistraUsuario();
-                                            }
-                                        }
-                                        catch (Exception er)
-                                        {
-                                            MessageBox.Show("Ha ocurrido el siguiente error al crear el usuario" + er.ToString());
+                                            case "alta":
+                                                RegisterUser();
+                                                break;
+                                            case "edicion":
+                                                EditUser();
+                                                break;
                                         }
                                     }
                                     else
@@ -251,23 +317,13 @@ namespace Vampiro_Gym
             this.toolTip1.SetToolTip(validarFormularioButton, "Alta Usuario");
         }
 
-        private void editButton_MouseEnter(object sender, EventArgs e)
-        {
-            this.toolTip1.SetToolTip(editButton, "Modificar Usuario");
-        }
-
-        private void deleteUserButton_MouseEnter(object sender, EventArgs e)
-        {
-            this.toolTip1.SetToolTip(deleteUserButton, "Eliminar usuario");
-        }
-
         private void editButton_Click(object sender, EventArgs e)
         {
             edicionUsuario editWindow = new edicionUsuario();
             editWindow.ShowDialog();
         }
 
-        private void usuarioRegistroForm_Load(object sender, EventArgs e)
+        private void AltaUsuario()
         {
             tipoUsuarioCombo.SelectedIndex = 0;
             if (loginWindow.inicializandoSistema)
@@ -276,16 +332,35 @@ namespace Vampiro_Gym
                 this.StartPosition = FormStartPosition.CenterScreen;
                 tipoUsuarioCombo.Enabled = false;
                 headerTable.Visible = false;
-                deleteUserButton.Visible = false;
-                editButton.Visible = false;
             }
-            this.ActiveControl = validarFormularioButton;
         }
 
-        private void deleteUserButton_Click(object sender, EventArgs e)
+        private void EditaUsuario()
         {
-            eliminaUsuario deleteWindow = new eliminaUsuario();
-            deleteWindow.ShowDialog();
+            tipoUsuarioCombo.Text = tipoUsuario;
+            nombreBox.Text = nombre;
+            nombreBox.Enabled = false;
+            apellidoTextBox.Text = apellido;
+            apellidoTextBox.Enabled = false;
+            emailBox.Text = correo;
+            userTextBox.Text = user;
+            userTextBox.Enabled = false;
+            passwordBox.Text = password;
+            confirmePasswordBox.Text = confirmPassword;
+        }
+
+        private void usuarioRegistroForm_Load(object sender, EventArgs e)
+        {
+            switch (tipoVentana)
+            {
+                case "edicion":
+                    EditaUsuario();
+                    break;
+                case "alta":
+                    AltaUsuario();
+                    break;
+            }
+            this.ActiveControl = tipoUsuarioLogo;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -295,18 +370,18 @@ namespace Vampiro_Gym
             {
                 switch (ActiveControl.Name)
                 {
-                    case "validarFormularioButton":
-                        if (tipoUsuarioCombo.Enabled)
-                        {
-                            tipoUsuarioCombo.Focus();
-                        }
-                        else
+                    case "tipoUsuarioLogo":
+                        tipoUsuarioCombo.Focus();
+                        break;
+                    case "tipoUsuarioCombo":
+                        if (nombreBox.Enabled)
                         {
                             nombreBox.Focus();
                         }
-                        break;
-                    case "tipoUsuarioCombo":
-                        nombreBox.Focus();
+                        else
+                        {
+                            emailBox.Focus();
+                        }
                         break;
                     case "nombreBox":
                         apellidoTextBox.Focus();
@@ -315,20 +390,23 @@ namespace Vampiro_Gym
                         emailBox.Focus();
                         break;
                     case "emailBox":
+                        if (userTextBox.Enabled)
+                        {
+                            userTextBox.Focus();
+                        }
+                        else
+                        {
+                            passwordBox.Focus();
+                        }
+                        break;
+                    case "userTextBox":
                         passwordBox.Focus();
                         break;
                     case "passwordBox":
                         confirmePasswordBox.Focus();
                         break;
                     default:
-                        if (tipoUsuarioCombo.Enabled)
-                        {
-                            tipoUsuarioCombo.Focus();
-                        }
-                        else
-                        {
-                            nombreBox.Focus();
-                        }
+                        tipoUsuarioCombo.Focus();
                         break;
                 }
                 return true;

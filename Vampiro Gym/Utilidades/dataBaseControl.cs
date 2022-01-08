@@ -48,6 +48,13 @@ namespace Vampiro_Gym
             }
         }
 
+        public SqlDataReader getDataTable(string query)
+        {
+            SqlCommand comand = new SqlCommand(query, connection);
+            SqlDataReader filas = comand.ExecuteReader();
+            return filas;
+        }
+
         public string Select(string query, int camposAObtener)
         {
            SqlCommand sql = new SqlCommand(query,connection); //Aplicar consulta en base de datos 
@@ -141,7 +148,7 @@ namespace Vampiro_Gym
                 return false;
             }
         }
-        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,string huellaDactilar, string tipoMembresia, string fechaAlta)
+        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,string huellaDactilar, string tipoMembresia, string fechaAlta,string dadoDeAltaPor)
         {
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@imagen", imagen);
@@ -151,6 +158,7 @@ namespace Vampiro_Gym
             command.Parameters.AddWithValue("@tipoMembresia", tipoMembresia);
             command.Parameters.AddWithValue("@fechaAltaMembresia", fechaAlta);
             command.Parameters.AddWithValue("@fechaAltaCliente", fechaAlta);
+            command.Parameters.AddWithValue("@dadoDeAltaPor", dadoDeAltaPor);
             this.actualizado = command.ExecuteNonQuery();
             if (actualizado == 1)
             {

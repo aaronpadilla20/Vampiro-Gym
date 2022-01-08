@@ -255,7 +255,6 @@ namespace Vampiro_Gym
             // 
             this.usuariosButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.usuariosButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usuariosButton.Enabled = false;
             this.usuariosButton.Image = ((System.Drawing.Image)(resources.GetObject("usuariosButton.Image")));
             this.usuariosButton.Location = new System.Drawing.Point(0, 0);
             this.usuariosButton.Name = "usuariosButton";
@@ -418,7 +417,6 @@ namespace Vampiro_Gym
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formMain";
             this.Text = "Form3";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.formMain_Load);
             this.Header.ResumeLayout(false);
             this.tableHeader.ResumeLayout(false);

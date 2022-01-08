@@ -53,6 +53,7 @@ namespace Vampiro_Gym
                 {
                     datos = resultadoConsulta.Split(',');
                     tipoUsuario = datos[0];
+                    usuario = userBox.Text;
                     this.password = datos[1];
                     if (this.password == passwordBox.Text)
                     {
@@ -102,7 +103,7 @@ namespace Vampiro_Gym
                 if (this.resultadoConsulta.Contains("La consulta no genero resultados"))
                 {
                     MessageBox.Show("Inicializando sistema por primera vez, es necesario crear un usuario tipo administrador", "Inicializando sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    usuarioRegistroForm registroUsuario = new usuarioRegistroForm();
+                    usuarioRegistroForm registroUsuario = new usuarioRegistroForm("alta","","","","","","","");
                     inicializandoSistema = true;
                     registroUsuario.ShowDialog();
                 }

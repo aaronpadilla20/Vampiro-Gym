@@ -261,7 +261,9 @@ namespace Vampiro_Gym
         {
             imageCliente.Image = Properties.Resources.noPhotoAvailable;
             takePictureButton.Enabled = true;
+            nombreTextBox.Enabled = true;
             nombreTextBox.Text = "Nombre(s):";
+            apellidoTextBox.Enabled = true;
             apellidoTextBox.Text = "Apellido:";
             tipoMembresiasComboBox.SelectedIndex = 0;
             registroHuellaTextBox.Text = "No registrado";
@@ -326,9 +328,32 @@ namespace Vampiro_Gym
             {
                 return false;
             }
-            this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia,Fecha_de_alta_cliente) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAltaMembresia,@fechaAltaCliente)";
+            
+            this.query = "SELECT Nombre,Apellido FROM Usuarios WHERE Usuario='" + loginWindow.usuario + "'";
+            dataBaseControl getName = new dataBaseControl();
+            string resQuery = getName.Select(query,2);
+            string[] datos = resQuery.Split(',');
+            string nombreUsuario = "";
+            string apellidoUsuario = "";
+            foreach(string dato in datos)
+            {
+                if (dato != "")
+                {
+                    if (nombreUsuario == "")
+                    {
+                        nombreUsuario = dato;
+                        continue;
+                    }
+                    else
+                    {
+                        apellidoUsuario = dato;
+                    }
+                }
+            }
+            string nombreCompletoUsuario = nombreUsuario + " " + apellidoUsuario;
+            this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia,Fecha_de_alta_cliente,Dado_de_alta_por) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAltaMembresia,@fechaAltaCliente,@dadoDeAltaPor)";
             dataBaseControl altaCliente = new dataBaseControl();
-            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta);
+            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta,nombreCompletoUsuario);
         }
 
         private bool EdicionCliente(string fechaNueva)
@@ -469,7 +494,7 @@ namespace Vampiro_Gym
                     AltaClienteForm();
                     break;
             }
-            this.ActiveControl = imageCliente;
+            this.ActiveControl = imageCliente; //FUncionalidad al tab
         }
 
         private void formMembresia_FormClosing(object sender, FormClosingEventArgs e)

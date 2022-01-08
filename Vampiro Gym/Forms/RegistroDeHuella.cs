@@ -33,6 +33,10 @@ namespace Vampiro_Gym
             aborted = false;
             #region ----------CONECTA SENSOR---------
             this.resConexionSensor = ConnectDevice();
+            if (resConexionSensor.Contains("El lector de huellas esta siendo utilizado por otra aplicación cierrela e intentelo de nuevo"))
+            {
+                cierraConexion();
+            }
             if (!resConexionSensor.Contains("Conexion exitos"))
             {
                 MessageBox.Show("Se ha presentado el siguiente error al intentar establecer comunicacion con el sensor: " + resConexionSensor,"Error Comunicacion Sensor",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -89,6 +93,7 @@ namespace Vampiro_Gym
                     }
                 }
                 EstadoConexion.Text = "Huella registrada exitosamente";
+                cierraConexion();
                 DialogResult ok = MessageBox.Show("La huella se ha registrado exitosamente, regresando a formulario de registro", "Huella Registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (ok == DialogResult.OK)
                 {
@@ -131,14 +136,14 @@ namespace Vampiro_Gym
             return true;
         }
 
-        private void stopCapture_Click(object sender, EventArgs e)
+        private void cierraConexion()
         {
             int count = 0;
             bIsTimeToDie = true;
             aborted = true;
             while (true)
             {
-                if (count>=3)
+                if (count >= 3)
                 {
                     MessageBox.Show("ERROR FATAL, FINALIZANDO EL PROGRAMA", "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
@@ -154,6 +159,11 @@ namespace Vampiro_Gym
                     break;
                 }
             }
+        }
+
+        private void stopCapture_Click(object sender, EventArgs e)
+        {
+            cierraConexion();
             EstadoConexion.Text = "Dispositivo desconectado";
             EstadoConexion.BackColor = Color.Red;
             capturarHuella.Enabled = true;

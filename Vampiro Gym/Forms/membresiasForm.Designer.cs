@@ -30,16 +30,12 @@ namespace Vampiro_Gym
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(membresiasForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.headerTable = new System.Windows.Forms.TableLayoutPanel();
             this.contenedorBotonCerrar = new System.Windows.Forms.Panel();
             this.botonCerrar = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.agregarMembresiaButton = new System.Windows.Forms.PictureBox();
-            this.dtgvMembresias = new System.Windows.Forms.DataGridView();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,17 +43,21 @@ namespace Vampiro_Gym
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.valueTextBox = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.agregarMembresiaButton = new System.Windows.Forms.PictureBox();
+            this.dtgvMembresias = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.headerTable.SuspendLayout();
             this.contenedorBotonCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agregarMembresiaButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvMembresias)).BeginInit();
             this.panel3.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // headerTable
@@ -106,79 +106,6 @@ namespace Vampiro_Gym
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(633, 56);
             this.panel1.TabIndex = 2;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.agregarMembresiaButton);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(487, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(146, 56);
-            this.panel2.TabIndex = 0;
-            // 
-            // agregarMembresiaButton
-            // 
-            this.agregarMembresiaButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.agregarMembresiaButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.agregarMembresiaButton.Image = ((System.Drawing.Image)(resources.GetObject("agregarMembresiaButton.Image")));
-            this.agregarMembresiaButton.Location = new System.Drawing.Point(0, 0);
-            this.agregarMembresiaButton.Margin = new System.Windows.Forms.Padding(0);
-            this.agregarMembresiaButton.Name = "agregarMembresiaButton";
-            this.agregarMembresiaButton.Size = new System.Drawing.Size(146, 56);
-            this.agregarMembresiaButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.agregarMembresiaButton.TabIndex = 0;
-            this.agregarMembresiaButton.TabStop = false;
-            this.agregarMembresiaButton.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // dtgvMembresias
-            // 
-            this.dtgvMembresias.AllowUserToAddRows = false;
-            this.dtgvMembresias.AllowUserToDeleteRows = false;
-            this.dtgvMembresias.AllowUserToResizeColumns = false;
-            this.dtgvMembresias.AllowUserToResizeRows = false;
-            this.dtgvMembresias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtgvMembresias.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            this.dtgvMembresias.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dtgvMembresias.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dtgvMembresias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvMembresias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dtgvMembresias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvMembresias.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtgvMembresias.EnableHeadersVisualStyles = false;
-            this.dtgvMembresias.GridColor = System.Drawing.Color.LightSteelBlue;
-            this.dtgvMembresias.Location = new System.Drawing.Point(0, 10);
-            this.dtgvMembresias.Name = "dtgvMembresias";
-            this.dtgvMembresias.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dtgvMembresias.RowHeadersVisible = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvMembresias.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            this.dtgvMembresias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgvMembresias.Size = new System.Drawing.Size(633, 390);
-            this.dtgvMembresias.TabIndex = 0;
-            this.dtgvMembresias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvMembresias_CellClick);
-            this.dtgvMembresias.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgvMembresias_CellPainting);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.dtgvMembresias);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 99);
-            this.panel3.Name = "panel3";
-            this.panel3.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.panel3.Size = new System.Drawing.Size(633, 400);
-            this.panel3.TabIndex = 3;
             // 
             // tableLayoutPanel1
             // 
@@ -258,7 +185,7 @@ namespace Vampiro_Gym
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 50);
+            this.label2.Size = new System.Drawing.Size(53, 50);
             this.label2.TabIndex = 0;
             this.label2.Text = "Busca: ";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -266,12 +193,85 @@ namespace Vampiro_Gym
             // valueTextBox
             // 
             this.valueTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.valueTextBox.Location = new System.Drawing.Point(65, 15);
+            this.valueTextBox.Location = new System.Drawing.Point(64, 15);
             this.valueTextBox.Margin = new System.Windows.Forms.Padding(5, 15, 5, 0);
             this.valueTextBox.Name = "valueTextBox";
-            this.valueTextBox.Size = new System.Drawing.Size(168, 20);
+            this.valueTextBox.Size = new System.Drawing.Size(169, 20);
             this.valueTextBox.TabIndex = 1;
             this.valueTextBox.TextChanged += new System.EventHandler(this.valueTextBox_TextChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.agregarMembresiaButton);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(487, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(146, 56);
+            this.panel2.TabIndex = 0;
+            // 
+            // agregarMembresiaButton
+            // 
+            this.agregarMembresiaButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.agregarMembresiaButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agregarMembresiaButton.Image = ((System.Drawing.Image)(resources.GetObject("agregarMembresiaButton.Image")));
+            this.agregarMembresiaButton.Location = new System.Drawing.Point(0, 0);
+            this.agregarMembresiaButton.Margin = new System.Windows.Forms.Padding(0);
+            this.agregarMembresiaButton.Name = "agregarMembresiaButton";
+            this.agregarMembresiaButton.Size = new System.Drawing.Size(146, 56);
+            this.agregarMembresiaButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.agregarMembresiaButton.TabIndex = 0;
+            this.agregarMembresiaButton.TabStop = false;
+            this.agregarMembresiaButton.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // dtgvMembresias
+            // 
+            this.dtgvMembresias.AllowUserToAddRows = false;
+            this.dtgvMembresias.AllowUserToDeleteRows = false;
+            this.dtgvMembresias.AllowUserToResizeColumns = false;
+            this.dtgvMembresias.AllowUserToResizeRows = false;
+            this.dtgvMembresias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtgvMembresias.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            this.dtgvMembresias.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtgvMembresias.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dtgvMembresias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(59)))), ((int)(((byte)(87)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvMembresias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgvMembresias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvMembresias.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvMembresias.EnableHeadersVisualStyles = false;
+            this.dtgvMembresias.GridColor = System.Drawing.Color.LightSteelBlue;
+            this.dtgvMembresias.Location = new System.Drawing.Point(0, 10);
+            this.dtgvMembresias.Name = "dtgvMembresias";
+            this.dtgvMembresias.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dtgvMembresias.RowHeadersVisible = false;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightBlue;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvMembresias.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dtgvMembresias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgvMembresias.Size = new System.Drawing.Size(633, 390);
+            this.dtgvMembresias.TabIndex = 0;
+            this.dtgvMembresias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvMembresias_CellClick);
+            this.dtgvMembresias.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgvMembresias_CellPainting);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dtgvMembresias);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 99);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.panel3.Size = new System.Drawing.Size(633, 400);
+            this.panel3.TabIndex = 3;
             // 
             // membresiasForm
             // 
@@ -290,14 +290,14 @@ namespace Vampiro_Gym
             this.contenedorBotonCerrar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.botonCerrar)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.agregarMembresiaButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgvMembresias)).EndInit();
-            this.panel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.agregarMembresiaButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvMembresias)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

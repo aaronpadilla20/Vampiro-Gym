@@ -24,14 +24,28 @@ namespace Vampiro_Gym.Forms
 
         private void customerReport_Click(object sender, EventArgs e)
         {
-            customerReportWindow customerReport = new customerReportWindow();
-            customerReport.ShowDialog();
+            if (loginWindow.tipoUsuario != "Administrador" && loginWindow.tipoUsuario != "administrador")
+            {
+                MessageBox.Show("ERROR: Solamente un usuario con privilegios de administrador puede generar el reporte de clientes", "Privilegios insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                customerReportWindow customerReport = new customerReportWindow();
+                customerReport.ShowDialog();
+            }
         }
 
         private void generalReport_Click(object sender, EventArgs e)
         {
-            generalReportWindow generalReportWindow = new generalReportWindow();
-            generalReportWindow.ShowDialog();
+            if (loginWindow.tipoUsuario != "Administrador" && loginWindow.tipoUsuario != "administrador")
+            {
+                MessageBox.Show("ERROR: Solamente un usuario con privilegios de administrador puede generar reportes generales", "Privilegios insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                generalReportWindow generalReportWindow = new generalReportWindow();
+                generalReportWindow.ShowDialog();
+            }
         }
     }
 }
