@@ -24,6 +24,7 @@ namespace Vampiro_Gym
         private byte[] imagen;
         private string fechaAlta;
         public static bool operacionExitosa;
+        private bool sinMembresias;
 
         Image imagenCliente;
         private string nombre;
@@ -433,6 +434,7 @@ namespace Vampiro_Gym
             {
                 MessageBox.Show("Imposible inicializar el registro de clientes ya que no cuenta actualmente con ningun tipo de membresia activa\n" +
                     "solicite al administrador del sistema generar las membresias e intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                sinMembresias = true;
                 this.Close();
             }
         }
@@ -499,7 +501,7 @@ namespace Vampiro_Gym
 
         private void formMembresia_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (registerUser == false)
+            if (!registerUser && !sinMembresias)
             {
                 DialogResult res = MessageBox.Show("El cliente aun no ha sido registrado, ¿Desea aborta el registro del cliente?", "Toma de decision", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.No)

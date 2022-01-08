@@ -91,7 +91,7 @@ namespace Vampiro_Gym
             try
             {
                 dataBaseControl consult = new dataBaseControl();
-                usuario = nombreBox.Text.Substring(0, 2).ToLower() + apellidoTextBox.Text.Substring(0, 4).ToLower();
+                usuario = userTextBox.Text;
                 this.query = "SELECT Usuario FROM " + TABLA + " WHERE Usuario LIKE '" + usuario + "%'";
                 this.resultadoConsulta1 = consult.Select(query, 1);
                 if (!resultadoConsulta1.Contains("La consulta no genero resultados")) //Si el usuario existe
@@ -178,47 +178,57 @@ namespace Vampiro_Gym
                         {
                             if (!passwordBox.Text.Contains("Ingrese Password") && passwordBox.Text != "")
                             {
-                                if (!confirmePasswordBox.Text.Contains("Confirme Password") && confirmePasswordBox.Text != "" && passwordBox.Text == confirmePasswordBox.Text)
+                                if (userTextBox.Text != passwordBox.Text)
                                 {
-                                    string action = "";
-                                    switch (tipoVentana)
+                                    if (!confirmePasswordBox.Text.Contains("Confirme Password") && confirmePasswordBox.Text != "" && passwordBox.Text == confirmePasswordBox.Text)
                                     {
-                                        case "alta":
-                                            action = "crear";
-                                            break;
-                                        case "edicion":
-                                            action = "editar";
-                                            break;
-                                    }
-
-                                    DialogResult res = MessageBox.Show("Se creara un usuario con los siguientes datos:\n" +
-                                        "Tipo de usuario: " + tipoUsuarioCombo.Text + "\n" +
-                                        "Nombre: " + nombreBox.Text + "\n" +
-                                        "Apellido: " + apellidoTextBox.Text + "\n" +
-                                        "Correo: " + emailBox.Text + "\n" +
-                                        "Usuario: " + userTextBox.Text + "\n" + 
-                                        "Password: " + passwordBox.Text + "\n" +
-                                        "¿Esta seguro de " + action + " el usuario con los datos anteriormente especificados?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                                    if (res == DialogResult.Yes)
-                                    {
+                                        string action = "";
+                                        string action2 = "";
                                         switch (tipoVentana)
                                         {
                                             case "alta":
-                                                RegisterUser();
+                                                action = "crear";
+                                                action2 = "creara";
                                                 break;
                                             case "edicion":
-                                                EditUser();
+                                                action = "editar";
+                                                action2 = "editara";
                                                 break;
+                                        }
+
+                                        DialogResult res = MessageBox.Show("Se" + action2 + "un usuario con los siguientes datos:\n" +
+                                            "Tipo de usuario: " + tipoUsuarioCombo.Text + "\n" +
+                                            "Nombre: " + nombreBox.Text + "\n" +
+                                            "Apellido: " + apellidoTextBox.Text + "\n" +
+                                            "Correo: " + emailBox.Text + "\n" +
+                                            "Usuario: " + userTextBox.Text + "\n" +
+                                            "Password: " + passwordBox.Text + "\n" +
+                                            "¿Esta seguro de " + action + " el usuario con los datos anteriormente especificados?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                        if (res == DialogResult.Yes)
+                                        {
+                                            switch (tipoVentana)
+                                            {
+                                                case "alta":
+                                                    RegisterUser();
+                                                    break;
+                                                case "edicion":
+                                                    EditUser();
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            clearWindow();
                                         }
                                     }
                                     else
                                     {
-                                        clearWindow();
+                                        MessageBox.Show("No coinciden los password compruebelo e intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("No coinciden los password compruebelo e intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("El usuario y el password deben de ser diferentes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
@@ -252,11 +262,15 @@ namespace Vampiro_Gym
             this.query = "INSERT INTO " + TABLA + " (Tipo_de_usuario,Nombre,Apellido,Correo,Contrasena,Usuario) VALUES ('" + tipoUsuarioCombo.Text + "','" + nombreBox.Text + "','" + apellidoTextBox.Text + "','" + emailBox.Text + "','" + passwordBox.Text + "','" + usuario + "')";
             dataBaseControl insert = new dataBaseControl();
             this.insertado = insert.Insert(query);
-            MessageBox.Show("Se ha creado el usuario " + userTextBox.Text + " exisosamente", "Usuario creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Se ha creado el usuario " + usuario + " exisosamente", "Usuario creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearWindow();
             if (loginWindow.inicializandoSistema == true)
             {
                 loginWindow.inicializandoSistema = false;
+                this.Close();
+            }
+            else
+            {
                 this.Close();
             }
         }

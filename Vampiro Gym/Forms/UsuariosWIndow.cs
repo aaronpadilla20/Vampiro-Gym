@@ -99,14 +99,42 @@ namespace Vampiro_Gym
 
                 if (dtgvUsuarios.Columns[e.ColumnIndex].Name == "delete")
                 {
+                    tipoUsuario = dtgvUsuarios.Rows[e.RowIndex].Cells[2].Value.ToString();
                     deletedUser = dtgvUsuarios.Rows[e.RowIndex].Cells[6].Value.ToString();
+                    string query = "SELECT NoEmpleado FROM Usuarios";
+                    dataBaseControl getUsers = new dataBaseControl();
+                    string resQuery = getUsers.Select(query, 1);
+                    string[] datos = resQuery.Split(',');
+                    if (datos.Length == 2)
+                    {
+                        MessageBox.Show("Imposible eliminar el usuario ya que es el unico usuario en sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    query = "SELECT Tipo_de_usuario FROM Usuarios";
+                    resQuery = getUsers.Select(query, 1);
+                    datos = resQuery.Split(',');
+                    List<string> tipoAdministrador = new List<string>();
+                    foreach(string dato in datos)
+                    {
+                        if (dato == "Administrador")
+                        {
+                            tipoAdministrador.Add(dato);
+                        }
+                    }
+                    int cantidadAdministradores = tipoAdministrador.Count;
+                    MessageBox.Show(tipoUsuario);
+                    if (cantidadAdministradores==1 && tipoUsuario == "Administrador")
+                    {
+                        MessageBox.Show("Error: no puedes eliminar el usuario seleccionado ya que es el unico administrador del sistema","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        return;
+                    }
                     DialogResult res = MessageBox.Show("¿Esta seguro de querer eliminar el usuario seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
                         bool deleted = false;
                         try
                         {
-                            string query = "DELETE FROM Usuarios WHERE Usuario='" + deletedUser + "'";
+                            query = "DELETE FROM Usuarios WHERE Usuario='" + deletedUser + "'";
                             dataBaseControl deleteCommand = new dataBaseControl();
                             deleted = deleteCommand.Delete(query);
                         }

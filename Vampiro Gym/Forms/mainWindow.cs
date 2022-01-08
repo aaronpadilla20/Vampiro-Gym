@@ -50,9 +50,10 @@ namespace Vampiro_Gym
                 LectorZKTecok30 lectorClientes = new LectorZKTecok30();
                 lectorClientes.Disconnect();
             }
-            else
+
+            if (ventanaCierre.getOpcion == "app")
             {
-                Application.Exit();
+                Environment.Exit(0);
             }
         }
 
