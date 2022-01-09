@@ -123,7 +123,7 @@ namespace Vampiro_Gym
                         this.resultadoConsulta3 = consult.Select(query, 1);
                         if (resultadoConsulta3.Contains("La consulta no genero resultados"))
                         {
-                            RegistraUsuario();
+                            RegistraUsuario(usuario);
                         }
                         else
                         {
@@ -138,7 +138,7 @@ namespace Vampiro_Gym
                 }
                 else
                 {
-                    RegistraUsuario();
+                    RegistraUsuario(usuario);
                     this.Close();
                 }
             }
@@ -327,9 +327,9 @@ namespace Vampiro_Gym
             }
         }
 
-        private void RegistraUsuario()
+        private void RegistraUsuario(string user)
         {
-            this.query = "INSERT INTO " + TABLA + " (Tipo_de_usuario,Nombre,Apellido,Correo,Contrasena,Usuario) VALUES ('" + tipoUsuarioCombo.Text + "','" + nombreBox.Text + "','" + apellidoTextBox.Text + "','" + emailBox.Text + "','" + passwordBox.Text + "','" + usuario + "')";
+            this.query = "INSERT INTO " + TABLA + " (Tipo_de_usuario,Nombre,Apellido,Correo,Contrasena,Usuario) VALUES ('" + tipoUsuarioCombo.Text + "','" + nombreBox.Text + "','" + apellidoTextBox.Text + "','" + emailBox.Text + "','" + passwordBox.Text + "','" + user + "')";
             dataBaseControl insert = new dataBaseControl();
             this.insertado = insert.Insert(query);
             MessageBox.Show("Se ha creado el usuario " + usuario + " exisosamente", "Usuario creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
