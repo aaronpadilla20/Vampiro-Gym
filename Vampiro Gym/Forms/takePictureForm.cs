@@ -42,7 +42,7 @@ namespace Vampiro_Gym
         {
             frame = new Mat();
             capture = new VideoCapture();
-            capture.Open(1);
+            capture.Open(0);
 
             if (capture.IsOpened())
             {
