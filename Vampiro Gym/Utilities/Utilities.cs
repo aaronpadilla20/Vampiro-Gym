@@ -56,7 +56,7 @@ namespace Vampiro_Gym
             }
         }
 
-        public void CellPrinting(object sender, DataGridViewCellPaintingEventArgs e,string columna,string pathFirstButton)
+        public void CellPrinting(object sender, DataGridViewCellPaintingEventArgs e,string columna,System.Drawing.Icon icon)
         {
             DataGridView datagrid = sender as DataGridView;
             if (e.ColumnIndex >= 0 && datagrid.Columns[e.ColumnIndex].Name == columna && e.RowIndex >= 0)
@@ -64,11 +64,10 @@ namespace Vampiro_Gym
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                 DataGridViewButtonCell editButton = datagrid.Rows[e.RowIndex].Cells[columna] as DataGridViewButtonCell;
-                Icon icoEdit = new Icon(pathFirstButton);
-                e.Graphics.DrawIcon(icoEdit, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
+                e.Graphics.DrawIcon(icon, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
 
-                datagrid.Rows[e.RowIndex].Height = icoEdit.Height + 8;
-                datagrid.Columns[e.ColumnIndex].Width = icoEdit.Width + 8;
+                datagrid.Rows[e.RowIndex].Height = icon.Height + 8;
+                datagrid.Columns[e.ColumnIndex].Width = icon.Width + 8;
 
                 e.Handled = true;
             }

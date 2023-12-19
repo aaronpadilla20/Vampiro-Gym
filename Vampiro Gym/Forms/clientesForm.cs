@@ -52,7 +52,7 @@ namespace Vampiro_Gym
 
         private void altaClienteButton_Click(object sender, EventArgs e)
         {
-            formMembresia nuevoCliente = new formMembresia("alta",System.Drawing.Image.FromFile("..\\Images\\no_image_user.png"),"","","");
+            formMembresia nuevoCliente = new formMembresia("alta",Properties.Resources.noPhotoAvailable,"","","");
             nuevoCliente.ShowDialog();
             if (formMembresia.operacionExitosa)
             {
@@ -131,9 +131,9 @@ namespace Vampiro_Gym
         private void dtgvClientes_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
         {
             Utilities printCell = new Utilities();
-            printCell.CellPrinting(sender, e, "edit", "..\\Images\\editButton.ico");
-            printCell.CellPrinting(sender, e, "delete", "..\\Images\\delete.ico");
-            printCell.CellPrinting(sender, e, "report", "..\\Images\\reporte.ico");
+            printCell.CellPrinting(sender, e, "edit", Properties.Resources.edit);
+            printCell.CellPrinting(sender, e, "delete",Properties.Resources.delete);
+            printCell.CellPrinting(sender, e, "report", Properties.Resources.report);
         }
 
         private void dtgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)

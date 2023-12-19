@@ -13,6 +13,7 @@ namespace Vampiro_Gym
         public zkemkeeper.CZKEM lector = new zkemkeeper.CZKEM();
 
         public static bool isConnected = false;
+        public static string fingerPrintTemplate = "";
         private static int iMachineNumber = 1;
         private int idwErrorCode;
 
@@ -89,6 +90,15 @@ namespace Vampiro_Gym
 
         public int SetFingerPrintTemplate(string customerID,string fingerPrintTemplate)
         {
+            int res = 0;
+            lector.GetConnectStatus(ref idwErrorCode);
+            if (idwErrorCode ==-1)
+            {
+                if(lector.Connect_Net("192.168.1.80", 4370))
+                {
+                    MessageBox.Show("ok");
+                }
+            }
             lector.EnableDevice(iMachineNumber, false);
             if(lector.SetUserTmpExStr(iMachineNumber,customerID,0,1,fingerPrintTemplate))
             {
@@ -100,6 +110,59 @@ namespace Vampiro_Gym
                 lector.EnableDevice(iMachineNumber, true);
                 return -1024;
             }
+        }
+
+        public int DelFingerPrintTemplate(string customerIDs)
+        {
+            string[] customers = customerIDs.Split(',');
+            foreach(string customer in customers)
+            {
+                if (customer!="")
+                {
+                    if (lector.SSR_DelUserTmpExt(iMachineNumber, customer, 0))
+                    {
+                        lector.RefreshData(iMachineNumber);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Se ha presentado un problema al intentar eliminar al usuario con membresia invalida contacte al desarrollador de la aplicacion","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        return -1024;
+                    }
+                }
+            }
+            return 1;
+        }
+
+        public int OverwriteAction()
+        {
+            if (lector.RegEvent(iMachineNumber, 65535))
+            {
+                this.lector.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(verificationPassed);
+                return 1;
+            }
+            else
+            {
+                return -1024;
+            }
+        }
+
+        private void verificationPassed(string EnrollNumber, int IsInValid, int AttState, int VerifyMethod, int Year, int Month, int Day, int Hour, int Minute, int Second, int WorkCode)
+        {
+            lector.PlayVoiceByIndex(0);
+            lector.EnableDevice(iMachineNumber, false);
+            fingerPrintTemplate = "";
+            int tempLenght = 0;
+            int flag = 0;
+            lector.GetUserTmpExStr(iMachineNumber, EnrollNumber, 0, out flag, out fingerPrintTemplate, out tempLenght);
+        }
+
+        public string getFingerPrintTemplate()
+        {
+            if (fingerPrintTemplate!="")
+            {
+                fingerPrintTemplate = fingerPrintTemplate.Substring(0,fingerPrintTemplate.Length - 8);
+            }
+            return fingerPrintTemplate;
         }
     }
 }

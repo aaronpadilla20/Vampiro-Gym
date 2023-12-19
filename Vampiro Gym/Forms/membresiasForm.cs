@@ -46,8 +46,8 @@ namespace Vampiro_Gym
         private void dtgvMembresias_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             Utilities paintDataGrid = new Utilities();
-            paintDataGrid.CellPrinting(sender, e, "edit", "..\\Images\\editButton.ico");
-            paintDataGrid.CellPrinting(sender, e, "delete", "..\\Images\\delete.ico");
+            paintDataGrid.CellPrinting(sender, e, "edit", Properties.Resources.edit);
+            paintDataGrid.CellPrinting(sender, e, "delete",Properties.Resources.delete);
         }
 
         private void membresiasForm_Load(object sender, EventArgs e)

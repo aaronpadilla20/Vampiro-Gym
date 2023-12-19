@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +15,7 @@ namespace Vampiro_Gym
 {
     public partial class formMain : Form
     {
+        public static bool mainConnection;
         private Form activeform = null;
         public formMain()
         {
@@ -60,6 +64,79 @@ namespace Vampiro_Gym
         {
             if (loginWindow.tipoUsuario == "Administrador")
                 usuariosButton.Enabled = true;
+            Thread hiloLector = new Thread(new ThreadStart(verificaHuella));
+            hiloLector.IsBackground = true;
+            hiloLector.Start();
+           
         }
+
+        private void verificaHuella()
+        {
+            int ret = 0;
+            LectorZKTecok30 lector = new LectorZKTecok30();
+            ret = lector.ConnectDevice();
+            if (ret==1)
+            {
+                mainConnection = true;
+                ret = lector.OverwriteAction();
+                if (ret ==1)
+                {
+                    while (true)
+                    {
+                        if (lector.getFingerPrintTemplate() != "")
+                        {
+                            showCustomer();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Se presento un problema al suscribir el evento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Se ha presentado un problema al inicializar el lector de huellas K30", "Error de inicializacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void showCustomer()
+        {
+            Image imagen = null;
+            string name = "";
+            string lastName = "";
+            string membershipType = "";
+            string startDate = "";
+            string query = "SELECT Fotografia,Nombre,Apellido,Tipo_de_membresia,Fecha_de_alta_membresia FROM Customers WHERE Huella_dactilar='" + LectorZKTecok30.fingerPrintTemplate + "'";
+            try
+            {
+                SqlCommand command = new SqlCommand(query, dataBaseControl.connection);
+                SqlDataReader filas = command.ExecuteReader();
+                while(filas.Read())
+                {
+                    imagen = (Bitmap)((new ImageConverter()).ConvertFrom(filas.GetValue(0)));
+                    name = filas.GetValue(1).ToString();
+                    lastName = filas.GetValue(2).ToString();
+                    membershipType = filas.GetValue(3).ToString();
+                    startDate = filas.GetValue(4).ToString();
+                }
+                if (imagen!=null && name!="" && lastName!="" && membershipType!="" && startDate != "")
+                {
+                    Thread showCustomer = new Thread(new ThreadStart(() => showWindow(imagen, name, lastName, membershipType, startDate)));
+                    showCustomer.Start();
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("Se ha presentado el siguiente error al consultar la base de datos: " + err.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+        }
+
+        private void showWindow(Image imagen, string name, string lastName, string membershipType,string startDate)
+        {
+           Vampiro_Gym.Forms.CustomerWIndow showCustomer = new Forms.CustomerWIndow(imagen,name,lastName,membershipType,startDate);
+           showCustomer.ShowDialog();
+        }
+      
     }
 }

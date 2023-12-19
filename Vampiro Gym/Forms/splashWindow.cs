@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -71,11 +72,20 @@ namespace Vampiro_Gym
                     Application.Exit();
                 }
 
+                string clearIDs = consultaClientes();
+                if (clearIDs.Contains("Error"))
+                {
+                    Application.Exit();
+                }
                 int ret = lectorZKTecok30.ConnectDevice();
                 if (ret!=1)
                 {
                     MessageBox.Show("Se ha presentado un error al conectarse con el dispositivo", "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     Application.Exit();
+                }
+                if (clearIDs!="")
+                {
+                    lectorZKTecok30.DelFingerPrintTemplate(clearIDs);
                 }
                 #endregion
                 Invoke(new Action(() => progressBar1.Value = 40));
@@ -114,6 +124,41 @@ namespace Vampiro_Gym
                 Invoke(new Action(() => progressBar1.Value = 100));
                 Thread.Sleep(1000);
             }
+        }
+
+        private string consultaClientes()
+        {
+            string customerIDs = "";
+            DateTime currentDate = DateTime.Now;
+            string query = "SELECT * FROM Customers";
+            try
+            {
+                SqlCommand command = new SqlCommand(query, dataBaseControl.connection);
+                SqlDataReader filas = command.ExecuteReader();
+                while(filas.Read())
+                {
+                    string startDate = filas.GetString(6);
+                    query = "SELECT DuracionMembresia FROM Membresias WHERE Tipo_de_membresia='" + filas.GetString(5) + "'";
+                    dataBaseControl consultMembership = new dataBaseControl();
+                    string membershipDuration = consultMembership.Select(query, 1);
+                    membershipDuration = membershipDuration.TrimEnd(',');
+                    DateTime endDate = Convert.ToDateTime(startDate);
+                    endDate = endDate.AddDays(Int32.Parse(membershipDuration));
+                    int remainingDays = (endDate - currentDate).Days;
+                    int remainingHours = (endDate - currentDate).Hours;
+                    if (remainingDays<=0 && remainingHours<=0)
+                    {
+                        customerIDs += filas.GetValue(0).ToString() + ",";
+                    }
+                }
+                return customerIDs;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Se ha presentado el siguiente error al consultar la base de datos: " + err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "Error";
+            }
+
         }
        
         private int getDeviceInfo()

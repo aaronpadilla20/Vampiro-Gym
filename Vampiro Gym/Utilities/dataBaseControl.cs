@@ -104,7 +104,7 @@ namespace Vampiro_Gym
             }
         }
 
-        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,byte[] huellaDactilar, string tipoMembresia, string fechAlta)
+        public bool InsertCliente(String query, byte[] imagen,string nombre, string apellido,string huellaDactilar, string tipoMembresia, string fechAlta)
         {
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@imagen", imagen);

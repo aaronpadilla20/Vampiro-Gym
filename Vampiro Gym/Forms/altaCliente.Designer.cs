@@ -147,7 +147,7 @@ namespace Vampiro_Gym
             // imageCliente
             // 
             this.imageCliente.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageCliente.Image = ((System.Drawing.Image)(resources.GetObject("imageCliente.Image")));
+            this.imageCliente.Image = global::Vampiro_Gym.Properties.Resources.noPhotoAvailable;
             this.imageCliente.Location = new System.Drawing.Point(0, 0);
             this.imageCliente.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.imageCliente.Name = "imageCliente";

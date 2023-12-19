@@ -107,54 +107,35 @@ namespace Vampiro_Gym
                         {
                             if (!registroHuellaTextBox.Text.Contains("No registrado"))
                             {
-                                int res = 0;
-                                LectorZKTecok30 lector = new LectorZKTecok30();
-                                while (res!=1)
-                                {
-                                    res = lector.ConnectDevice();
-                                    if (res == 1)
-                                    {
-                                        break;
-                                    }
-                                }
-                                string[] nombres = nombreTextBox.Text.Split(' ');
-
-                                foreach(string nombre in nombres)
-                                {
-                                    firstName = nombre;
-                                    if (firstName!="")
-                                    {
-                                        break;
-                                    }
-                                }
-
-                                string fullName = firstName + " " + apellidoTextBox.Text;
-
-                                res = lector.SetUser(RegistroDeHuella.customerID, fullName);
-                                res = lector.SetFingerPrintTemplate(RegistroDeHuella.customerID, RegistroDeHuella.fingerPrintTemplate);
-                                if (res ==1)
-                                {
-                                    MessageBox.Show("Enrolado con exito");
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Falla ");
-                                }
                                 this.imagen = ConvertirImg(imageCliente.Image);
                                 this.fechaAlta = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                                 switch (this.ventanaTipo)
                                 {
                                     case "alta":
+                                       
                                         operacionExitosa = NuevoCliente();
+                                        if (!operacionExitosa)
+                                        {
+                                            MessageBox.Show("Se presento un problema durante el enrolamiento del usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Cliente dado de alta exitosamente", "Alta Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
                                         break;
+
                                     case "edicion":
                                         operacionExitosa = EdicionCliente();
+                                        if (!operacionExitosa)
+                                        {
+                                            MessageBox.Show("Se presento un problema al actualizar la informacion del cliente intentelo nuevamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Informacion de cliente actualizada correctamente", "Actualizacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            this.Close();
+                                        }
                                         break;
-                                }
-                                if (operacionExitosa)
-                                {
-                                    MessageBox.Show("Registro exitoso");
-                                    this.Close();
                                 }
                             }
                             else
@@ -186,17 +167,81 @@ namespace Vampiro_Gym
 
         private bool NuevoCliente()
         {
+            int res = 0;
+            LectorZKTecok30 lector = new LectorZKTecok30();
+            while (res != 1)
+            {
+                res = lector.ConnectDevice();
+                if (res == 1)
+                {
+                    break;
+                }
+            }
+            string[] nombres = nombreTextBox.Text.Split(' ');
+
+            foreach (string nombre in nombres)
+            {
+                firstName = nombre;
+                if (firstName != "")
+                {
+                    break;
+                }
+            }
+
+            string fullName = firstName + " " + apellidoTextBox.Text;
+
+            res = lector.SetUser(RegistroDeHuella.customerID, fullName);
+            if (res != 1)
+            {
+                return false;
+            }
+            res = lector.SetFingerPrintTemplate(RegistroDeHuella.customerID, RegistroDeHuella.fingerPrintTemplate);
+            if (res != 1)
+            {
+                return false;
+            }
+
             this.query = "INSERT INTO Customers (Fotografia,Nombre,Apellido,Huella_dactilar,Tipo_de_membresia,Fecha_de_alta_membresia) VALUES (@imagen,@nombre,@apellido,@huellaDactilar,@tipoMembresia,@fechaAlta)";
             dataBaseControl altaCliente = new dataBaseControl();
-            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, imagen, tipoMembresiasComboBox.Text, fechaAlta);
+            return altaCliente.InsertCliente(query, imagen, nombreTextBox.Text, apellidoTextBox.Text, RegistroDeHuella.fingerPrintTemplate, tipoMembresiasComboBox.Text, fechaAlta);
         }
 
         private bool EdicionCliente()
         {
+            int res = 0;
+            LectorZKTecok30 lector = new LectorZKTecok30();
+            while (res != 1)
+            {
+                res = lector.ConnectDevice();
+                if (res == 1)
+                {
+                    break;
+                }
+            }
+            string query = "SELECT NoCliente,Huella_dactilar FROM Customers WHERE Nombre ='" + nombreTextBox.Text + "'";
+            dataBaseControl customerTable = new dataBaseControl();
+            string resConsult = customerTable.Select(query, 2);
+            string[] datos = resConsult.Split(',');
+            string fingerPrint = "";
+            string customerID = "";
+            foreach(string dato in datos)
+            {
+                if (customerID=="")
+                {
+                    customerID = dato;
+                    continue;
+                }
+                if (fingerPrint=="")
+                {
+                    fingerPrint = dato;
+                    continue;
+                }
+            }
+            lector.SetFingerPrintTemplate(customerID, fingerPrint);
             string fechaNueva = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-            this.query = "UPDATE Customers SET Tipo_de_membresia='" + tipoMembresiasComboBox.Text + "',Fecha_de_alta_membresia='"+fechaNueva+"'";
-            dataBaseControl editaCliente = new dataBaseControl();
-            return editaCliente.Update(query);
+            dataBaseControl updateTable = new dataBaseControl();
+            query = "UPDATE Customers SET Tipo_de_membresia='"+tipoMembresiasComboBox.Text+"',Fecha_de_alta_membresia='"+fechaNueva+"' WHERE Nombre='"+nombreTextBox.Text+"'";
+            return updateTable.Update(query);
         }
 
         private byte[] ConvertirImg(System.Drawing.Image image)
